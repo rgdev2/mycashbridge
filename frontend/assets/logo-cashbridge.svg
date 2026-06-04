@@ -1,0 +1,14 @@
+<svg width="310" height="48" viewBox="0 0 310 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MyCashBridge.com">
+  <circle cx="24" cy="24" r="20" fill="#9AEF5E"></circle>
+  <circle cx="24" cy="24" r="20" fill="none" stroke="#cba258" stroke-width="1.5" stroke-dasharray="2 3" opacity="0.6"></circle>
+  <g stroke="#0a5e3a" stroke-width="2.4" stroke-linecap="round" fill="none">
+    <path d="M12 29 L36 29"></path>
+    <path d="M13 29 C16 18, 32 18, 35 29"></path>
+    <path d="M19 23.4 L19 29"></path>
+    <path d="M24 21.8 L24 29"></path>
+    <path d="M29 23.4 L29 29"></path>
+  </g>
+  <text x="56" y="31" font-family="Manrope, Helvetica, Arial, sans-serif" font-weight="800" letter-spacing="-0.02em">
+    <tspan font-size="23" fill="#0a5e3a">My</tspan><tspan font-size="23" fill="#0a5e3a">Cash</tspan><tspan font-size="23" fill="#0c7a4e">Bridge</tspan><tspan font-size="13" font-weight="700" fill="#0c7a4e" dy="-0.5">.com</tspan>
+  </text>
+</svg>

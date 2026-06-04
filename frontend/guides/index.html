@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Guides & Articles — Loan, Credit & Money Tips | MyCashBridge.com</title>
+<meta name="description" content="Free guides on personal loans, credit cards, business loans and improving your credit score in India. Practical money tips from MyCashBridge.com." />
+<link rel="icon" href="../assets/logo-cashbridge-mark.svg" />
+<link rel="stylesheet" href="../assets/site.css" />
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+<div data-mount="nav" data-current=""></div>
+
+<section class="phead"><div class="wrap"><div class="crumb"><a href="../index.html">Home</a> <i data-lucide="chevron-right" style="width:14px;height:14px"></i> <span style="color:var(--text-strong)">Guides &amp; Articles</span></div></div></section>
+
+<section class="section" style="padding-top:28px">
+  <div class="wrap">
+    <div class="eyebrow">Guides &amp; articles</div>
+    <h1 class="h-sec" style="margin:10px 0 6px">Borrow smarter, with clear advice</h1>
+    <p class="lead" style="max-width:620px">Practical, jargon-free guides on loans, credit cards and credit scores for everyday India — written to help you make confident money decisions.</p>
+    <div class="guide-grid" id="guideGrid"></div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow" style="text-align:center">Ready to apply?</div>
+    <h2 class="h-sec green" style="margin:10px auto 14px">Put what you've learned to work</h2>
+    <p class="lead" style="color:var(--text-on-aqua-soft);max-width:520px;margin:0 auto 24px">Compare and apply for the right loan across 30+ banks &amp; NBFCs — with clear EMIs and honest guidance.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-filled btn-lg" data-apply>Apply now</button>
+      <a class="btn btn-white btn-lg" href="../tools/eligibility.html">Check eligibility</a>
+    </div>
+  </div>
+</section>
+
+<div data-mount="footer"></div>
+<script src="../assets/site.js"></script>
+<script>
+  var GUIDES = [
+    ["best-personal-loan-india","Personal Loans","Best Personal Loan in India (2026)","Rates, eligibility, documents and how to choose the right personal loan."],
+    ["best-credit-cards-salaried","Credit Cards","Best Credit Cards for Salaried Employees","Cashback, travel or rewards — how to pick the card that fits how you spend."],
+    ["loan-for-low-cibil","Credit Score","Loan for Low CIBIL Score","Your real options for getting a loan when your credit score is low."],
+    ["business-loan-for-msme","Business Loans","Business Loan for MSMEs","Collateral-free options, eligibility and tips to get funded faster."],
+    ["how-to-improve-credit-score","Credit Score","How to Improve Your Credit Score","Simple, proven habits to lift your CIBIL score and borrow cheaper."]
+  ];
+  document.getElementById('guideGrid').innerHTML = GUIDES.map(function(g){
+    return '<a class="guide-card" href="'+g[0]+'.html"><div class="guide-top"></div><div class="gc-body"><span class="tag">'+g[1]+'</span><h3>'+g[2]+'</h3><p>'+g[3]+'</p></div></a>';
+  }).join('');
+  if(window.lucide) window.lucide.createIcons();
+</script>
+</body>
+</html>

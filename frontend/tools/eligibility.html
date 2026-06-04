@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Loan Eligibility Checker — MyCashBridge.com</title>
+<meta name="description" content="Check how much loan you are eligible for in 10 seconds. Free eligibility checker by MyCashBridge.com — no impact on your credit score." />
+<link rel="icon" href="../assets/logo-cashbridge-mark.svg" />
+<link rel="stylesheet" href="../assets/site.css" />
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  .elig-grid { display:grid; grid-template-columns: 1fr 1fr; gap:32px; align-items:start; }
+  .elig-card2 { background:var(--white); border-radius:var(--radius-card); box-shadow:var(--shadow-card); padding:30px; }
+  .ctrl { margin-bottom:24px; }
+  .ctrl-top { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; }
+  .ctrl-top label { font-size:14px; color:var(--text-soft); font-weight:600; }
+  .ctrl-val { font-size:22px; font-weight:700; color:var(--green-primary); letter-spacing:-.01em; }
+  .ctrl input[type=range] { width:100%; height:6px; border-radius:50px; accent-color:var(--green-accent); cursor:pointer; }
+  .result-card { background:linear-gradient(180deg,var(--aqua),#fff); border-radius:var(--radius-card); box-shadow:var(--shadow-card); padding:30px; text-align:center; position:sticky; top:96px; }
+  .big-amt { font-size:46px; font-weight:800; color:var(--green-primary); letter-spacing:-.02em; line-height:1.1; }
+  .gauge-bar { height:12px; border-radius:50px; background:var(--ceramic); overflow:hidden; margin:18px 0 6px; }
+  .gauge-fill { height:100%; border-radius:50px; background:linear-gradient(90deg,var(--green-accent),var(--brand-lime)); width:0; transition:width .5s var(--ease-expander); }
+  .erow { display:flex; justify-content:space-between; font-size:14px; padding:11px 0; border-bottom:1px solid var(--hairline); }
+  .erow:last-of-type { border-bottom:none; }
+  @media (max-width:980px){ .elig-grid{ grid-template-columns:1fr; } .result-card{ position:static; } }
+</style>
+</head>
+<body>
+<div data-mount="nav" data-current=""></div>
+
+<section class="phead"><div class="wrap"><div class="crumb"><a href="../index.html">Home</a> <i data-lucide="chevron-right" style="width:14px;height:14px"></i> <span style="color:var(--text-strong)">Eligibility Checker</span></div></div></section>
+
+<section class="section" style="padding-top:28px">
+  <div class="wrap">
+    <span class="pill pill-approved"><i data-lucide="shield-check"></i> Free · won't affect your credit score</span>
+    <h1 class="h-sec" style="margin:14px 0 6px">How much can you borrow?</h1>
+    <p class="lead" style="max-width:600px;margin-bottom:30px">Adjust the details below to see an indicative loan amount you could qualify for. It's just an estimate — your final offer is set after a quick assessment.</p>
+    <div class="elig-grid">
+      <div class="elig-card2">
+        <div class="ctrl" style="margin-bottom:18px">
+          <label style="font-size:14px;color:var(--text-soft);font-weight:600;display:block;margin-bottom:10px">Loan type</label>
+          <div class="seg" id="ltype">
+            <div class="seg-opt sel" data-rate="12" data-ten="60" data-val="Personal Loan">Personal</div>
+            <div class="seg-opt" data-rate="9" data-ten="240" data-val="Home Loan">Home</div>
+            <div class="seg-opt" data-rate="15" data-ten="48" data-val="Business Loan">Business</div>
+          </div>
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-top"><label>Net monthly income</label><span class="ctrl-val" id="oInc">₹60,000</span></div>
+          <input type="range" id="inc" min="15000" max="500000" step="5000" value="60000">
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-top"><label>Current monthly EMIs</label><span class="ctrl-val" id="oEmi">₹5,000</span></div>
+          <input type="range" id="emi" min="0" max="200000" step="1000" value="5000">
+        </div>
+        <div class="ctrl" style="margin-bottom:6px">
+          <div class="ctrl-top"><label>Your age</label><span class="ctrl-val" id="oAge">32 years</span></div>
+          <input type="range" id="age" min="21" max="60" step="1" value="32">
+        </div>
+      </div>
+      <div class="result-card">
+        <div class="eyebrow">You could be eligible for up to</div>
+        <div class="big-amt" id="amtOut" style="margin-top:8px">₹18,40,000</div>
+        <div class="gauge-bar"><div class="gauge-fill" id="gauge"></div></div>
+        <p class="muted" style="font-size:13px;margin:0 0 14px" id="emiHint">Indicative EMI ₹40,900 / month over 5 years</p>
+        <div class="erow"><span>Estimated tenure</span><b id="tenOut">5 years</b></div>
+        <div class="erow"><span>Indicative rate</span><b id="rateOut">12% p.a.</b></div>
+        <div class="erow"><span>EMI affordability used</span><b>50% of income</b></div>
+        <button class="btn btn-filled btn-block btn-lg" id="applyBtn" data-apply data-apply-loan="Personal Loan" style="margin-top:20px"><i data-lucide="phone-call"></i> Get this loan</button>
+        <p style="font-size:12px;color:var(--text-soft);margin:10px 0 0">A real offer depends on your documents and credit profile.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="eyebrow">What affects eligibility</div>
+    <h2 class="h-sec green" style="margin:10px 0 22px">5 things lenders look at</h2>
+    <div class="why-grid">
+      <div class="why"><div class="why-ic"><i data-lucide="wallet"></i></div><b>Income</b><p>Higher, stable income increases how much you can comfortably repay.</p></div>
+      <div class="why"><div class="why-ic"><i data-lucide="gauge"></i></div><b>Credit score</b><p>A score of 750+ unlocks higher amounts and better rates.</p></div>
+      <div class="why"><div class="why-ic"><i data-lucide="scale"></i></div><b>Existing EMIs</b><p>Lower existing obligations leave more room for a new loan.</p></div>
+      <div class="why"><div class="why-ic"><i data-lucide="briefcase"></i></div><b>Job stability</b><p>Longer tenure with an employer or business builds lender confidence.</p></div>
+    </div>
+  </div>
+</section>
+
+<div data-mount="footer"></div>
+<script src="../assets/site.js"></script>
+<script>
+  (function(){
+    var inc=document.getElementById('inc'), emi=document.getElementById('emi'), age=document.getElementById('age');
+    var oInc=document.getElementById('oInc'), oEmi=document.getElementById('oEmi'), oAge=document.getElementById('oAge');
+    var amtOut=document.getElementById('amtOut'), tenOut=document.getElementById('tenOut'), rateOut=document.getElementById('rateOut');
+    var gauge=document.getElementById('gauge'), emiHint=document.getElementById('emiHint'), applyBtn=document.getElementById('applyBtn');
+    var ltype=document.getElementById('ltype');
+    var R=12, baseTen=60, MAXREF=10000000;
+    function inr(n){ return '₹'+Math.round(n).toLocaleString('en-IN'); }
+    function yrs(m){ var y=Math.round(m/12); return y+' year'+(y>1?'s':''); }
+    function calc(){
+      var income=+inc.value, existing=+emi.value, a=+age.value;
+      // tenure capped by retirement age 60
+      var ten = Math.min(baseTen, (60-a)*12);
+      if(ten < 12) ten = 12;
+      var capacity = income*0.5 - existing; // affordable EMI
+      if(capacity < 0) capacity = 0;
+      var r = R/12/100;
+      var principal = capacity>0 ? capacity*(1-Math.pow(1+r,-ten))/r : 0;
+      oInc.textContent=inr(income); oEmi.textContent=inr(existing); oAge.textContent=a+' years';
+      amtOut.textContent=inr(principal);
+      tenOut.textContent=yrs(ten); rateOut.textContent=R+'% p.a.';
+      emiHint.textContent = capacity>0 ? 'Indicative EMI '+inr(capacity)+' / month over '+yrs(ten) : 'Reduce existing EMIs to improve eligibility';
+      var pct = Math.max(4, Math.min(100, principal/MAXREF*100));
+      gauge.style.width = pct+'%';
+    }
+    ltype.addEventListener('click', function(e){
+      var o=e.target.closest('.seg-opt'); if(!o) return;
+      ltype.querySelectorAll('.seg-opt').forEach(function(s){s.classList.remove('sel');});
+      o.classList.add('sel'); R=+o.getAttribute('data-rate'); baseTen=+o.getAttribute('data-ten');
+      applyBtn.setAttribute('data-apply-loan', o.getAttribute('data-val'));
+      calc();
+    });
+    [inc,emi,age].forEach(function(el){ el.addEventListener('input', calc); });
+    calc();
+  })();
+</script>
+</body>
+</html>

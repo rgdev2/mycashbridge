@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Free CIBIL / Credit Score Check — MyCashBridge.com</title>
+<meta name="description" content="Check your CIBIL credit score for free with MyCashBridge.com. See where you stand and get tips to improve — no impact on your score." />
+<link rel="icon" href="../assets/logo-cashbridge-mark.svg" />
+<link rel="stylesheet" href="../assets/site.css" />
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  .cs-grid { display:grid; grid-template-columns: 1fr 1fr; gap:40px; align-items:center; }
+  .gauge-wrap { text-align:center; padding:8px 0; }
+  .gauge-svg { width:280px; max-width:100%; }
+  .gauge-svg .track { fill:none; stroke:var(--ceramic); stroke-width:16; stroke-linecap:round; }
+  .gauge-svg .prog { fill:none; stroke:url(#csgrad); stroke-width:16; stroke-linecap:round; stroke-dasharray:439; stroke-dashoffset:439; transition:stroke-dashoffset 1.2s var(--ease-expander); }
+  .score-num { font-size:54px; font-weight:800; color:var(--green-primary); letter-spacing:-.02em; line-height:1; }
+  .score-band { font-size:15px; font-weight:700; color:var(--green-accent); margin-top:4px; }
+  .csfactor { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--hairline); font-size:14px; }
+  .csfactor:last-child { border-bottom:none; }
+  .csfactor .ic { width:34px; height:34px; flex:0 0 34px; border-radius:50%; background:var(--aqua); display:flex; align-items:center; justify-content:center; }
+  .csfactor .ic i { width:18px; height:18px; color:var(--green-primary); }
+  .csfactor .tag { margin-left:auto; font-size:12px; font-weight:700; padding:3px 10px; border-radius:50px; }
+  .tag-good { background:var(--lime-soft); color:var(--green-deep); }
+  .tag-ok { background:var(--gold-lightest); color:var(--gold); }
+  @media (max-width:980px){ .cs-grid{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div data-mount="nav" data-current="score"></div>
+
+<section class="phead"><div class="wrap"><div class="crumb"><a href="../index.html">Home</a> <i data-lucide="chevron-right" style="width:14px;height:14px"></i> <span style="color:var(--text-strong)">Free CIBIL Score</span></div></div></section>
+
+<section class="hero" style="padding-top:28px">
+  <div class="wrap cs-grid">
+    <div>
+      <span class="pill pill-lime"><i data-lucide="gauge"></i> 100% free · no impact on your score</span>
+      <h1 class="h-hero" style="margin-top:16px">Know your credit score, for free.</h1>
+      <p class="sub">Your CIBIL score is the single biggest factor in your loan approval and interest rate. Check it free in 10 seconds and get clear tips to improve it.</p>
+      <div class="checklist" style="margin-top:22px;max-width:460px">
+        <div class="ck"><i data-lucide="check-circle-2"></i><span>Soft check — no score impact</span></div>
+        <div class="ck"><i data-lucide="check-circle-2"></i><span>Personalised improvement tips</span></div>
+        <div class="ck"><i data-lucide="check-circle-2"></i><span>See loans you may qualify for</span></div>
+        <div class="ck"><i data-lucide="check-circle-2"></i><span>Bank-grade data security</span></div>
+      </div>
+    </div>
+    <div class="apply-card">
+      <div class="apply-form-wrap">
+        <span class="pill pill-approved" style="margin-bottom:12px"><i data-lucide="lock"></i> Your data is encrypted</span>
+        <h3>Check your score free</h3>
+        <p class="sub">We use your PAN to fetch your score securely. We never store it without consent.</p>
+        <form class="lead-form" data-loan="Free CIBIL check" novalidate>
+          <div class="form-grid">
+            <div class="field full"><label>Full name (as on PAN)</label><input name="name" type="text" placeholder="e.g. Rohan Sharma"><span class="err">Please enter your name</span></div>
+            <div class="field"><label>Mobile number</label><div class="tel-wrap"><span class="cc">+91</span><input name="mobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile"></div><span class="err">Enter a valid 10-digit mobile</span></div>
+            <div class="field"><label>PAN</label><input name="pan" type="text" maxlength="10" placeholder="ABCDE1234F" style="text-transform:uppercase"><span class="err">Required</span></div>
+            <div class="field full"><div class="consent"><input type="checkbox" name="consent" id="cs-consent"><label for="cs-consent">I authorise MyCashBridge.com to fetch my credit score and contact me about suitable offers. This overrides my DND/NDNC registration.</label></div><span class="err">Please accept to continue</span></div>
+          </div>
+          <button class="btn btn-filled btn-block btn-lg" type="submit" style="margin-top:16px"><span class="btn-label"><i data-lucide="gauge"></i> Get my free score</span></button>
+        </form>
+      </div>
+      <div class="thanks">
+        <div class="confetti"></div>
+        <div class="gauge-wrap">
+          <svg class="gauge-svg" viewBox="0 0 300 170">
+            <defs><linearGradient id="csgrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0c7a4e"/><stop offset="1" stop-color="#9AEF5E"/></linearGradient></defs>
+            <path class="track" d="M30 160 A130 130 0 0 1 270 160"></path>
+            <path class="prog" id="csProg" d="M30 160 A130 130 0 0 1 270 160"></path>
+          </svg>
+          <div class="score-num" id="csNum" style="margin-top:-30px">300</div>
+          <div class="score-band" id="csBand">Fetching…</div>
+        </div>
+        <div style="width:100%;margin-top:8px">
+          <div class="csfactor"><div class="ic"><i data-lucide="history"></i></div><div><b>Payment history</b><br><span class="muted" style="font-size:12px">On-time payments</span></div><span class="tag tag-good">Strong</span></div>
+          <div class="csfactor"><div class="ic"><i data-lucide="pie-chart"></i></div><div><b>Credit utilisation</b><br><span class="muted" style="font-size:12px">Keep below 30%</span></div><span class="tag tag-ok">Watch</span></div>
+          <div class="csfactor"><div class="ic"><i data-lucide="layers"></i></div><div><b>Credit mix &amp; age</b><br><span class="muted" style="font-size:12px">Healthy variety</span></div><span class="tag tag-good">Strong</span></div>
+        </div>
+        <button class="btn btn-filled btn-block btn-lg" data-apply style="margin-top:18px"><i data-lucide="phone-call"></i> See loans I qualify for</button>
+        <div class="ref"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="eyebrow">Improve your score</div>
+    <h2 class="h-sec green" style="margin:10px 0 22px">Simple habits that lift your CIBIL</h2>
+    <div class="why-grid">
+      <div class="why"><div class="why-ic"><i data-lucide="calendar-check"></i></div><b>Pay on time</b><p>Never miss an EMI or card due date. Payment history is the biggest factor in your score.</p></div>
+      <div class="why"><div class="why-ic"><i data-lucide="pie-chart"></i></div><b>Use under 30%</b><p>Keep your credit-card spends below 30% of your limit to look financially healthy.</p></div>
+      <div class="why"><div class="why-ic"><i data-lucide="search-x"></i></div><b>Limit hard enquiries</b><p>Applying to many lenders at once can lower your score. Compare first, apply once.</p></div>
+      <div class="why"><div class="why-ic"><i data-lucide="shield-check"></i></div><b>Check for errors</b><p>Review your report yearly and dispute any mistakes that may be dragging your score down.</p></div>
+    </div>
+  </div>
+</section>
+
+<div data-mount="footer"></div>
+<script src="../assets/site.js"></script>
+<script>
+  (function(){
+    var thanks = document.querySelector('.apply-card .thanks');
+    if(!thanks) return;
+    var TARGET = 762; // sample demo score
+    function reveal(){
+      var prog=document.getElementById('csProg'), num=document.getElementById('csNum'), band=document.getElementById('csBand');
+      var frac=(TARGET-300)/(900-300);
+      setTimeout(function(){ prog.style.strokeDashoffset = String(439-439*frac); }, 150);
+      var start=300, t0=null;
+      function step(ts){ if(!t0)t0=ts; var p=Math.min(1,(ts-t0)/1200); var val=Math.round(start+(TARGET-start)*p); num.textContent=val; if(p<1) requestAnimationFrame(step); }
+      requestAnimationFrame(step);
+      band.textContent = TARGET>=750?'Excellent · 300–900 range':(TARGET>=700?'Good':'Fair');
+    }
+    new MutationObserver(function(){ if(thanks.classList.contains('show')) reveal(); }).observe(thanks,{attributes:true,attributeFilter:['class']});
+  })();
+</script>
+</body>
+</html>
