@@ -38,7 +38,11 @@ const healthRoute         = require("./src/routes/health.route");
 const leadsRoute          = require("./src/routes/leads.route");
 
 const PORT           = parseInt(process.env.PORT, 10) || 3001;
-const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || "*"; // ← set your domain in prod
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN;
+if (!ALLOWED_ORIGIN) {
+  console.error("FATAL: ALLOWED_ORIGIN is not set in .env — refusing to start without a CORS origin.");
+  process.exit(1);
+}
 
 // ── Express app ─────────────────────────────────────────────
 const app = express();
@@ -46,11 +50,40 @@ const app = express();
 // Trust first proxy (Nginx / Cloudflare / Heroku) so req.ip is the real IP
 app.set("trust proxy", 1);
 
-// Security headers (OWASP A05) — helmet sets 14 headers automatically
-// contentSecurityPolicy disabled here; set per-page via HTML meta tags
-app.use(helmet({ contentSecurityPolicy: false }));
+// HTTPS redirect — in production, force all HTTP traffic to HTTPS
+if (process.env.NODE_ENV === "production") {
+  app.use((req, res, next) => {
+    if (req.headers["x-forwarded-proto"] !== "https") {
+      return res.redirect(301, "https://" + req.headers.host + req.url);
+    }
+    next();
+  });
+}
+
+// Security headers (OWASP A05) — helmet + Content Security Policy
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc:      ["'self'"],
+      scriptSrc:       ["'self'", "'unsafe-inline'"],   // unsafe-inline needed for inline tool scripts
+      styleSrc:        ["'self'", "'unsafe-inline'"],
+      imgSrc:          ["'self'", "data:", "blob:"],
+      connectSrc:      ["'self'", "https://formsubmit.co"],  // lead form fallback
+      fontSrc:         ["'self'"],
+      objectSrc:       ["'none'"],
+      frameSrc:        ["'none'"],
+      frameAncestors:  ["'self'"],
+      formAction:      ["'self'"],
+      baseUri:         ["'self'"],
+    },
+  },
+  crossOriginEmbedderPolicy: false,  // allow fonts/images to load without COEP headers
+}));
 
 // CORS — restrict to configured origin
+if (ALLOWED_ORIGIN === "*") {
+  console.warn("[WARN] ALLOWED_ORIGIN=* — set your production domain in .env");
+}
 app.use(cors({
   origin:  ALLOWED_ORIGIN,
   methods: ["GET", "POST", "OPTIONS"],

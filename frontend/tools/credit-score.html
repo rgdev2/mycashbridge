@@ -1,13 +1,13 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Free CIBIL / Credit Score Check â€” MyCashBridge.com</title>
-<meta name="description" content="Check your CIBIL credit score for free with MyCashBridge.com. See where you stand and get tips to improve â€” no impact on your score." />
+<title>Free CIBIL / Credit Score Check — MyCashBridge.com</title>
+<meta name="description" content="Check your CIBIL credit score for free with MyCashBridge.com. See where you stand and get tips to improve — no impact on your score." />
 <link rel="icon" href="../assets/logo-cashbridge-mark.svg" />
 <link rel="stylesheet" href="../assets/site.css" />
-<script src="https://unpkg.com/lucide@latest"></script>
+<script src="../assets/lucide.min.js"></script>
 <style>
   .cs-grid { display:grid; grid-template-columns: 1fr 1fr; gap:40px; align-items:center; }
   .gauge-wrap { text-align:center; padding:8px 0; }
@@ -34,11 +34,11 @@
 <section class="hero" style="padding-top:28px">
   <div class="wrap cs-grid">
     <div>
-      <span class="pill pill-lime"><i data-lucide="gauge"></i> 100% free Â· no impact on your score</span>
+      <span class="pill pill-lime"><i data-lucide="gauge"></i> 100% free · no impact on your score</span>
       <h1 class="h-hero" style="margin-top:16px">Know your credit score, for free.</h1>
       <p class="sub">Your CIBIL score is the single biggest factor in your loan approval and interest rate. Check it free in 10 seconds and get clear tips to improve it.</p>
       <div class="checklist" style="margin-top:22px;max-width:460px">
-        <div class="ck"><i data-lucide="check-circle-2"></i><span>Soft check â€” no score impact</span></div>
+        <div class="ck"><i data-lucide="check-circle-2"></i><span>Soft check — no score impact</span></div>
         <div class="ck"><i data-lucide="check-circle-2"></i><span>Personalised improvement tips</span></div>
         <div class="ck"><i data-lucide="check-circle-2"></i><span>See loans you may qualify for</span></div>
         <div class="ck"><i data-lucide="check-circle-2"></i><span>Bank-grade data security</span></div>
@@ -68,7 +68,7 @@
             <path class="prog" id="csProg" d="M30 160 A130 130 0 0 1 270 160"></path>
           </svg>
           <div class="score-num" id="csNum" style="margin-top:-30px">300</div>
-          <div class="score-band" id="csBand">Fetchingâ€¦</div>
+          <div class="score-band" id="csBand">Fetching…</div>
         </div>
         <div style="width:100%;margin-top:8px">
           <div class="csfactor"><div class="ic"><i data-lucide="history"></i></div><div><b>Payment history</b><br><span class="muted" style="font-size:12px">On-time payments</span></div><span class="tag tag-good">Strong</span></div>
@@ -109,7 +109,7 @@
       var start=300, t0=null;
       function step(ts){ if(!t0)t0=ts; var p=Math.min(1,(ts-t0)/1200); var val=Math.round(start+(TARGET-start)*p); num.textContent=val; if(p<1) requestAnimationFrame(step); }
       requestAnimationFrame(step);
-      band.textContent = TARGET>=750?'Excellent Â· 300â€“900 range':(TARGET>=700?'Good':'Fair');
+      band.textContent = TARGET>=750?'Excellent · 300–900 range':(TARGET>=700?'Good':'Fair');
     }
     new MutationObserver(function(){ if(thanks.classList.contains('show')) reveal(); }).observe(thanks,{attributes:true,attributeFilter:['class']});
   })();

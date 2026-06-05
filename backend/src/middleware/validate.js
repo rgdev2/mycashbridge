@@ -1,5 +1,19 @@
 "use strict";
 
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || "*";
+
+/**
+ * CSRF guard — verify the request comes from our own origin.
+ * Checks the Origin header (set automatically by browsers on cross-origin fetch).
+ * Skipped when ALLOWED_ORIGIN=* (local development).
+ */
+function isTrustedOrigin(req) {
+  if (ALLOWED_ORIGIN === "*") return true;  // dev mode — skip check
+  const origin  = req.headers.origin  || "";
+  const referer = req.headers.referer || "";
+  return origin.startsWith(ALLOWED_ORIGIN) || referer.startsWith(ALLOWED_ORIGIN);
+}
+
 /**
  * Sanitize a value: trim, cap length, strip HTML/XSS chars and control chars.
  * Safe to call on any untrusted input.
@@ -29,6 +43,11 @@ function isValidName(n) {
  * Sends 400 JSON with { error } on failure.
  */
 function validateLead(req, res, next) {
+  // CSRF guard — reject requests not originating from our own domain
+  if (!isTrustedOrigin(req)) {
+    return res.status(403).json({ error: "Forbidden." });
+  }
+
   // Honeypot: bots fill the hidden _hp field; humans leave it blank.
   // Return 200 silently so bots think they succeeded — don't reveal detection.
   if (req.body._hp !== undefined && req.body._hp !== "") {

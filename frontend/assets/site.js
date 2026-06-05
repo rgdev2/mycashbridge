@@ -464,7 +464,7 @@
     ].map(function (p) { return '<a href="' + BASE + 'pages/' + p[0] + '.html">' + p[1] + '</a>'; }).join("");
     return '<footer class="footer"><div class="wrap footer-grid cols5">' +
       '<div>' +
-        '<img src="' + LOGO_SRC() + '" alt="' + CFG.brand + '" style="height:34px">' +
+        '<img src="' + LOGO_SRC() + '" alt="' + CFG.brand + '" style="height:100px">' +
         '<p class="footer-tagline">' + CFG.tagline + '</p>' +
         '<p class="desc">A Lending Service Provider (LSP) & Direct Selling Agent (DSA) helping you compare and apply for loans, cards and more from leading banks & NBFCs — with clear EMIs and honest guidance.</p>' +
         '<div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap"><span class="pill pill-reward"><i data-lucide="shield-check"></i> ISO 27001</span><span class="pill pill-approved"><i data-lucide="lock"></i> 256-bit SSL</span></div>' +

@@ -1,13 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>EMI Calculator — MyCashBridge.com</title>
+<title>EMI Calculator � MyCashBridge.com</title>
 <meta name="description" content="Free EMI calculator. See your monthly payment, total interest and total cost for any loan amount, rate and tenure. By MyCashBridge.com." />
 <link rel="icon" href="../assets/logo-cashbridge-mark.svg" />
 <link rel="stylesheet" href="../assets/site.css" />
-<script src="https://unpkg.com/lucide@latest"></script>
+<script src="../assets/lucide.min.js"></script>
 <style>
   .calc-grid { display:grid; grid-template-columns: 1.1fr .9fr; gap:32px; align-items:start; }
   .calc-card { background:var(--white); border-radius:var(--radius-card); box-shadow:var(--shadow-card); padding:30px; }
@@ -42,13 +42,13 @@
   <div class="wrap">
     <div class="eyebrow">Free tool</div>
     <h1 class="h-sec" style="margin:10px 0 6px">EMI Calculator</h1>
-    <p class="lead" style="max-width:600px;margin-bottom:30px">Plan your loan with confidence. Move the sliders to see your monthly EMI, total interest, and total amount payable — instantly.</p>
+    <p class="lead" style="max-width:600px;margin-bottom:30px">Plan your loan with confidence. Move the sliders to see your monthly EMI, total interest, and total amount payable � instantly.</p>
     <div class="calc-grid">
       <div class="calc-card">
         <div class="ctrl">
-          <div class="ctrl-top"><label>Loan amount</label><span class="ctrl-val" id="oAmt">₹10,00,000</span></div>
+          <div class="ctrl-top"><label>Loan amount</label><span class="ctrl-val" id="oAmt">?10,00,000</span></div>
           <input type="range" id="amt" min="50000" max="10000000" step="50000" value="1000000">
-          <div class="scale"><span>₹50K</span><span>₹1 Cr</span></div>
+          <div class="scale"><span>?50K</span><span>?1 Cr</span></div>
         </div>
         <div class="ctrl">
           <div class="ctrl-top"><label>Interest rate (p.a.)</label><span class="ctrl-val" id="oRate">10.5%</span></div>
@@ -62,11 +62,11 @@
         </div>
       </div>
       <div class="calc-card result">
-        <div class="donut" id="donut"><div class="mid"><small>Monthly EMI</small><b id="oEmi">₹21,494</b></div></div>
+        <div class="donut" id="donut"><div class="mid"><small>Monthly EMI</small><b id="oEmi">?21,494</b></div></div>
         <div class="leg"><span><i style="background:var(--green-primary)"></i> Principal</span><span><i style="background:var(--brand-lime)"></i> Interest</span></div>
-        <div class="rrow"><span>Principal amount</span><b id="oPrin">₹10,00,000</b></div>
-        <div class="rrow"><span>Total interest</span><b id="oInt">₹2,89,640</b></div>
-        <div class="rrow"><span>Total payable</span><b id="oTot">₹12,89,640</b></div>
+        <div class="rrow"><span>Principal amount</span><b id="oPrin">?10,00,000</b></div>
+        <div class="rrow"><span>Total interest</span><b id="oInt">?2,89,640</b></div>
+        <div class="rrow"><span>Total payable</span><b id="oTot">?12,89,640</b></div>
         <button class="btn btn-filled btn-block btn-lg" data-apply style="margin-top:18px"><i data-lucide="phone-call"></i> Apply at this EMI</button>
         <p style="font-size:12px;color:var(--text-soft);margin:10px 0 0">Indicative only. Your actual rate is set after assessment.</p>
       </div>
@@ -79,10 +79,10 @@
     <div class="eyebrow">Good to know</div>
     <h2 class="h-sec green" style="margin:10px 0 22px">How EMI is calculated</h2>
     <div class="why-grid">
-      <div class="why"><div class="why-ic"><i data-lucide="function-square"></i></div><b>The formula</b><p>EMI = P × r × (1+r)ⁿ ÷ [(1+r)ⁿ − 1], where P is principal, r is monthly rate, and n is the number of months.</p></div>
+      <div class="why"><div class="why-ic"><i data-lucide="function-square"></i></div><b>The formula</b><p>EMI = P � r � (1+r)n � [(1+r)n - 1], where P is principal, r is monthly rate, and n is the number of months.</p></div>
       <div class="why"><div class="why-ic"><i data-lucide="trending-down"></i></div><b>Lower rate, lower cost</b><p>Even a 1% lower rate can save you thousands over the loan. Compare offers before you sign.</p></div>
       <div class="why"><div class="why-ic"><i data-lucide="calendar-clock"></i></div><b>Tenure trade-off</b><p>A longer tenure means a smaller EMI but more total interest. Pick a balance you're comfortable with.</p></div>
-      <div class="why"><div class="why-ic"><i data-lucide="wallet"></i></div><b>Keep EMIs affordable</b><p>As a rule of thumb, keep all your EMIs under 40–50% of your monthly income.</p></div>
+      <div class="why"><div class="why-ic"><i data-lucide="wallet"></i></div><b>Keep EMIs affordable</b><p>As a rule of thumb, keep all your EMIs under 40�50% of your monthly income.</p></div>
     </div>
   </div>
 </section>
@@ -95,7 +95,7 @@
     var oAmt=document.getElementById('oAmt'), oRate=document.getElementById('oRate'), oTen=document.getElementById('oTen');
     var oEmi=document.getElementById('oEmi'), oPrin=document.getElementById('oPrin'), oInt=document.getElementById('oInt'), oTot=document.getElementById('oTot');
     var donut=document.getElementById('donut');
-    function inr(n){ return '₹'+Math.round(n).toLocaleString('en-IN'); }
+    function inr(n){ return '?'+Math.round(n).toLocaleString('en-IN'); }
     function yrs(m){ var y=Math.floor(m/12), mo=m%12; return (y?y+' yr'+(y>1?'s':''):'')+(y&&mo?' ':'')+(mo?mo+' mo':'') || '0'; }
     function calc(){
       var P=+amt.value, R=+rate.value, n=+ten.value, r=R/12/100;
