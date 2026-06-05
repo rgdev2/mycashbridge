@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Loan Eligibility Checker — MyCashBridge.com</title>
-<meta name="description" content="Check how much loan you are eligible for in 10 seconds. Free eligibility checker by MyCashBridge.com — no impact on your credit score." />
+<title>Loan Eligibility Checker &ndash; MyCashBridge.com</title>
+<meta name="description" content="Check how much loan you are eligible for in 10 seconds. Free eligibility checker by MyCashBridge.com &ndash; no impact on your credit score." />
 <link rel="icon" href="../assets/logo-cashbridge-mark.svg" />
 <link rel="stylesheet" href="../assets/site.css" />
 <script src="../assets/lucide.min.js"></script>
@@ -32,9 +32,9 @@
 
 <section class="section" style="padding-top:28px">
   <div class="wrap">
-    <span class="pill pill-approved"><i data-lucide="shield-check"></i> Free · won't affect your credit score</span>
+    <span class="pill pill-approved"><i data-lucide="shield-check"></i> Free &ndash; won't affect your credit score</span>
     <h1 class="h-sec" style="margin:14px 0 6px">How much can you borrow?</h1>
-    <p class="lead" style="max-width:600px;margin-bottom:30px">Adjust the details below to see an indicative loan amount you could qualify for. It's just an estimate — your final offer is set after a quick assessment.</p>
+    <p class="lead" style="max-width:600px;margin-bottom:30px">Adjust the details below to see an indicative loan amount you could qualify for. It's just an estimate &ndash; your final offer is set after a quick assessment.</p>
     <div class="elig-grid">
       <div class="elig-card2">
         <div class="ctrl" style="margin-bottom:18px">
@@ -46,11 +46,11 @@
           </div>
         </div>
         <div class="ctrl">
-          <div class="ctrl-top"><label>Net monthly income</label><span class="ctrl-val" id="oInc">?60,000</span></div>
+          <div class="ctrl-top"><label>Net monthly income</label><span class="ctrl-val" id="oInc">â‚¹60,000</span></div>
           <input type="range" id="inc" min="15000" max="500000" step="5000" value="60000">
         </div>
         <div class="ctrl">
-          <div class="ctrl-top"><label>Current monthly EMIs</label><span class="ctrl-val" id="oEmi">?5,000</span></div>
+          <div class="ctrl-top"><label>Current monthly EMIs</label><span class="ctrl-val" id="oEmi">â‚¹5,000</span></div>
           <input type="range" id="emi" min="0" max="200000" step="1000" value="5000">
         </div>
         <div class="ctrl" style="margin-bottom:6px">
@@ -60,9 +60,9 @@
       </div>
       <div class="result-card">
         <div class="eyebrow">You could be eligible for up to</div>
-        <div class="big-amt" id="amtOut" style="margin-top:8px">?18,40,000</div>
+        <div class="big-amt" id="amtOut" style="margin-top:8px">â‚¹18,40,000</div>
         <div class="gauge-bar"><div class="gauge-fill" id="gauge"></div></div>
-        <p class="muted" style="font-size:13px;margin:0 0 14px" id="emiHint">Indicative EMI ?40,900 / month over 5 years</p>
+        <p class="muted" style="font-size:13px;margin:0 0 14px" id="emiHint">Indicative EMI â‚¹40,900 / month over 5 years</p>
         <div class="erow"><span>Estimated tenure</span><b id="tenOut">5 years</b></div>
         <div class="erow"><span>Indicative rate</span><b id="rateOut">12% p.a.</b></div>
         <div class="erow"><span>EMI affordability used</span><b>50% of income</b></div>
@@ -96,7 +96,7 @@
     var gauge=document.getElementById('gauge'), emiHint=document.getElementById('emiHint'), applyBtn=document.getElementById('applyBtn');
     var ltype=document.getElementById('ltype');
     var R=12, baseTen=60, MAXREF=10000000;
-    function inr(n){ return '?'+Math.round(n).toLocaleString('en-IN'); }
+    function inr(n){ return 'â‚¹'+Math.round(n).toLocaleString('en-IN'); }
     function yrs(m){ var y=Math.round(m/12); return y+' year'+(y>1?'s':''); }
     function calc(){
       var income=+inc.value, existing=+emi.value, a=+age.value;

@@ -64,6 +64,39 @@ h1,h2,h3 { letter-spacing: -.01em; margin: 0; }
 .pill-tier { background: var(--gold-lightest); color: var(--text-rewards); }
 .pill-lime { background: var(--lime-soft); color: var(--green-deep); }
 
+/* ---------- certification badges (footer) ---------- */
+.cert-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+.cert-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 10px;
+  padding: 10px 12px;
+  transition: background .2s;
+}
+.cert-badge:hover { background: rgba(255,255,255,0.13); }
+.cert-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: var(--brand-lime);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.cert-icon i, .cert-icon svg { width: 16px; height: 16px; color: var(--green-deep); }
+.cert-info { display: flex; flex-direction: column; min-width: 0; }
+.cert-name  { font-size: 12px; font-weight: 800; color: var(--text-strong); line-height: 1.2; white-space: nowrap; }
+.cert-label { font-size: 10px; font-weight: 600; color: var(--text-soft); margin-top: 1px; }
+@media (max-width: 980px) { .cert-strip { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px) { .cert-strip { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 380px) { .cert-strip { grid-template-columns: 1fr 1fr; } }
+
 /* ---------- cards ---------- */
 .card { background: var(--white); border-radius: var(--radius-card); box-shadow: var(--shadow-card); padding: 28px; }
 
@@ -528,6 +561,72 @@ h1,h2,h3 { letter-spacing: -.01em; margin: 0; }
 }
 
 /* ============================================================
+   TABLET (768px) — iPad portrait, small laptops
+   Sits between desktop (980px+) and the existing 600px mobile rules
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Layout */
+  .wrap { padding-inline: 20px; }
+  .section { padding-block: 56px; }
+  .section-sm { padding-block: 40px; }
+
+  /* Typography */
+  .h-hero { font-size: 38px; }
+  .h-sec  { font-size: 28px; }
+  .lead   { font-size: 16px; }
+
+  /* Grids → 2 cols on tablet */
+  .prod-grid   { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .tools-grid  { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .why-grid    { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .rev-grid    { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .spec-grid   { grid-template-columns: repeat(2, 1fr); }
+  .flow        { grid-template-columns: repeat(2, 1fr); }
+  .cc-grid     { grid-template-columns: repeat(2, 1fr); }
+
+  /* Hero */
+  .hero-grid   { grid-template-columns: 1fr; gap: 32px; }
+  .band .two, .two { grid-template-columns: 1fr; gap: 28px; }
+
+  /* EMI card full width on tablet */
+  .emi { padding: 22px; }
+  .emi-out .big { font-size: 24px; }
+
+  /* whybox stacks vertically */
+  .whybox { grid-template-columns: 1fr; }
+
+  /* Testimonial carousel — no scale effect */
+  .testi-card { opacity: 1; transform: none; }
+  .testi-card.featured { transform: none; }
+
+  /* Footer */
+  .footer-grid.cols5 { grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  /* CTA strip */
+  .cta-strip { padding: 36px 20px; text-align: center; }
+  .cta-strip h2 { font-size: 28px; }
+
+  /* Buttons full-width in forms */
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   SMALL MOBILE (480px) — older/small Android phones
+   ============================================================ */
+@media (max-width: 480px) {
+  .wrap { padding-inline: 14px; }
+  .h-hero  { font-size: 30px; }
+  .h-sec   { font-size: 22px; }
+  .prod-grid, .tools-grid, .why-grid, .rev-grid,
+  .spec-grid, .flow, .cc-grid { grid-template-columns: 1fr; }
+  .btn-lg  { padding: 13px 22px; font-size: 15px; }
+  .modal-box { padding: 18px 16px; }
+  .emi-out .big { font-size: 22px; }
+  .hero-stat { gap: 20px; }
+  .hero-stat .s b { font-size: 22px; }
+}
+
+/* ============================================================
    v2 ADDITIONS — dropdowns, lang toggle, why-choose, cookies,
    video testimonials, policy pages, 5-col footer
    ============================================================ */
@@ -545,6 +644,11 @@ h1,h2,h3 { letter-spacing: -.01em; margin: 0; }
 .footer-grid.cols5 { grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr; }
 @media (max-width: 980px){ .footer-grid.cols5 { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 600px){ .footer-grid.cols5 { grid-template-columns: 1fr; } }
+
+/* footer logo — responsive width so it never overflows on small screens */
+.footer-logo { width: 220px; height: auto; display: block; max-width: 100%; }
+@media (max-width: 980px) { .footer-logo { width: 180px; } }
+@media (max-width: 600px) { .footer-logo { width: 150px; } }
 
 /* ---------- WHY CHOOSE US (full box, ref screenshot — not a copy) ---------- */
 .whybox { background: linear-gradient(120deg,#eef4ff 0%, #f3f0fb 100%); border-radius: 20px; padding: 30px; display:grid; grid-template-columns: .85fr 1.4fr; gap: 28px; align-items:center; }

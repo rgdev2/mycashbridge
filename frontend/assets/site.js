@@ -134,8 +134,8 @@
     "Check rate": "दर जांचें",
     "PERSONAL LOAN": "पर्सनल लोन", "BUSINESS LOAN": "बिज़नेस लोन", "HOME LOAN": "होम लोन",
     "GOLD LOAN": "गोल्ड लोन", "CAR LOAN": "कार लोन", "EDUCATION LOAN": "एजुकेशन लोन",
-    "Up to ₹40,00,000": "₹40,00,000 तक", "Up to ₹75,00,000": "₹75,00,000 तक", "Up to ₹5 Cr": "₹5 करोड़ तक",
-    "Up to ₹50,00,000": "₹50,00,000 तक", "Up to ₹1,00,00,000": "₹1,00,00,000 तक", "Up to ₹1.5 Cr": "₹1.5 करोड़ तक",
+    "Up to ₹40,00,000": "₹40,00,000 तक", "Up to ₹75,00,000": "₹75,00,000 तक", "Up to ₹5,00,00,000": "₹5,00,00,000 तक",
+    "Up to ₹50,00,000": "₹50,00,000 तक", "Up to ₹1,00,00,000": "₹1,00,00,000 तक", "Up to ₹1,50,00,000": "₹1,50,00,000 तक",
     "For weddings, travel, medical or any plan. No collateral, money in 24 hours.": "शादी, यात्रा, मेडिकल या किसी भी ज़रूरत के लिए। कोई गिरवी नहीं, 24 घंटे में पैसा।",
     "Stock up, hire, or expand. Flexible EMIs that move with your cash flow.": "स्टॉक बढ़ाएं, भर्ती करें या विस्तार करें। आपके कैश फ़्लो के साथ चलने वाली लचीली EMI।",
     "Buy, build or transfer your home loan at a lower rate. Long, easy tenures.": "कम दर पर घर खरीदें, बनाएं या होम लोन ट्रांसफ़र करें। लंबी, आसान अवधि।",
@@ -464,10 +464,15 @@
     ].map(function (p) { return '<a href="' + BASE + 'pages/' + p[0] + '.html">' + p[1] + '</a>'; }).join("");
     return '<footer class="footer"><div class="wrap footer-grid cols5">' +
       '<div>' +
-        '<img src="' + LOGO_SRC() + '" alt="' + CFG.brand + '" style="height:100px">' +
-        '<p class="footer-tagline">' + CFG.tagline + '</p>' +
+        '<img src="' + LOGO_SRC() + '" alt="' + CFG.brand + '" class="footer-logo">' +
         '<p class="desc">A Lending Service Provider (LSP) & Direct Selling Agent (DSA) helping you compare and apply for loans, cards and more from leading banks & NBFCs — with clear EMIs and honest guidance.</p>' +
-        '<div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap"><span class="pill pill-reward"><i data-lucide="shield-check"></i> ISO 27001</span><span class="pill pill-approved"><i data-lucide="lock"></i> 256-bit SSL</span></div>' +
+        '<div class="cert-strip">' +
+          '<div class="cert-badge"><div class="cert-icon"><i data-lucide="shield-check"></i></div><div class="cert-info"><span class="cert-name">ISO 27001</span><span class="cert-label">Certified</span></div></div>' +
+          '<div class="cert-badge"><div class="cert-icon"><i data-lucide="lock"></i></div><div class="cert-info"><span class="cert-name">SSL / TLS</span><span class="cert-label">256-bit Secure</span></div></div>' +
+          '<div class="cert-badge"><div class="cert-icon"><i data-lucide="file-check-2"></i></div><div class="cert-info"><span class="cert-name">SOC 2</span><span class="cert-label">Compliant</span></div></div>' +
+          '<div class="cert-badge"><div class="cert-icon"><i data-lucide="scan-search"></i></div><div class="cert-info"><span class="cert-name">VAPT</span><span class="cert-label">Tested</span></div></div>' +
+          '<div class="cert-badge"><div class="cert-icon"><i data-lucide="credit-card"></i></div><div class="cert-info"><span class="cert-name">PCI DSS</span><span class="cert-label">Compliant</span></div></div>' +
+        '</div>' +
       '</div>' +
       '<div class="footer-col"><h4>Loans</h4>' + loanLinks + '<a href="' + BASE + 'tools/emi-calculator.html">EMI Calculator</a></div>' +
       '<div class="footer-col"><h4>Products</h4>' + prodLinks + '</div>' +
@@ -711,7 +716,7 @@
       if (e.target.name === "mobile") e.target.value = e.target.value.replace(/\D/g, "").slice(0, 10);
       if (e.target.name === "pan") e.target.value = e.target.value.toUpperCase().slice(0, 10);
     });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape") { closeModal(); closeDrawer(); var ck = document.getElementById("ckModal"); if (ck) ck.classList.remove("open"); } });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") { closeModal(); closeDrawer(); closeQbPopup(); var ck = document.getElementById("ckModal"); if (ck) ck.classList.remove("open"); } });
   }
 
   /* EMI widget */
@@ -790,7 +795,7 @@
         fields: ["name","mobile","city"]
       }
     ],
-    credit_card: [
+    card: [
       { id: "cs1", title: "What type of card do you want?", type: "tiles",
         field: "card_type", required: true,
         options: [
@@ -866,6 +871,7 @@
       data,
       getUtm(),
       {
+        product_type: productLabel,
         source_page:  location.pathname,
         submitted_at: new Date().toLocaleString("en-IN"),
         _hp:          ""   /* honeypot — must always be empty from real users */
@@ -1101,11 +1107,16 @@
       /\/loans\//.test(p) ||
       /\/pages\/(credit-cards?|cashback-cards?|travel-cards?|rewards-cards?|secured-cards?|insurance|health-insurance|life-insurance|motor-insurance|travel-insurance|investments|sip|mutual-funds?|demat)\.html/.test(p);
     if (!allowed) return;
+    _qbFlow = flow || "general";
+    _qbData = {};
+    _qbStep = 0;
     if (fixedType) {
       var f = QB_STEPS[_qbFlow] || QB_STEPS.general;
       if (f[0] && f[0].type === "tiles") {
         _qbData[f[0].field] = fixedType;
         _qbStep = 1;
+      } else {
+        _qbData.loan_type = fixedType;
       }
     }
     var box = document.getElementById("qbPopup"); if (!box) return;
@@ -1152,7 +1163,7 @@
           '<h3>You\'re all set! 🎉</h3>' +
           '<p>A MyCashBridge expert will call you within <strong>24 hours</strong> with the best offers. Keep your phone handy.</p>' +
           '<div class="qb-ref"></div>' +
-          '<button class="btn btn-filled" onclick="document.getElementById(\'qbPopup\').classList.remove(\'open\');document.body.style.overflow=\'\'">Done</button>' +
+          '<button class="btn btn-filled" id="qbDoneBtn">Done</button>' +
         '</div>' +
       '</div>' +
     '</div>';
@@ -1204,7 +1215,7 @@
     "\uD83D\uDD12 Bank-grade 256-bit encryption",
     "\u2705 Won't affect your credit score",
     "\uD83C\uDFC6 4.7★ rated by 6,200+ customers",
-    "\uD83D\uDCB0 ₹50 Cr+ disbursed to date",
+    "\uD83D\uDCB0 ₹50,00,00,000+ disbursed to date",
     "\u2705 Free service — no charges ever"
   ];
   function initTrustNudge() {
@@ -1264,6 +1275,8 @@
       }
       // close button
       if (e.target.closest("#qbClose")) { closeQbPopup(); return; }
+      // done (thank-you screen close)
+      if (e.target.closest("#qbDoneBtn")) { closeQbPopup(); return; }
       // back
       if (e.target.closest("#qbBack")) { if (_qbStep > 0) { _qbStep--; qbRenderStep(); } return; }
       // next/submit

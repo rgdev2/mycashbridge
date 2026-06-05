@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Compare Loans &amp; Rates — MyCashBridge.com</title>
+<title>Compare Loans &amp; Rates &ndash; MyCashBridge.com</title>
 <meta name="description" content="Compare loan types and indicative interest rates across leading lending partners. Find the right loan with MyCashBridge.com." />
 <link rel="icon" href="../assets/logo-cashbridge-mark.svg" />
 <link rel="stylesheet" href="../assets/site.css" />
@@ -27,7 +27,7 @@
   <div class="wrap">
     <div class="eyebrow">Compare</div>
     <h1 class="h-sec" style="margin:10px 0 6px">Compare loans, side by side</h1>
-    <p class="lead" style="max-width:620px;margin-bottom:26px">See how our loan types stack up on rates, amounts and tenure — then check live partner rates for the one that fits. All rates are indicative; your final offer depends on your profile.</p>
+    <p class="lead" style="max-width:620px;margin-bottom:26px">See how our loan types stack up on rates, amounts and tenure &ndash; then check live partner rates for the one that fits. All rates are indicative; your final offer depends on your profile.</p>
     <div style="overflow-x:auto">
       <table class="cmp cmp-type">
         <thead><tr><th>Loan type</th><th>Rate from</th><th>Max amount</th><th>Max tenure</th><th>Collateral</th><th></th></tr></thead>
@@ -54,23 +54,23 @@
 <script src="../assets/site.js"></script>
 <script>
   var TYPES = [
-    ["personal-loan","Personal Loan","wallet","10.5%","?40 Lakh","6 years","Not required"],
-    ["business-loan","Business Loan","store","14.0%","?75 Lakh","5 years","Optional"],
-    ["home-loan","Home Loan","home","8.5%","?5 Crore","30 years","Property"],
-    ["loan-against-property","Loan Against Property","building-2","9.0%","?10 Crore","15 years","Property"],
+    ["personal-loan","Personal Loan","wallet","10.5%","â‚¹40 Lakh","6 years","Not required"],
+    ["business-loan","Business Loan","store","14.0%","â‚¹75 Lakh","5 years","Optional"],
+    ["home-loan","Home Loan","home","8.5%","â‚¹5 Crore","30 years","Property"],
+    ["loan-against-property","Loan Against Property","building-2","9.0%","â‚¹10 Crore","15 years","Property"],
     ["car-loan","Car Loan","car","9.5%","100% on-road","7 years","The car"],
-    ["education-loan","Education Loan","graduation-cap","9.5%","?1.5 Crore","15 years","Above a limit"],
-    ["gold-loan","Gold Loan","gem","9.0%","?50 Lakh","3 years","Your gold"]
+    ["education-loan","Education Loan","graduation-cap","9.5%","â‚¹1.5 Crore","15 years","Above a limit"],
+    ["gold-loan","Gold Loan","gem","9.0%","â‚¹50 Lakh","3 years","Your gold"]
   ];
-  // Lender rates — currently HDFC Bank only. To add more lenders later,
-  // append rows to any array, e.g. ["ICICI Bank","10.75% – 19%","Up to 2.5%","6 yrs"].
+  // Lender rates &ndash; currently HDFC Bank only. To add more lenders later,
+  // append rows to any array, e.g. ["ICICI Bank","10.75% &ndash; 19%","Up to 2.5%","6 yrs"].
   var RATES = {
-    "Personal Loan":[["HDFC Bank","10.50% – 21%","Up to 2.5%","6 yrs"]],
-    "Business Loan":[["HDFC Bank","14.00% – 22%","Up to 2.5%","4 yrs"]],
-    "Home Loan":[["HDFC Bank","8.60% – 9.50%","Up to 0.50%","30 yrs"]],
-    "Gold Loan":[["HDFC Bank","9.00% – 16%","Up to 1%","3 yrs"]],
-    "Car Loan":[["HDFC Bank","9.40% – 12%","Up to 1%","7 yrs"]],
-    "Education Loan":[["HDFC Bank","9.50% – 12.5%","Up to 1%","15 yrs"]]
+    "Personal Loan":[["HDFC Bank","10.50% &ndash; 21%","Up to 2.5%","6 yrs"]],
+    "Business Loan":[["HDFC Bank","14.00% &ndash; 22%","Up to 2.5%","4 yrs"]],
+    "Home Loan":[["HDFC Bank","8.60% &ndash; 9.50%","Up to 0.50%","30 yrs"]],
+    "Gold Loan":[["HDFC Bank","9.00% &ndash; 16%","Up to 1%","3 yrs"]],
+    "Car Loan":[["HDFC Bank","9.40% &ndash; 12%","Up to 1%","7 yrs"]],
+    "Education Loan":[["HDFC Bank","9.50% &ndash; 12.5%","Up to 1%","15 yrs"]]
   };
   // type comparison table
   document.getElementById('typeBody').innerHTML = TYPES.map(function(t){

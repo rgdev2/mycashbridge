@@ -3,7 +3,7 @@
 const { Router } = require("express");
 const { leadLimiter }  = require("../middleware/rateLimiter");
 const { validateLead } = require("../middleware/validate");
-const { getCollection } = require("../db/client");
+const { getCollectionByCategory, getMasterCollection } = require("../db/client");
 
 const router = Router();
 
@@ -18,11 +18,12 @@ const router = Router();
  */
 router.post("/api/lead", leadLimiter, validateLead, async (req, res) => {
   const { name, mobile, city, monthly_income, employment,
-          product_type, loan_amount, source_page,
+          product_type, service_category, loan_amount, source_page,
           utm_source, utm_medium, utm_campaign } = req.leadData;
 
   try {
-    const col = getCollection();
+    // Route to the collection matching the service category (loans / insurance / cards / investments / general)
+    const col = getCollectionByCategory(service_category);
 
     // 10-minute deduplication: same mobile → silently accept but don't double-record
     const tenMinsAgo = new Date(Date.now() - 10 * 60 * 1000);
@@ -42,6 +43,7 @@ router.post("/api/lead", leadLimiter, validateLead, async (req, res) => {
       monthly_income,
       employment,
       product_type,
+      service_category,   // e.g. "loans", "insurance", "cards", "investments", "general"
       loan_amount,
       source_page,
       utm_source,
@@ -53,6 +55,12 @@ router.post("/api/lead", leadLimiter, validateLead, async (req, res) => {
     };
 
     await col.insertOne(doc);
+
+    // Also write to master leads collection (all services in one place, filterable by service_category)
+    try {
+      await getMasterCollection().insertOne(Object.assign({}, doc));
+    } catch (_) { /* master write failure must not block the primary response */ }
+
     res.status(200).json({ ok: true });
 
   } catch (err) {

@@ -65,21 +65,27 @@ function validateLead(req, res, next) {
     return res.status(400).json({ error: "Invalid mobile — enter a 10-digit Indian mobile number." });
   }
 
+  const product_type = sanitize(
+    req.body.loan_type      ||
+    req.body.insurance_type ||
+    req.body.card_type      ||
+    req.body.invest_type    ||
+    req.body.product_type   ||
+    "General", 100
+  );
+
+  // Derive service_category so the route handler stores data in the right collection
+  const service_category = resolveCategory(product_type);
+
   // Attach sanitized data so the route handler doesn't touch req.body directly
   req.leadData = {
     name,
     mobile,
     city,
-    monthly_income: sanitize(req.body.monthly_income, 50),
-    employment:     sanitize(req.body.employment,     50),
-    product_type:   sanitize(
-      req.body.loan_type      ||
-      req.body.insurance_type ||
-      req.body.card_type      ||
-      req.body.invest_type    ||
-      req.body.product_type   ||
-      "General", 100
-    ),
+    monthly_income:   sanitize(req.body.monthly_income, 50),
+    employment:       sanitize(req.body.employment,     50),
+    product_type,
+    service_category,
     loan_amount:  sanitize(String(req.body.loan_amount || ""), 30),
     source_page:  sanitize(req.body.source_page, 200),
     utm_source:   sanitize(req.body.utm_source,  100),
@@ -90,4 +96,28 @@ function validateLead(req, res, next) {
   next();
 }
 
-module.exports = { sanitize, isValidMobile, isValidName, validateLead };
+/**
+ * Map a product_type string to a stable service category.
+ * This determines which MongoDB collection the lead is stored in.
+ */
+function resolveCategory(product_type) {
+  const pt = (product_type || "").toLowerCase();
+
+  // Cards first — "card" contains "car" which would falsely match the loan regex
+  if (/credit.?card|debit.?card|cashback|reward.?card|secured.?card|travel.?card|\bcard\b/.test(pt)) {
+    return "cards";
+  }
+  if (/invest|mutual.?fund|sip|demat|stock|equity|portfolio/.test(pt)) {
+    return "investments";
+  }
+  // "car loan", "car auto" etc — use \bcar\b so "card" doesn't match
+  if (/loan|mortgage|lap|gold|\bcar\b|auto|vehicle|education|student|property/.test(pt)) {
+    return "loans";
+  }
+  if (/insurance|health|life|motor|travel|term|ulip/.test(pt)) {
+    return "insurance";
+  }
+  return "general";
+}
+
+module.exports = { sanitize, isValidMobile, isValidName, validateLead, resolveCategory };
