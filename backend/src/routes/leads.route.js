@@ -1,9 +1,79 @@
 "use strict";
 
 const { Router } = require("express");
+const https      = require("https");
+const http       = require("http");
+const { URL }    = require("url");
 const { leadLimiter }  = require("../middleware/rateLimiter");
 const { validateLead } = require("../middleware/validate");
 const { getCollectionByCategory, getMasterCollection } = require("../db/client");
+
+/**
+ * forwardToDomesticLMS — fire-and-forget forward to domestic LMS intake API.
+ * Called after our own DB write succeeds.
+ * Never blocks the response to the user.
+ * All errors are caught and logged only.
+ */
+function forwardToDomesticLMS(doc) {
+  const baseUrl = process.env.DOMESTIC_LMS_URL;
+  const apiKey  = process.env.DOMESTIC_LMS_API_KEY;
+
+  if (!baseUrl || !apiKey) {
+    // Domestic LMS not configured — skip silently
+    return;
+  }
+
+  const payload = JSON.stringify({
+    name:           doc.name           || "",
+    mobile:         doc.mobile         || "",
+    city:           doc.city           || "",
+    monthly_income: doc.monthly_income || "",
+    employment:     doc.employment     || "",
+    product_type:   doc.product_type   || "General enquiry",
+    source_page:    doc.source_page    || "",
+    utm_source:     doc.utm_source     || "",
+    utm_medium:     doc.utm_medium     || "",
+    utm_campaign:   doc.utm_campaign   || "",
+    _hp:            "",  // honeypot always empty from server
+  });
+
+  try {
+    const parsed   = new URL(baseUrl + "/domestic-api/intake/lead");
+    const lib      = parsed.protocol === "https:" ? https : http;
+    const options  = {
+      hostname: parsed.hostname,
+      port:     parsed.port || (parsed.protocol === "https:" ? 443 : 80),
+      path:     parsed.pathname,
+      method:   "POST",
+      headers: {
+        "Content-Type":   "application/json",
+        "Content-Length": Buffer.byteLength(payload),
+        "x-api-key":      apiKey,
+      },
+    };
+
+    const req = lib.request(options, (res) => {
+      res.resume(); // drain the response
+      if (res.statusCode !== 200) {
+        console.warn("[DomesticLMS] Intake returned status:", res.statusCode);
+      }
+    });
+
+    req.on("error", (err) => {
+      console.error("[DomesticLMS] Forward error:", err.message);
+    });
+
+    req.setTimeout(8000, () => {
+      req.destroy();
+      console.warn("[DomesticLMS] Forward request timed out.");
+    });
+
+    req.write(payload);
+    req.end();
+  } catch (err) {
+    console.error("[DomesticLMS] Forward setup error:", err.message);
+  }
+}
 
 const router = Router();
 
@@ -60,6 +130,9 @@ router.post("/api/lead", leadLimiter, validateLead, async (req, res) => {
     try {
       await getMasterCollection().insertOne(Object.assign({}, doc));
     } catch (_) { /* master write failure must not block the primary response */ }
+
+    // Forward lead to Domestic LMS (fire-and-forget — website keeps its own copy regardless)
+    forwardToDomesticLMS(doc);
 
     res.status(200).json({ ok: true });
 
