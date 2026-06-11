@@ -279,6 +279,7 @@ h1,h2,h3 { letter-spacing: -.01em; margin: 0; }
 .testi-who { display: flex; align-items: center; gap: 10px; }
 /* rounded-square avatar matching screenshot */
 .testi-av { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; color: #fff; flex-shrink: 0; letter-spacing: .5px; }
+img.testi-av { object-fit: cover; display: block; }
 .testi-name { font-weight: 700; font-size: 13.5px; color: var(--text-strong); line-height: 1.3; }
 .testi-meta { font-size: 11.5px; color: #888; margin-top: 2px; }
 .testi-right { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; flex-shrink: 0; }
@@ -815,7 +816,7 @@ a.prod:hover .go i, a.tool:hover .go i { transform: translateX(3px); }
    ============================================================ */
 @media (prefers-reduced-motion: no-preference) {
   /* hero cards breathe gently */
-  .cb-anim .hero .emi, .cb-anim .hero .elig-card { animation: cbFloat 7s ease-in-out infinite; }
+  .cb-anim .hero .emi, .cb-gsap .hero .emi, .cb-anim .hero .elig-card, .cb-gsap .hero .elig-card { animation: cbFloat 7s ease-in-out infinite; }
   @keyframes cbFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
 
   /* aspiration medallion: slow rotating ceremony ring */
@@ -1239,3 +1240,51 @@ input.qb-range {
 }
 .cert-status::before { content: ""; width: 6px; height: 6px; border-radius: 50%;
   background: var(--green-accent); display: inline-block; }
+/* ============================================================
+   MASCOT ("Cash", the CashBridge helper) + HINGLISH SLOGANS
+   Plain <img> tags reference assets/mascots/*.png. Site-wide
+   bridge slogan band is injected from site.js (every page).
+   ============================================================ */
+.mascot { display:block; height:auto; pointer-events:none; user-select:none;
+  filter: drop-shadow(0 16px 22px rgba(10,94,58,.16)); }
+
+/* --- site-wide bridge slogan band (above the why-strip, every page) --- */
+.bridge-band { background: var(--aqua); border-top: 1px solid rgba(10,94,58,.08); }
+.bridge-band-inner { display:flex; align-items:center; justify-content:center; gap:26px; padding:16px 0; flex-wrap:wrap; text-align:center; }
+.bridge-band .bb-mascot { width:116px; align-self:flex-end; margin-bottom:-16px; }
+.bridge-band .bb-text { text-align:left; max-width:600px; }
+.bridge-band .bb-kicker { font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.14em; color:var(--green-accent); }
+.bridge-band .bb-slogan { font-size:22px; font-weight:700; color:var(--green-primary); letter-spacing:-.01em; line-height:1.28; margin-top:4px; }
+.bridge-band .bb-slogan b { color:var(--green-deep); }
+@media (max-width:640px){ .bridge-band .bb-text { text-align:center; } .bridge-band .bb-mascot { width:96px; margin-bottom:-12px; } .bridge-band .bb-slogan { font-size:18px; } }
+
+/* --- homepage slogan ribbon (mascot + big Hinglish quote) --- */
+.slogan-ribbon { display:flex; align-items:center; gap:36px; background:var(--white); border:1px solid var(--hairline);
+  border-radius:var(--radius-card); padding:24px 40px 24px 30px; box-shadow:var(--shadow-card); }
+.slogan-ribbon .sr-mascot { width:166px; flex:none; align-self:center; display:block; }
+.slogan-ribbon .sr-quote { font-size:26px; font-weight:700; color:var(--green-primary); letter-spacing:-.01em; line-height:1.3; margin:8px 0 0; }
+.slogan-ribbon .sr-quote b { color:var(--green-accent); }
+.slogan-ribbon .sr-sub { font-size:15px; font-weight:600; font-style:italic; color:var(--text-soft); margin:12px 0 0; }
+@media (max-width:760px){ .slogan-ribbon { flex-direction:column; gap:14px; text-align:center; padding:24px; }
+  .slogan-ribbon .sr-mascot { margin:0 auto; width:150px; } .slogan-ribbon .sr-quote { font-size:21px; } }
+
+/* --- mascot inside the aqua "how it works" band --- */
+.how-mascot { width:150px; margin:22px 0 0; }
+@media (max-width:900px){ .how-mascot { display:none; } }
+
+/* --- mascot inside the "why us" section header --- */
+.sec-head-mascot { display:flex; align-items:flex-end; gap:20px; }
+.sec-head-mascot .shm-img { width:104px; flex:none; }
+@media (max-width:600px){ .sec-head-mascot .shm-img { display:none; } }
+
+/* --- mascot on the green CTA strip + Hinglish line --- */
+.cta-strip { position: relative; overflow: hidden; }
+.cta-strip .cta-mascot { position:absolute; left:30px; bottom:0; width:150px; filter: drop-shadow(0 10px 18px rgba(0,0,0,.25)); }
+.cta-strip .cta-hinglish { color: var(--brand-lime); font-weight:700; font-style:italic; font-size:16px; margin:0 auto 18px; max-width:560px; }
+@media (max-width:920px){ .cta-strip .cta-mascot { display:none; } }
+
+/* gentle, reduced-motion-safe bob (matches the site's existing float motion) */
+@media (prefers-reduced-motion: no-preference) {
+  .cb-anim .sr-mascot, .cb-gsap .sr-mascot, .cb-anim .bb-mascot, .cb-gsap .bb-mascot, .cb-anim .how-mascot, .cb-gsap .how-mascot { animation: cbMascotBob 6s ease-in-out infinite; }
+  @keyframes cbMascotBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+}

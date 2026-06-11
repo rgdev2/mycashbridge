@@ -1,12 +1,25 @@
 <svg width="310" height="48" viewBox="0 0 310 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MyCashBridge.com">
-  <circle cx="24" cy="24" r="20" fill="#9AEF5E"></circle>
-  <circle cx="24" cy="24" r="20" fill="none" stroke="#cba258" stroke-width="1.5" stroke-dasharray="2 3" opacity="0.6"></circle>
-  <g stroke="#0a5e3a" stroke-width="2.4" stroke-linecap="round" fill="none">
-    <path d="M12 29 L36 29"></path>
-    <path d="M13 29 C16 18, 32 18, 35 29"></path>
-    <path d="M19 23.4 L19 29"></path>
-    <path d="M24 21.8 L24 29"></path>
-    <path d="M29 23.4 L29 29"></path>
+  <defs>
+    <linearGradient id="mcbw-m" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1d3bd1"/>
+      <stop offset="1" stop-color="#0a1f96"/>
+    </linearGradient>
+    <linearGradient id="mcbw-c" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#17d6c4"/>
+      <stop offset="1" stop-color="#0795b4"/>
+    </linearGradient>
+    <linearGradient id="mcbw-b" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0d8a43"/>
+      <stop offset="1" stop-color="#7ed321"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(-9,-11.8) scale(0.14)">
+    <g stroke="url(#mcbw-b)" stroke-width="44" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M 330 172 h 40 a 42 42 0 0 1 0 84 h -40"/>
+      <path d="M 330 256 h 40 a 42 42 0 0 1 0 84 h -40"/>
+    </g>
+    <path d="M 352 190 A 88 88 0 1 0 352 322" stroke="url(#mcbw-c)" stroke-width="44" stroke-linecap="round" fill="none"/>
+    <path d="M 102 330 L 102 188 L 180 274 L 256 190" stroke="url(#mcbw-m)" stroke-width="46" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   </g>
   <text x="56" y="31" font-family="Manrope, Helvetica, Arial, sans-serif" font-weight="800" letter-spacing="-0.02em">
     <tspan font-size="23" fill="#0a5e3a">My</tspan><tspan font-size="23" fill="#0a5e3a">Cash</tspan><tspan font-size="23" fill="#0c7a4e">Bridge</tspan><tspan font-size="13" font-weight="700" fill="#0c7a4e" dy="-0.5">.com</tspan>
