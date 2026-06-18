@@ -1288,3 +1288,61 @@ input.qb-range {
   .cb-anim .sr-mascot, .cb-gsap .sr-mascot, .cb-anim .bb-mascot, .cb-gsap .bb-mascot, .cb-anim .how-mascot, .cb-gsap .how-mascot { animation: cbMascotBob 6s ease-in-out infinite; }
   @keyframes cbMascotBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 }
+
+/* ============================================================
+   SETU + SPLIT-LOGO  (appended by handoff migration)
+   Only selectors not already defined above live here.
+   ============================================================ */
+
+/* ---------- split lockup: MCB mark + separate wordmark ---------- */
+.cb-logo-link { display:flex; align-items:center; text-decoration:none; }
+.cb-logo { display:flex; align-items:center; gap:10px; }
+.cb-mark { height:38px; width:auto; display:block; flex:none; }
+/* beat the legacy ".nav-logo img { height:110px }" rule */
+.nav-logo .cb-mark { height:38px; }
+.cb-word { display:flex; flex-direction:column; line-height:1.05; }
+.cb-name { font-weight:800; font-size:21px; letter-spacing:-.02em; color:var(--green-primary); white-space:nowrap; }
+.cb-tld { font-size:.58em; font-weight:700; color:var(--green-accent); letter-spacing:0; }
+.cb-tag { font-size:10.5px; font-weight:600; font-style:italic; letter-spacing:.01em; color:var(--text-soft); white-space:nowrap; }
+@media (max-width:520px){ .cb-mark, .nav-logo .cb-mark { height:34px; } .cb-name { font-size:19px; } .cb-tag { font-size:10px; } }
+/* footer variant (larger, on aqua) */
+.cb-logo-foot .cb-mark { height:50px; }
+.cb-logo-foot .cb-name { font-size:24px; }
+.cb-logo-foot .cb-tag { font-size:11.5px; }
+
+/* ---------- Setu on success screens (replaces the old check-ring) ---------- */
+.thanks-setu { display:block; width:134px; height:auto; margin:0 auto 8px; }
+@media (max-width:560px){ .thanks-setu { width:108px; } }
+.thanks.show .thanks-setu, .qb-thanks.show .thanks-setu { animation: cbSetuPop .55s cubic-bezier(.32,1.55,.6,1) both; }
+@keyframes cbSetuPop { 0% { opacity:0; transform:translateY(16px) scale(.6); } 60% { opacity:1; } 100% { opacity:1; transform:none; } }
+@media (prefers-reduced-motion: reduce){ .thanks.show .thanks-setu, .qb-thanks.show .thanks-setu { animation:none; } }
+
+/* ---------- Setu avatar in the quick-apply popup header ---------- */
+.qb-avatar { width:42px; height:42px; flex:none; margin-left:auto; align-self:center; }
+
+/* ---------- breadcrumb greeter chip (interior pages) ---------- */
+.phead .wrap { display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+.phead .crumb { flex:1 1 auto; order:1; }
+.phead-greet { order:2; display:flex; align-items:center; gap:8px; background:var(--aqua);
+  border:1px solid rgba(10,94,58,.12); border-radius:999px; padding:6px 22px 6px 10px;
+  box-shadow:0 6px 18px rgba(10,94,58,.10); }
+.phead-greet img { width:82px; height:82px; flex:none; display:block; margin:-20px -2px -14px -4px; }
+.cb-anim .phead-greet img { animation: cbGreetIn .6s cubic-bezier(.32,1.4,.5,1) both, cbMascotBob 6.5s ease-in-out 0.6s infinite; }
+@keyframes cbGreetIn { 0% { opacity:0; transform:translateY(10px) scale(.7) rotate(-6deg); } 100% { opacity:1; transform:none; } }
+.phead-greet .pg-label { display:flex; flex-direction:column; line-height:1.25; font-size:13px; color:var(--text-soft); font-weight:600; }
+.phead-greet .pg-label b { font-size:15px; font-weight:800; color:var(--green-primary); letter-spacing:-.01em; }
+@media (max-width:600px){ .phead .wrap { justify-content:center; } .phead-greet { padding:5px 18px 5px 8px; } .phead-greet img { width:68px; height:68px; } .phead-greet .pg-label b { font-size:14px; } }
+
+/* ---------- loan 'how to apply' band: Setu beside the heading ---------- */
+.band .wrap { position:relative; }
+.steps-setu { float:right; width:128px; margin:-6px 0 8px 24px; shape-outside:circle(50%);
+  filter:drop-shadow(0 12px 18px rgba(10,94,58,.16)); }
+.cb-anim .steps-setu { animation: cbMascotBob 6.5s ease-in-out infinite; }
+@media (max-width:720px){ .steps-setu { width:96px; margin:0 0 4px 14px; } }
+
+/* ---------- guide article hero: Setu on the right ---------- */
+.art-hero .wrap { position:relative; }
+.art-hero-setu { position:absolute; right:8px; top:50%; transform:translateY(-50%); width:150px; z-index:2; pointer-events:none;
+  filter:drop-shadow(0 12px 20px rgba(10,94,58,.16)); }
+.cb-anim .art-hero-setu { animation: cbMascotBob 7s ease-in-out infinite; }
+@media (max-width:880px){ .art-hero-setu { display:none; } }
