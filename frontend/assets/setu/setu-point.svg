@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 300" width="260" height="300" role="img" aria-label="Setu the elephant">
+  <g id="legs">
+    <rect x="96" y="232" width="28" height="48" rx="13" fill="#7FBF8C" stroke="#184E2E" stroke-width="5"></rect>
+    <rect x="138" y="232" width="28" height="48" rx="13" fill="#7FBF8C" stroke="#184E2E" stroke-width="5"></rect>
+    <ellipse cx="110" cy="277" rx="15" ry="7" fill="#F4F1E8" stroke="#184E2E" stroke-width="5"></ellipse>
+    <ellipse cx="152" cy="277" rx="15" ry="7" fill="#F4F1E8" stroke="#184E2E" stroke-width="5"></ellipse>
+  </g>
+  <g id="ear-left">
+    <ellipse cx="64" cy="126" rx="40" ry="50" fill="#5FA06E" stroke="#184E2E" stroke-width="5"></ellipse>
+    <ellipse cx="72" cy="128" rx="21" ry="30" fill="#F4F1E8"></ellipse>
+  </g>
+  <g id="ear-right">
+    <ellipse cx="196" cy="126" rx="40" ry="50" fill="#5FA06E" stroke="#184E2E" stroke-width="5"></ellipse>
+    <ellipse cx="188" cy="128" rx="21" ry="30" fill="#F4F1E8"></ellipse>
+  </g>
+  <g id="body">
+    <ellipse cx="130" cy="214" rx="60" ry="56" fill="#7FBF8C" stroke="#184E2E" stroke-width="5"></ellipse>
+    <path d="M130 170 q33 8 35 44 q-3 35 -35 39 q-32 -4 -35 -39 q2 -36 35 -44 Z" fill="#F4F1E8"></path>
+  </g>
+  <g id="scarf">
+    <path d="M80 180 q50 30 100 0 l3 17 q-53 32 -106 0 Z" fill="#74D04C" stroke="#184E2E" stroke-width="4.5" stroke-linejoin="round"></path>
+    <path d="M174 186 l21 7 -4 20 -20 -12 Z" fill="#74D04C" stroke="#184E2E" stroke-width="4.5" stroke-linejoin="round"></path>
+    <path d="M150 195 q9 5 19 3" fill="none" stroke="#5BB03B" stroke-width="3" stroke-linecap="round"></path>
+  </g>
+  <ellipse id="head" cx="130" cy="120" rx="68" ry="70" fill="#7FBF8C" stroke="#184E2E" stroke-width="5"></ellipse>
+  <g id="trunk">
+    <path fill="none" stroke="#184E2E" stroke-width="27" stroke-linecap="round" d="M128 150 C 150 156, 180 156, 208 150 S 244 140, 252 140"></path>
+    <path fill="none" stroke="#7FBF8C" stroke-width="18" stroke-linecap="round" d="M128 150 C 150 156, 180 156, 208 150 S 244 140, 252 140"></path>
+    <circle cx="252" cy="140" r="9" fill="#F4F1E8" stroke="#184E2E" stroke-width="4"></circle>
+  </g>
+  <g id="face">
+    <circle cx="106" cy="115" r="16" fill="#F4F1E8"></circle>
+    <circle cx="154" cy="115" r="16" fill="#F4F1E8"></circle>
+    <circle cx="112" cy="116" r="8.5" fill="#184E2E"></circle>
+    <circle cx="154" cy="116" r="8.5" fill="#184E2E"></circle>
+    <circle cx="115" cy="112" r="3" fill="#fff"></circle>
+    <circle cx="157" cy="112" r="3" fill="#fff"></circle>
+    <path d="M93 94 q12 -7 25 -2" fill="none" stroke="#184E2E" stroke-width="4.5" stroke-linecap="round"></path>
+    <path d="M142 92 q13 -5 25 2" fill="none" stroke="#184E2E" stroke-width="4.5" stroke-linecap="round"></path>
+    <path d="M120 152 q11 10 22 0" fill="none" stroke="#184E2E" stroke-width="4.5" stroke-linecap="round"></path>
+  </g>
+</svg>

@@ -29,6 +29,16 @@
   })();
   /* logo source — uses the standalone bundler's inlined blob when present, else the normal asset path */
   function LOGO_SRC() { return (window.__resources && window.__resources.cbLogo) || (BASE + "assets/looogogogog.png"); }
+  /* split lockup: MCB mark image + separate live wordmark text */
+  function MARK_SRC() { return (window.__resources && window.__resources.cbMark) || (BASE + "assets/mcb-mark.png"); }
+  function logoLockup(cls) {
+    return '<span class="cb-logo ' + (cls || '') + '">' +
+        '<img class="cb-mark" src="' + MARK_SRC() + '" alt="' + CFG.brand + '" ' +
+        'onerror="this.onerror=null;this.src=\'' + BASE + 'assets/logo-cashbridge-mark.svg\'">' +
+        '<span class="cb-word"><span class="cb-name">MyCashBridge<span class="cb-tld">.com</span></span>' +
+        '<span class="cb-tag">' + CFG.tagline + '</span></span>' +
+      '</span>';
+  }
 
   /* ---------------- catalogues ---------------- */
   var LOANS = [
@@ -1550,7 +1560,7 @@
     '<div class="topstrip"><span data-i18n="top.msg">New here? Check your eligibility in 10 seconds — it won\'t affect your credit score.</span>' +
       '<a href="' + BASE + 'tools/eligibility.html" data-i18n="top.cta">Check now</a></div>' +
     '<header class="nav"><div class="nav-inner">' +
-      '<a class="nav-logo lockup" href="' + BASE + 'index.html"><img src="' + LOGO_SRC() + '" alt="' + CFG.brand + '"></a>' +
+      '<a class="nav-logo cb-logo-link" href="' + BASE + 'index.html">' + logoLockup() + '</a>' +
       '<nav class="nav-links">' +
         dropdown("Loans", "nav.loans", BASE + "index.html#loans", dropItems(LOANS, "loans")) +
         dropdown("Credit Cards", "nav.cards", BASE + "pages/credit-cards.html", dropItems(CARDS, "pages"), true) +
@@ -1576,7 +1586,7 @@
   }
   function drawerHTML() {
     return '<div class="drawer" id="drawer"><div class="drawer-scrim" data-drawer-close></div><div class="drawer-panel">' +
-      '<div class="drawer-head"><img src="' + LOGO_SRC() + '" alt="' + CFG.brand + '"><button class="drawer-close" data-drawer-close><i data-lucide="x"></i></button></div>' +
+      '<div class="drawer-head">' + logoLockup() + '<button class="drawer-close" data-drawer-close><i data-lucide="x"></i></button></div>' +
       '<div class="drawer-group" style="display:flex;gap:8px;border-top:none"><div class="lang-toggle" data-no-i18n><button data-l="en" data-setlang="en">EN</button><button data-l="hi" data-setlang="hi">हिं</button></div></div>' +
       drawerAcc("Loans", LOANS, "loans") +
       drawerAcc("Credit Cards", CARDS, "pages") +
@@ -1632,7 +1642,7 @@
      ============================================================ */
   function bridgeBandHTML() {
     return '<section class="bridge-band"><div class="wrap bridge-band-inner">' +
-      '<img class="mascot bb-mascot" src="' + BASE + 'assets/mascots/mascot-walk.png" alt="" aria-hidden="true">' +
+      '<img class="mascot bb-mascot" src="' + BASE + 'assets/setu/setu-hero.svg" alt="" aria-hidden="true">' +
       '<div class="bb-text">' +
         '<span class="bb-kicker">' + CFG.tagline + '</span>' +
         '<p class="bb-slogan">Hum sirf loan nahi, <b>financial support ka bridge</b> banate hain.</p>' +
@@ -1654,7 +1664,7 @@
     ].map(function (p) { return '<a href="' + BASE + 'pages/' + p[0] + '.html">' + p[1] + '</a>'; }).join("");
     return '<footer class="footer"><div class="wrap footer-grid cols5">' +
       '<div>' +
-        '<img src="' + LOGO_SRC() + '" alt="' + CFG.brand + '" class="footer-logo">' +
+        '' + logoLockup('cb-logo-foot') +
         '<p class="desc">A Lending Service Provider (LSP) helping you compare and apply for loans, cards and more from leading banks & NBFCs — with clear EMIs and honest guidance.</p>' +
         '<div class="cert-strip">' +
           '<div class="cert-badge"><div class="cert-icon"><i data-lucide="shield-check"></i></div><div class="cert-info"><span class="cert-name">ISO 27001</span><span class="cert-label">Certified</span></div></div>' +
@@ -1720,7 +1730,7 @@
   window.cbFormFields = formFieldsHTML;
   function thanksHTML() {
     return '<div class="thanks"><div class="confetti"></div>' +
-      '<svg class="check-ring" viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="46"></circle><circle class="ring" cx="50" cy="50" r="42"></circle><path class="tick" d="M32 51 L45 64 L69 38"></path></svg>' +
+      '<img class="thanks-setu" src="' + BASE + 'assets/setu/setu-celebrate.svg" alt="" aria-hidden="true">' +
       '<h3 data-i18n="thanks.title">' + CFG.thanksTitle + '</h3><p data-i18n="thanks.body">' + CFG.thanksBody + '</p><div class="ref"></div></div>';
   }
   window.cbThanksHTML = thanksHTML;
@@ -2439,6 +2449,7 @@
       '<div class="qb-box">' +
         '<div class="qb-header">' +
           '<div class="qb-brand"><span class="qb-brand-name">MyCashBridge</span><span class="qb-brand-tag">Aapke Sapno Ka Financial Saathi</span></div>' +
+          '<img class="qb-avatar" src="' + BASE + 'assets/setu/setu-hero.svg" alt="" aria-hidden="true">' +
           '<button class="qb-close" id="qbClose" aria-label="Close" style="display:none"><i data-lucide="x"></i></button>' +
         '</div>' +
         '<div class="qb-progress"><div class="qb-progress-fill" style="width:0%"></div></div>' +
@@ -2455,7 +2466,7 @@
         '</div>' +
         '<div class="qb-thanks">' +
           '<div class="confetti"></div>' +
-          '<svg class="check-ring" viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="46"></circle><circle class="ring" cx="50" cy="50" r="42"></circle><path class="tick" d="M32 51 L45 64 L69 38"></path></svg>' +
+          '<img class="thanks-setu" src="' + BASE + 'assets/setu/setu-celebrate.svg" alt="" aria-hidden="true">' +
           '<h3>You\'re all set! 🎉</h3>' +
           '<p>A MyCashBridge expert will call you within <strong>24 hours</strong> with the best offers. Keep your phone handy.</p>' +
           '<div class="qb-ref"></div>' +
