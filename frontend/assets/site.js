@@ -1658,9 +1658,9 @@
     var prodLinks = '<a href="' + BASE + 'pages/credit-cards.html">Credit Cards</a><a href="' + BASE + 'pages/insurance.html">Insurance</a><a href="' + BASE + 'pages/investments.html">Investments</a><a href="' + BASE + 'tools/compare.html">Compare</a>';
     var guideLinks = '<a href="' + BASE + 'guides/best-personal-loan-india.html">Best Personal Loan</a><a href="' + BASE + 'guides/loan-for-low-cibil.html">Loan for Low CIBIL</a><a href="' + BASE + 'guides/business-loan-for-msme.html">Business Loan for MSMEs</a><a href="' + BASE + 'guides/how-to-improve-credit-score.html">Improve Credit Score</a>';
     var legal = [
-      ["privacy-policy", "Privacy Policy"], ["terms", "Terms & Conditions"], ["disclaimer", "Disclaimer"],
-      ["grievance", "Grievance Redressal"], ["cookie-policy", "Cookie Policy"], ["refund-policy", "Refund & Cancellation"],
-      ["fair-practices", "Fair Practices Code"], ["consent-policy", "Consent & Communication"]
+      ["privacy-policy", "Privacy Policy"], ["user-rights", "Your Rights (DPDP)"], ["terms", "Terms & Conditions"], ["disclaimer", "Disclaimer"],
+      ["grievance", "Grievance Redressal"], ["partner-lenders", "Partner Lenders & Disclosures"], ["cookie-policy", "Cookie Policy"], ["refund-policy", "Refund & Cancellation"],
+      ["data-retention", "Data Retention Policy"], ["data-breach", "Data Breach Policy"], ["fair-practices", "Fair Practices Code"], ["consent-policy", "Consent & Communication"]
     ].map(function (p) { return '<a href="' + BASE + 'pages/' + p[0] + '.html">' + p[1] + '</a>'; }).join("");
     return '<footer class="footer"><div class="wrap footer-grid cols5">' +
       '<div>' +
