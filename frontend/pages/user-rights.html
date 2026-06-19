@@ -61,7 +61,14 @@
         <button class="btn btn-filled btn-lg" type="submit" style="margin-top:18px"><span class="btn-label"><i data-lucide="send"></i> Submit request</span></button>
         <p class="req-note"><i data-lucide="lock"></i> Submitted securely. We acknowledge requests within 48 hours and aim to resolve them within 30 days.</p>
       </form>
-      <div class="req-sent" id="rightsSent"><i data-lucide="check-circle"></i> <span>Thank you &ndash; your request has been received. Our team will verify your registered mobile number and respond within 48 hours.</span></div>
+      <div class="req-sent" id="rightsSent">
+        <i data-lucide="check-circle"></i>
+        <span>Thank you &ndash; your request has been received. Our team will verify your registered mobile number and respond within 30 days as required by the DPDP Act 2023.</span>
+        <div class="dsr-ticket-ref" hidden style="margin-top:10px;padding:8px 12px;background:#f0faf4;border:1px solid #c3e6cb;border-radius:6px;font-size:13px;color:#155724">
+          Your reference number: <strong id="dsrTicketId"></strong><br>
+          <small>Please save this for future reference. You may use it to check the status of your request.</small>
+        </div>
+      </div>
 
       <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap"><a class="btn btn-outline" href="grievance.html"><i data-lucide="life-buoy"></i> Raise a grievance</a><a class="btn btn-filled" href="privacy-policy.html"><i data-lucide="file-text"></i> Read the Privacy Policy</a></div>
     </div>
@@ -70,21 +77,59 @@
 <div data-mount="footer"></div>
 <script src="../assets/site.js"></script>
 <script>
+/*
+ * Phase 3 + Phase 4 — DSR Form Handler
+ * Replaced formsubmit.co with first-party /api/dsr/create endpoint.
+ * All rights requests are now tracked in MongoDB with ticket IDs,
+ * audit trails, and acknowledgement emails per DPDP Act 2023 s.11.
+ */
 (function () {
   var form = document.getElementById('rightsForm'), sent = document.getElementById('rightsSent');
   if (!form) return;
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var mobile = (form.mobile.value || '').replace(/\D/g, '');
-    if (!form.name.value.trim() || mobile.length !== 10) { alert('Please enter your name and a valid 10-digit registered mobile number.'); return; }
-    if (!form.consent.checked) { alert('Please confirm and authorise the request to continue.'); return; }
-    var payload = { name: form.name.value, mobile: mobile, email: form.email.value, request_type: form.request_type.value, details: form.details.value, _subject: 'DPDP data request - ' + form.request_type.value, submitted_at: new Date().toLocaleString('en-IN') };
-    try {
-      fetch('https://formsubmit.co/ajax/grievance@mycashbridge.com', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).catch(function () {});
-    } catch (err) {}
-    form.style.display = 'none';
-    sent.classList.add('show');
-    if (window.lucide) window.lucide.createIcons();
+    if (!form.name.value.trim() || mobile.length !== 10) {
+      alert('Please enter your name and a valid 10-digit registered mobile number.');
+      return;
+    }
+    if (!form.consent.checked) {
+      alert('Please confirm and authorise the request to continue.');
+      return;
+    }
+
+    var submitBtn = form.querySelector('button[type=submit]');
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
+
+    var payload = {
+      name:         form.name.value.trim(),
+      mobile:       mobile,
+      email:        form.email.value.trim(),
+      request_type: form.request_type.value,
+      details:      form.details.value.trim()
+    };
+
+    fetch('/api/dsr/create', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload)
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      form.style.display = 'none';
+      sent.classList.add('show');
+      /* Show ticket ID so data principal can track their request */
+      var ticketEl = document.getElementById('dsrTicketId');
+      if (ticketEl && data.ticketId) {
+        ticketEl.textContent = data.ticketId;
+        ticketEl.closest('.dsr-ticket-ref') && ticketEl.closest('.dsr-ticket-ref').removeAttribute('hidden');
+      }
+      if (window.lucide) window.lucide.createIcons();
+    })
+    .catch(function () {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Submit request'; }
+      alert('Could not submit your request. Please email grievance@mycashbridge.com with your request type and registered mobile number.');
+    });
   });
 })();
 </script>

@@ -37,6 +37,22 @@ const { connect, close } = require("./src/db/client");
 const healthRoute         = require("./src/routes/health.route");
 const leadsRoute          = require("./src/routes/leads.route");
 
+// ── DPDP Compliance Routes ──────────────────────────────────────────────────
+// Phase 3/4: Data Subject Rights — replaces FormSubmit dependency
+const dsrRoute            = require("./src/routes/dsr.route");
+// Phase 5:   Grievance management
+const grievanceRoute      = require("./src/routes/grievance.route");
+// Phase 8:   Cookie consent server-side evidence
+const cookieConsentRoute  = require("./src/routes/cookie-consent.route");
+// Phase 11:  Compliance admin reporting
+const adminRoute          = require("./src/routes/admin.route");
+
+// ── Retention job (Phase 6) ─────────────────────────────────────────────────
+const { startRetentionJob } = require("./src/jobs/retention.job");
+
+// ── Email service (Phase 4/5) ───────────────────────────────────────────────
+const { initMailer } = require("./src/utils/mailer");
+
 const PORT           = parseInt(process.env.PORT, 10) || 3001;
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN;
 if (!ALLOWED_ORIGIN) {
@@ -65,20 +81,42 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc:      ["'self'"],
-      scriptSrc:       ["'self'", "'unsafe-inline'"],   // unsafe-inline needed for inline tool scripts
-      styleSrc:        ["'self'", "'unsafe-inline'"],
+      scriptSrc:       ["'self'", "'unsafe-inline'"],   // unsafe-inline needed for inline page scripts
+      // Issue #1 Fix: allow Google Fonts stylesheet (loaded by colors_and_type.css @import)
+      styleSrc:        ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      // Issue #1 Fix: allow Google Fonts webfont files (served from fonts.gstatic.com)
+      fontSrc:         ["'self'", "https://fonts.gstatic.com"],
       imgSrc:          ["'self'", "data:", "blob:"],
-      connectSrc:      ["'self'", "https://formsubmit.co"],  // lead form fallback
-      fontSrc:         ["'self'"],
+      // Phase 9: Remove formsubmit.co from connectSrc — all forms now go to our own API
+      connectSrc:      ["'self'"],
       objectSrc:       ["'none'"],
       frameSrc:        ["'none'"],
       frameAncestors:  ["'self'"],
       formAction:      ["'self'"],
       baseUri:         ["'self'"],
+      upgradeInsecureRequests: [],
     },
   },
+  // Phase 9: Additional security headers
+  hsts: {
+    maxAge:            31536000, // 1 year
+    includeSubDomains: true,
+    preload:           true,
+  },
+  referrerPolicy: { policy: "strict-origin-when-cross-origin" },
   crossOriginEmbedderPolicy: false,  // allow fonts/images to load without COEP headers
+  crossOriginResourcePolicy: { policy: "same-site" },
 }));
+
+// Phase 9: Block direct access to sensitive server-side files
+// Prevents accidental exposure of README, .env, package-lock, config files
+app.use((req, res, next) => {
+  const blocked = /\.(env|md|lock|log)$|package\.json$|package-lock\.json$|\.git\//i;
+  if (blocked.test(req.path)) {
+    return res.status(404).send("Not found.");
+  }
+  next();
+});
 
 // CORS — restrict to configured origin
 if (ALLOWED_ORIGIN === "*") {
@@ -95,6 +133,12 @@ app.use(express.json({ limit: "10kb" }));
 // ── API Routes ───────────────────────────────────────────────
 app.use(healthRoute);
 app.use(leadsRoute);
+
+// DPDP Compliance Routes (Phases 3–5, 8, 11)
+app.use(dsrRoute);
+app.use(grievanceRoute);
+app.use(cookieConsentRoute);
+app.use(adminRoute);
 
 // ── Serve Frontend ───────────────────────────────────────────
 // The Express server serves the entire frontend/ folder as static files.
@@ -121,6 +165,12 @@ app.use((_req, res) => {
 // ── Start ────────────────────────────────────────────────────
 connect()
   .then(() => {
+    // Initialise optional email service (SMTP config in .env)
+    initMailer();
+
+    // Start daily retention job (runs at 02:00 server time)
+    startRetentionJob();
+
     const server = app.listen(PORT, () => {
       console.log(`\n  ╔══════════════════════════════════╗`);
       console.log(`  ║  MyCashBridge server running      ║`);
