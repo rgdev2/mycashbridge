@@ -91,6 +91,21 @@ function validateLead(req, res, next) {
     utm_source:   sanitize(req.body.utm_source,  100),
     utm_medium:   sanitize(req.body.utm_medium,  100),
     utm_campaign: sanitize(req.body.utm_campaign, 100),
+
+    // ── DPDP Act 2023 Phase 1: Consent Evidence Fields ─────────────────
+    // Extract client-provided consent metadata for server-side storage.
+    // The route handler will merge these with server-derived fields
+    // (IP, UA, timestamp) to build the full consent sub-document.
+    //
+    // consent_service:   boolean — required service consent checkbox
+    // consent_marketing: boolean — optional marketing consent checkbox
+    // consent_version:   string  — version of consent text shown to user
+    //
+    // Stored as a structured consent sub-document on every lead record.
+    // Existing records without a consent field remain valid (backward-compatible).
+    consent_service:   req.body.consent_service   === true || req.body.consent_service   === "true",
+    consent_marketing: req.body.consent_marketing === true || req.body.consent_marketing === "true",
+    consent_version:   sanitize(req.body.consent_version || "v1.0", 20),
   };
 
   next();

@@ -8,6 +8,10 @@ const { leadLimiter }  = require("../middleware/rateLimiter");
 const { validateLead } = require("../middleware/validate");
 const { getCollectionByCategory, getMasterCollection } = require("../db/client");
 
+// ── DPDP Phase 1: Consent evidence imports ─────────────────────────────────
+const { CONSENT_VERSION, SERVICE_CONSENT_HASH } = require("../utils/consent");
+const { logAudit } = require("../utils/audit");
+
 /**
  * forwardToDomesticLMS — fire-and-forget forward to domestic LMS intake API.
  * Called after our own DB write succeeds.
@@ -90,7 +94,6 @@ router.post("/api/lead", leadLimiter, validateLead, async (req, res) => {
   const { name, mobile, city, monthly_income, employment,
           product_type, service_category, loan_amount, source_page,
           utm_source, utm_medium, utm_campaign } = req.leadData;
-
   try {
     // Route to the collection matching the service category (loans / insurance / cards / investments / general)
     const col = getCollectionByCategory(service_category);
@@ -122,6 +125,31 @@ router.post("/api/lead", leadLimiter, validateLead, async (req, res) => {
       submitted_at: new Date(),
       ip:           req.ip,   // stored for fraud analysis, never exposed to client
       status:       "new",    // CRM states: new → contacted → converted
+
+      // ── DPDP Act 2023 Phase 1: Consent Evidence Sub-Document ──────────────
+      // Stores verifiable proof of consent at the moment of lead submission.
+      //
+      // Section 6 of DPDP Act 2023 requires that:
+      // - Consent be specific, informed, and freely given.
+      // - A record of consent must be maintained for audit purposes.
+      //
+      // serviceConsent is always true here because the form requires the checkbox.
+      // marketingConsent is optional — false does NOT block lead creation.
+      //
+      // Existing records without this sub-document remain valid (backward-compatible).
+      consent: {
+        serviceConsent:      req.leadData.consent_service !== false, // always true (form requires it)
+        marketingConsent:    !!req.leadData.consent_marketing,       // optional, defaults false
+        consentVersion:      req.leadData.consent_version || CONSENT_VERSION,
+        consentTimestamp:    new Date(),
+        consentIP:           req.ip,
+        consentUserAgent:    req.headers["user-agent"] || "",
+        consentChannel:      "website",
+        // SHA256 hash of the canonical service consent text bound to the version.
+        // If the consent text ever changes, the version bumps and the hash changes,
+        // creating an immutable link between what was shown and what was agreed to.
+        consentTextHash:     SERVICE_CONSENT_HASH,
+      },
     };
 
     await col.insertOne(doc);
@@ -133,6 +161,24 @@ router.post("/api/lead", leadLimiter, validateLead, async (req, res) => {
 
     // Forward lead to Domestic LMS (fire-and-forget — website keeps its own copy regardless)
     forwardToDomesticLMS(doc);
+
+    // ── DPDP Phase 7: Audit Log ──────────────────────────────────────────
+    // Log every lead creation for compliance audit trail.
+    // Fire-and-forget — audit failure must NOT block the lead response.
+    const { getDb } = require("../db/client");
+    logAudit(getDb(), {
+      action:   "LEAD_CREATED",
+      entity:   "leads",
+      entityId: doc._id ? doc._id.toString() : null,
+      ip:       req.ip,
+      userAgent: req.headers["user-agent"],
+      metadata: {
+        service_category,
+        product_type,
+        consentVersion: doc.consent.consentVersion,
+        marketingConsent: doc.consent.marketingConsent,
+      },
+    }).catch(() => {});
 
     res.status(200).json({ ok: true });
 

@@ -81,6 +81,48 @@
   window.CB_LOANS = LOANS;
 
   /* ============================================================
+     DPDP ACT 2023 — CONSENT CONSTANTS (Phase 1)
+     ============================================================
+     Version must match backend/src/utils/consent.js CONSENT_VERSION.
+     Bump both when consent text changes — triggers re-collection of consent.
+
+     These values are sent with every lead submission so the backend
+     can store verifiable proof of what was shown and agreed to.
+  */
+  var CONSENT_VERSION     = "v1.0";
+  var CONSENT_TEXT_SERVICE =
+    "I authorise " + CFG.brand + " and its partner banks/NBFCs to contact me regarding my " +
+    "loan enquiry via call, SMS, email or WhatsApp to process my application, and I accept " +
+    "the Terms & Conditions and Privacy Policy. This overrides my DND/NDNC registration.";
+
+  /* localStorage retry queue — replaces formsubmit.co fallback (Phase 3) */
+  function queueLeadForRetry(payload) {
+    try {
+      var q = JSON.parse(localStorage.getItem("cb_lead_queue") || "[]");
+      payload._queued_at = Date.now();
+      q.push(payload);
+      if (q.length > 5) q = q.slice(-5); // cap at 5 to prevent unbounded growth
+      localStorage.setItem("cb_lead_queue", JSON.stringify(q));
+    } catch (e) {}
+  }
+  function drainLeadRetryQueue() {
+    try {
+      var q = JSON.parse(localStorage.getItem("cb_lead_queue") || "[]");
+      if (!q.length) return;
+      var item = q.shift();
+      localStorage.setItem("cb_lead_queue", JSON.stringify(q));
+      fetch("/api/lead", {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(item)
+      }).catch(function () {
+        // still failing — put back
+        var q2 = JSON.parse(localStorage.getItem("cb_lead_queue") || "[]");
+        q2.unshift(item);
+        localStorage.setItem("cb_lead_queue", JSON.stringify(q2.slice(0, 5)));
+      });
+    } catch (e) {}
+  }
+
+  /* ============================================================
      i18n — full-page dictionary sweep (English ⇆ Hindi)
      Translates EVERY matching visible text node + placeholders
      anywhere on the page, preserving icons & inline markup.
@@ -387,7 +429,7 @@
     "Respect customer privacy": "ग्राहकों की प्राइवेसी का सम्मान करें",
     "Customer satisfaction and fair practices are important to us. If something goes wrong, here's how to reach us.": "ग्राहक संतुष्टि और निष्पक्ष व्यवहार हमारे लिए महत्वपूर्ण हैं। अगर कुछ गड़बड़ हो, तो हमसे ऐसे संपर्क करें।",
     "Incorrect information": "गलत जानकारी",
-    "Name: Grievance Officer, MyCashBridge – Email:": "नाम: ग्रीवांस ऑफिसर, MyCashBridge – ईमेल:",
+    "Name: Grievance Officer, MyCashBridge – Email:": "नाम: ज्योत्सना बोरा (ग्रीवांस ऑफिसर, MyCashBridge) – ईमेल:",
     "Family floater options": "फैमिली फ्लोटर विकल्प",
     "One plan that covers your whole family affordably.": "एक ऐसा प्लान जो किफायती दाम में आपके पूरे परिवार को कवर करे।",
     "Explore other insurance": "अन्य इंश्योरेंस देखें",
@@ -1683,6 +1725,7 @@
       '<p class="footer-disc"><strong data-i18n="foot.disc_label">Disclaimer:</strong> <span data-i18n="disc.text">MyCashBridge is a Lending Service Provider (LSP) and is not a bank, NBFC or financial institution. We only facilitate customer applications for financial products offered by partner banks and NBFCs. Loan approvals, interest rates, credit limits, processing fees and related terms are determined solely by the respective financial institution based on its policies and your eligibility. We do not guarantee approval of any product and never charge customers a fee for standard applications.</span></p>' +
       '<p class="footer-disc" style="margin-top:10px">MyCashBridge is a <strong>Reddington Global Consultancy Private Limited</strong> company.</p>' +
       '<p class="footer-disc" style="margin-top:4px">Registered office: ' + CFG.address + ', India &nbsp;·&nbsp; <a href="tel:' + CFG.phoneRaw + '">' + CFG.phone + '</a> &nbsp;·&nbsp; CIN: U72501HR2022PTC104372 &nbsp;·&nbsp; GSTIN: 06AALCR9469E1ZV &nbsp;·&nbsp; Support: <a href="mailto:' + CFG.leadEmail + '">' + CFG.leadEmail + '</a></p>' +
+      '<p class="footer-disc" style="margin-top:4px">Grievance Officer: <strong>Jyotsana Bora</strong> &nbsp;·&nbsp; <a href="mailto:grievance@mycashbridge.com">grievance@mycashbridge.com</a> &nbsp;·&nbsp; <a href="tel:+918796508140">+91 87965 08140</a></p>' +
       '<div class="footer-bottom"><span>© ' + new Date().getFullYear() + ' ' + CFG.brand + '. All rights reserved.</span>' +
         '<span class="links"><a href="' + BASE + 'pages/privacy-policy.html">Privacy</a><a href="' + BASE + 'pages/terms.html">Terms</a><a href="' + BASE + 'pages/disclaimer.html">Disclaimer</a><a href="#" data-cookie-settings>Cookie settings</a></span>' +
       '</div>' +
@@ -1716,14 +1759,32 @@
       '</div></div>';
   }
   function formFieldsHTML(ctx, loanLabel) {
-    return '<form class="lead-form" data-loan="' + (loanLabel || "") + '" novalidate><div class="form-grid">' +
+    /*
+     * DPDP Act 2023 Phase 2 — Section 5 Notice
+     * A compact inline notice displayed immediately before form fields
+     * stating: data collected, purpose, partner sharing, and rights link.
+     * Design is intentionally minimal to preserve conversion rate.
+     *
+     * DPDP Act 2023 Phase 1 — Split Consent
+     * Service consent (required): processing the loan enquiry.
+     * Marketing consent (optional): promotional communications.
+     * Two separate checkboxes as required by Section 6(1)(a).
+     */
+    return '<form class="lead-form" data-loan="' + (loanLabel || "") + '" novalidate>' +
+      '<div class="dpdp-notice" style="background:#f0faf4;border:1px solid #c3e6cb;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#155724;display:flex;gap:8px;align-items:flex-start">' +
+        '<span style="flex-shrink:0;font-size:14px">&#x2139;&#xFE0F;</span>' +
+        '<span><strong>Why we ask:</strong> Your details are shared with partner banks &amp; NBFCs to process your loan enquiry. See our <a href="' + BASE + 'pages/privacy-policy.html" style="color:#0a5e3a;text-decoration:underline">Privacy Policy</a> and <a href="' + BASE + 'pages/user-rights.html" style="color:#0a5e3a;text-decoration:underline">Your Rights (DPDP Act 2023)</a>.</span>' +
+      '</div>' +
+      '<div class="form-grid">' +
       '<div class="field full"><label>Full name</label><input name="name" type="text" placeholder="e.g. Rohan Sharma" autocomplete="name"><span class="err">Please enter your name</span></div>' +
       '<div class="field"><label>Mobile number</label><div class="tel-wrap"><span class="cc">+91</span><input name="mobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile" autocomplete="tel-national"></div><span class="err">Enter a valid 10-digit mobile</span></div>' +
       '<div class="field"><label>City</label><input name="city" type="text" placeholder="e.g. Pune"><span class="err">Please enter your city</span></div>' +
-      '<div class="field"><label>Monthly income</label><select name="income"><option value="">Select range</option><option>Below ₹25,000</option><option>₹25,000 – ₹50,000</option><option>₹50,000 – ₹1,00,000</option><option>Above ₹1,00,000</option></select><span class="err">Select your income range</span></div>' +
+      '<div class="field"><label>Monthly income</label><select name="income"><option value="">Select range</option><option>Below \u20B925,000</option><option>\u20B925,000 \u2013 \u20B950,000</option><option>\u20B950,000 \u2013 \u20B91,00,000</option><option>Above \u20B91,00,000</option></select><span class="err">Select your income range</span></div>' +
       '<div class="field"><label>Employment type</label><div class="seg" data-seg="employment"><div class="seg-opt" data-val="Salaried">Salaried</div><div class="seg-opt" data-val="Self-employed">Self-employed</div><div class="seg-opt" data-val="Business owner">Business</div><input type="hidden" name="employment"></div><span class="err">Select one</span></div>' +
       '<div class="field full"><label>PAN <span class="opt">(optional)</span></label><input name="pan" type="text" maxlength="10" placeholder="ABCDE1234F" style="text-transform:uppercase"></div>' +
-      '<div class="field full"><div class="consent"><input type="checkbox" name="consent" id="' + ctx + '-consent"><label for="' + ctx + '-consent">I authorise ' + CFG.brand + ' and its partner banks/NBFCs to contact me regarding my enquiry via call, SMS, email or WhatsApp, and I accept the Terms & Privacy Policy. This overrides my DND/NDNC registration.</label></div><span class="err">Please accept to continue</span></div>' +
+      '<div class="field full"><div class="consent"><input type="checkbox" name="consent" id="' + ctx + '-consent"><label for="' + ctx + '-consent">I authorise ' + CFG.brand + ' and its partner banks/NBFCs to contact me regarding my loan enquiry via call, SMS, email or WhatsApp to process my application, and I accept the Terms &amp; Privacy Policy. This overrides my DND/NDNC registration.</label></div><span class="err">Please accept to continue</span></div>' +
+      /* Optional marketing consent — separate checkbox per DPDP s.6(1)(a) */
+      '<div class="field full" style="margin-top:-4px"><div class="consent"><input type="checkbox" name="mkt_consent" id="' + ctx + '-mkt"><label for="' + ctx + '-mkt" style="font-size:12px;color:var(--text-soft)">I also consent to receive promotional communications about other financial products from ' + CFG.brand + ' and its partners. <em>(Optional)</em></label></div></div>' +
       '</div><button class="btn btn-filled btn-block btn-lg" type="submit" style="margin-top:18px"><span class="btn-label"><i data-lucide="shield-check"></i> Get a call back</span></button>' +
       '<p style="text-align:center;font-size:12px;color:var(--text-soft);margin:12px 0 0">By continuing you agree it won\'t affect your credit score. We never charge a fee to apply.</p></form>';
   }
@@ -1780,18 +1841,30 @@
   function sendLead(form) {
     try {
       var data = new FormData(form), loan = form.getAttribute("data-loan") || "General enquiry";
+      /*
+       * Phase 1 — Consent Evidence:
+       * Read both checkboxes and include consent metadata in payload.
+       * Backend stores this as the consent sub-document on the lead record.
+       * consent_service is always true (the required checkbox must be checked to reach here).
+       * consent_marketing is optional — false does NOT block lead creation.
+       */
+      var mktConsent = form.querySelector('[name=mkt_consent]');
       var payload = {
-        name:           data.get("name")       || "",
-        mobile:         "+91 " + (data.get("mobile") || ""),
-        city:           data.get("city")       || "",
-        monthly_income: data.get("income")     || "",
-        employment:     data.get("employment") || "",
-        product_type:   loan,
-        source_page:    location.pathname,
-        _hp:            ""   /* honeypot — always empty from real users */
+        name:              data.get("name")       || "",
+        mobile:            "+91 " + (data.get("mobile") || ""),
+        city:              data.get("city")       || "",
+        monthly_income:    data.get("income")     || "",
+        employment:        data.get("employment") || "",
+        product_type:      loan,
+        source_page:       location.pathname,
+        /* DPDP consent evidence fields */
+        consent_service:   true,
+        consent_marketing: mktConsent ? mktConsent.checked : false,
+        consent_version:   CONSENT_VERSION,
+        _hp:               ""   /* honeypot — always empty from real users */
       };
       Object.assign(payload, getUtm());
-      /* 1. Primary: our Express server → MongoDB */
+      /* Primary: our Express server → MongoDB */
       fetch("/api/lead", {
         method:  "POST",
         headers: { "Content-Type": "application/json" },
@@ -1799,15 +1872,12 @@
         signal:  AbortSignal.timeout ? AbortSignal.timeout(8000) : undefined
       }).then(function(r){ if (!r.ok) throw new Error(r.status); })
       .catch(function() {
-        /* 2. Fallback: formsubmit.co email if API is unreachable */
-        var fsPayload = Object.assign(
-          { _subject: "New " + loan + " lead — " + CFG.brand, _template: "table", _captcha: "false" },
-          payload, { submitted_at: new Date().toLocaleString("en-IN") }
-        );
-        fetch("https://formsubmit.co/ajax/" + encodeURIComponent(CFG.leadEmail), {
-          method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" },
-          body: JSON.stringify(fsPayload)
-        }).catch(function(){});
+        /*
+         * Phase 3 — Fallback: queue for retry on next page load.
+         * FormSubmit.co dependency removed — all data stays first-party.
+         * Queued leads are retried automatically via drainLeadRetryQueue().
+         */
+        queueLeadForRetry(payload);
       });
     } catch (e) {}
   }
@@ -1875,7 +1945,32 @@
         '<button class="btn btn-filled btn-block btn-lg" data-ck="save" style="margin-top:16px">Save preferences</button>' +
       '</div></div>';
   }
-  function saveConsent(obj) { localStorage.setItem("cb_cookie", JSON.stringify(Object.assign({ ts: Date.now() }, obj))); enforceBlocking(); }
+  function saveConsent(obj) {
+    /*
+     * Phase 8 — Cookie Consent Evidence:
+     * Persist consent to localStorage (existing UX, unchanged) AND
+     * fire a silent POST to the backend so server-side evidence is
+     * recorded independently of the user's device/browser storage.
+     * This provides auditable proof of consent for DPDP compliance.
+     */
+    var withTs = Object.assign({ ts: Date.now() }, obj);
+    localStorage.setItem("cb_cookie", JSON.stringify(withTs));
+    enforceBlocking();
+    /* Server-side evidence (fire-and-forget — never blocks UX) */
+    try {
+      fetch("/api/cookie-consent", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify({
+          cookieVersion:      "v1",
+          analytics:          !!obj.analytics,
+          marketing:          !!obj.marketing,
+          acceptedCategories: Object.keys(obj).filter(function(k){ return k !== "ts" && obj[k]; }),
+        }),
+        signal: AbortSignal.timeout ? AbortSignal.timeout(5000) : undefined,
+      }).catch(function(){});
+    } catch (e) {}
+  }
   function showCookieBanner() { var b = document.getElementById("cookieBanner"); if (b) b.classList.add("show"); }
   function hideCookieBanner() { var b = document.getElementById("cookieBanner"); if (b) b.classList.remove("show"); }
   function wireCookies() {
@@ -2163,23 +2258,26 @@
   }
 
   /*
-   * qbLead — dual-track submission
-   *   1. Primary: POST /api/lead to our own Express server (MongoDB)
-   *   2. Fallback: formsubmit.co email notification if API unreachable
-   *   The MongoDB URI never appears here — it lives in server/.env
+   * qbLead — QuickBook popup lead submission (Phase 1 + Phase 3)
+   * Consent evidence added; FormSubmit.co fallback replaced with retry queue.
    */
   function qbLead(data) {
     var productLabel = data.loan_type || data.insurance_type || data.card_type ||
                        data.invest_type || data.product_type || "General";
+    /* Phase 1: include consent evidence in QB lead payload */
     var payload = Object.assign(
       {},
       data,
       getUtm(),
       {
-        product_type: productLabel,
-        source_page:  location.pathname,
-        submitted_at: new Date().toLocaleString("en-IN"),
-        _hp:          ""   /* honeypot — must always be empty from real users */
+        product_type:      productLabel,
+        source_page:       location.pathname,
+        submitted_at:      new Date().toLocaleString("en-IN"),
+        /* DPDP consent evidence — QB form service consent is always true */
+        consent_service:   true,
+        consent_marketing: false,  // QB popup does not have marketing checkbox
+        consent_version:   CONSENT_VERSION,
+        _hp:               ""   /* honeypot — must always be empty from real users */
       }
     );
 
@@ -2190,7 +2288,7 @@
       if (_submittedCat) localStorage.setItem("cb_popup_done_" + _submittedCat, "1");
     } catch(e) {}
 
-    /* 1️⃣ Primary: our secure API server → MongoDB */
+    /* Primary: our secure API server → MongoDB */
     fetch("/api/lead", {
       method:  "POST",
       headers: { "Content-Type": "application/json" },
@@ -2201,17 +2299,8 @@
       if (!r.ok) throw new Error("API " + r.status);
     })
     .catch(function() {
-      /* 2️⃣ Fallback: formsubmit.co email (fires only if API is down) */
-      var fsPayload = Object.assign(
-        { _subject: "Lead — " + CFG.brand + " (" + productLabel + ")",
-          _template: "table", _captcha: "false" },
-        payload
-      );
-      fetch("https://formsubmit.co/ajax/" + encodeURIComponent(CFG.leadEmail), {
-        method:  "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body:    JSON.stringify(fsPayload)
-      }).catch(function(){});
+      /* Phase 3: queue for retry — FormSubmit.co dependency removed */
+      queueLeadForRetry(payload);
     });
   }
 
@@ -2622,6 +2711,8 @@
     initStickyBar();
     initExitIntent();
     initTrustNudge();
+    /* Phase 3: drain queued leads from previous failed submissions */
+    try { drainLeadRetryQueue(); } catch (e) {}
     // Redirect to home on page refresh from any service page
     try {
       var _navEntry = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];

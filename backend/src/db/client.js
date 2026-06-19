@@ -66,6 +66,44 @@ async function connect() {
   await master.createIndex({ status: 1, submitted_at: -1 });
   await master.createIndex({ product_type: 1 });
   console.log(`[DB] Indexes ready — ${DB_NAME}.${MASTER_COLLECTION} (master)`);
+
+  // ── DPDP Compliance Collections ─────────────────────────────────────────
+  // Phase 4: DSR (Data Subject Rights) management
+  const dsrCol = _db.collection("dsrRequests");
+  await dsrCol.createIndex({ ticketId: 1 }, { unique: true });
+  await dsrCol.createIndex({ status: 1, createdAt: -1 });
+  await dsrCol.createIndex({ mobile: 1, createdAt: -1 });
+  await dsrCol.createIndex({ createdAt: -1 });
+  console.log(`[DB] Indexes ready — ${DB_NAME}.dsrRequests`);
+
+  // Phase 5: Grievance management
+  const grvCol = _db.collection("grievances");
+  await grvCol.createIndex({ ticketId: 1 }, { unique: true });
+  await grvCol.createIndex({ status: 1, createdAt: -1 });
+  await grvCol.createIndex({ mobile: 1, createdAt: -1 });
+  await grvCol.createIndex({ createdAt: -1 });
+  console.log(`[DB] Indexes ready — ${DB_NAME}.grievances`);
+
+  // Phase 6: Retention logs (immutable — append-only)
+  const retCol = _db.collection("retentionLogs");
+  await retCol.createIndex({ timestamp: -1 });
+  await retCol.createIndex({ collection: 1, timestamp: -1 });
+  console.log(`[DB] Indexes ready — ${DB_NAME}.retentionLogs`);
+
+  // Phase 7: Audit logs (immutable — append-only)
+  const auditCol = _db.collection("auditLogs");
+  await auditCol.createIndex({ timestamp: -1 });
+  await auditCol.createIndex({ action: 1, timestamp: -1 });
+  await auditCol.createIndex({ entity: 1, entityId: 1 });
+  console.log(`[DB] Indexes ready — ${DB_NAME}.auditLogs`);
+
+  // Phase 8: Cookie consent evidence
+  const cookieCol = _db.collection("cookieConsents");
+  await cookieCol.createIndex({ timestamp: -1 });
+  console.log(`[DB] Indexes ready — ${DB_NAME}.cookieConsents`);
+
+  // Phase 10: Processor inventory — seed if empty
+  await seedProcessorInventory(_db);
 }
 
 function getDb() {
@@ -100,4 +138,81 @@ async function close() {
   await client.close();
 }
 
-module.exports = { connect, getCollection, getCollectionByCategory, getMasterCollection, isConnected, close };
+/**
+ * seedProcessorInventory — Phase 10 (Processor Inventory)
+ *
+ * DPDP Act 2023 Section 8(3): A Data Fiduciary must enter into a valid contract
+ * with every Data Processor processing personal data on its behalf.
+ *
+ * This seeds the processors collection with all known third-party vendors
+ * that handle MyCashBridge customer data. The collection is insertOne-if-empty
+ * idempotent — subsequent restarts do NOT duplicate records.
+ */
+async function seedProcessorInventory(db) {
+  const col   = db.collection("processors");
+  const count = await col.countDocuments({});
+  if (count > 0) return; // already seeded
+
+  const processors = [
+    {
+      name:           "MongoDB Atlas",
+      purpose:        "Primary database — stores all lead, DSR, grievance and consent records",
+      category:       "Cloud Database",
+      country:        "India (Mumbai region ap-south-1)",
+      dataShared:     ["name", "mobile", "city", "income", "employment", "consent", "PII"],
+      retention:      "Per DPDP retention policy (90 days / 3 years depending on lead status)",
+      dpaInPlace:     true,
+      lastReviewDate: new Date("2025-01-01"),
+      notes:          "MongoDB Atlas DPA signed. Data residency: Mumbai region.",
+    },
+    {
+      name:           "Hostinger",
+      purpose:        "Web hosting and domain — serves mycashbridge.com frontend",
+      category:       "Cloud Hosting",
+      country:        "India / EU",
+      dataShared:     ["IP addresses (server logs)", "access logs"],
+      retention:      "30 days server logs",
+      dpaInPlace:     true,
+      lastReviewDate: new Date("2025-01-01"),
+      notes:          "Standard hosting logs. No personal financial data.",
+    },
+    {
+      name:           "WhatsApp Business API (Meta)",
+      purpose:        "Customer communication — loan enquiry follow-up",
+      category:       "Communication",
+      country:        "USA",
+      dataShared:     ["name", "mobile", "enquiry details"],
+      retention:      "Per WhatsApp Business API terms",
+      dpaInPlace:     true,
+      lastReviewDate: new Date("2025-01-01"),
+      notes:          "Data transferred to USA. Meta SCCs apply.",
+    },
+    {
+      name:           "Domestic LMS (Partner System)",
+      purpose:        "Lead management system for partner loan processing",
+      category:       "Financial Services Partner",
+      country:        "India",
+      dataShared:     ["name", "mobile", "city", "income", "employment", "product_type"],
+      retention:      "Per partner institution's retention policy",
+      dpaInPlace:     false,
+      lastReviewDate: new Date("2025-01-01"),
+      notes:          "DPA to be executed. Data shared only after consent obtained.",
+    },
+    {
+      name:           "Nodemailer / SMTP Provider",
+      purpose:        "Transactional emails — DSR acknowledgements, grievance confirmations",
+      category:       "Email",
+      country:        "India / varies by SMTP host",
+      dataShared:     ["name", "email", "ticket reference"],
+      retention:      "Per SMTP provider retention policy",
+      dpaInPlace:     false,
+      lastReviewDate: new Date("2025-01-01"),
+      notes:          "DPA required when SMTP configured. Minimal PII in email body.",
+    },
+  ];
+
+  await col.insertMany(processors.map(p => ({ ...p, createdAt: new Date() })));
+  console.log(`[DB] Processor inventory seeded — ${processors.length} processors`);
+}
+
+module.exports = { connect, getDb, getCollection, getCollectionByCategory, getMasterCollection, isConnected, close };
