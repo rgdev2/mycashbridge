@@ -81,16 +81,16 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc:      ["'self'"],
-      scriptSrc:       ["'self'", "'unsafe-inline'"],   // unsafe-inline needed for inline page scripts
+      scriptSrc:       ["'self'", "'unsafe-inline'", "https://www.googletagmanager.com", "https://www.google-analytics.com", "https://ssl.google-analytics.com"],
       // Issue #1 Fix: allow Google Fonts stylesheet (loaded by colors_and_type.css @import)
       styleSrc:        ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
       // Issue #1 Fix: allow Google Fonts webfont files (served from fonts.gstatic.com)
       fontSrc:         ["'self'", "https://fonts.gstatic.com"],
-      imgSrc:          ["'self'", "data:", "blob:"],
-      // Phase 9: Remove formsubmit.co from connectSrc — all forms now go to our own API
-      connectSrc:      ["'self'"],
+      imgSrc:          ["'self'", "data:", "blob:", "https://www.googletagmanager.com", "https://www.google-analytics.com", "https://ssl.google-analytics.com"],
+      connectSrc:      ["'self'", "https://www.google-analytics.com", "https://analytics.google.com", "https://stats.g.doubleclick.net", "https://region1.google-analytics.com", "https://www.googletagmanager.com"],
       objectSrc:       ["'none'"],
-      frameSrc:        ["'none'"],
+      // GTM noscript fallback uses an iframe from googletagmanager.com
+      frameSrc:        ["https://www.googletagmanager.com"],
       frameAncestors:  ["'self'"],
       formAction:      ["'self'"],
       baseUri:         ["'self'"],
