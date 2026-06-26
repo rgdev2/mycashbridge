@@ -22,6 +22,9 @@
 <style>
   .calc-grid { display:grid; grid-template-columns: 1.1fr .9fr; gap:32px; align-items:start; }
   .calc-card { background:var(--white); border-radius:var(--radius-card); box-shadow:var(--shadow-card); padding:30px; }
+  .loan-type-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; }
+  .loan-type-tabs button { padding:6px 14px; border-radius:50px; border:1.5px solid var(--hairline); background:var(--white); font-size:13px; font-weight:600; color:var(--text-soft); cursor:pointer; transition:all .2s; }
+  .loan-type-tabs button.active { border-color:var(--green-primary); background:var(--green-primary); color:#fff; }
   .ctrl { margin-bottom:26px; }
   .ctrl-top { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; }
   .ctrl-top label { font-size:14px; color:var(--text-soft); font-weight:600; }
@@ -59,6 +62,15 @@
     <p class="lead" style="max-width:600px;margin-bottom:30px">Plan your loan with confidence. Move the sliders to see your monthly EMI, total interest, and total amount payable &ndash; instantly.</p>
     <div class="calc-grid">
       <div class="calc-card">
+        <div class="loan-type-tabs" id="loanTypeTabs">
+          <button class="active" data-loan="home" data-ten-max="360" data-ten-default="120" data-ten-label="30 years">🏠 Home Loan</button>
+          <button data-loan="business" data-ten-max="180" data-ten-default="36" data-ten-label="15 years">💼 Business Loan</button>
+          <button data-loan="lap" data-ten-max="240" data-ten-default="120" data-ten-label="20 years">🏢 Loan vs Property</button>
+          <button data-loan="car" data-ten-max="96" data-ten-default="60" data-ten-label="8 years">🚗 Car Loan</button>
+          <button data-loan="education" data-ten-max="180" data-ten-default="60" data-ten-label="15 years">🎓 Education Loan</button>
+          <button data-loan="gold" data-ten-max="60" data-ten-default="12" data-ten-label="5 years">🪙 Gold Loan</button>
+          <button data-loan="personal" data-ten-max="84" data-ten-default="36" data-ten-label="7 years">👤 Personal Loan</button>
+        </div>
         <div class="ctrl">
           <div class="ctrl-top"><label>Loan amount</label><span class="ctrl-val" id="oAmt">₹10,00,000</span></div>
           <input type="range" id="amt" min="50000" max="10000000" step="50000" value="1000000">
@@ -71,8 +83,8 @@
         </div>
         <div class="ctrl" style="margin-bottom:8px">
           <div class="ctrl-top"><label>Tenure</label><span class="ctrl-val" id="oTen">5 years</span></div>
-          <input type="range" id="ten" min="6" max="360" step="6" value="60">
-          <div class="scale"><span>6 months</span><span>30 years</span></div>
+          <input type="range" id="ten" min="6" max="360" step="6" value="120">
+          <div class="scale"><span>6 months</span><span id="tenMaxLabel">30 years</span></div>
         </div>
       </div>
       <div class="calc-card result">
@@ -108,7 +120,7 @@
     var amt=document.getElementById('amt'), rate=document.getElementById('rate'), ten=document.getElementById('ten');
     var oAmt=document.getElementById('oAmt'), oRate=document.getElementById('oRate'), oTen=document.getElementById('oTen');
     var oEmi=document.getElementById('oEmi'), oPrin=document.getElementById('oPrin'), oInt=document.getElementById('oInt'), oTot=document.getElementById('oTot');
-    var donut=document.getElementById('donut');
+    var donut=document.getElementById('donut'), tenMaxLabel=document.getElementById('tenMaxLabel');
     function inr(n){ return '₹'+Math.round(n).toLocaleString('en-IN'); }
     function yrs(m){ var y=Math.floor(m/12), mo=m%12; return (y?y+' yr'+(y>1?'s':''):'')+(y&&mo?' ':'')+(mo?mo+' mo':'') || '0'; }
     function calc(){
@@ -121,6 +133,23 @@
       donut.style.background='conic-gradient(var(--green-primary) 0 '+pPct+'%, var(--brand-lime) '+pPct+'% 100%)';
     }
     [amt,rate,ten].forEach(function(el){ el.addEventListener('input', calc); });
+
+    /* Loan type tabs */
+    var tabs = document.querySelectorAll('#loanTypeTabs button');
+    tabs.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        tabs.forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        var maxMonths = +btn.getAttribute('data-ten-max');
+        var defMonths = +btn.getAttribute('data-ten-default');
+        var label     = btn.getAttribute('data-ten-label');
+        ten.max = maxMonths;
+        ten.value = Math.min(+ten.value, maxMonths) || defMonths;
+        tenMaxLabel.textContent = label;
+        calc();
+      });
+    });
+
     calc();
   })();
 </script>
