@@ -1195,7 +1195,7 @@ input.qb-range {
   position: fixed;
   top: 0; left: 0;             /* positioned via JS transform */
   z-index: 9000;
-  pointer-events: none;        /* default off; enabled when visible */
+  pointer-events: none;        /* outer wrapper never catches events */
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.6);
   transition: opacity .25s ease, transform .25s cubic-bezier(.34,1.56,.64,1);
@@ -1204,12 +1204,13 @@ input.qb-range {
 .cb-cursor-btn.show {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
-  pointer-events: auto;
+}
+.cb-cursor-btn.show .cb-cursor-inner {
+  pointer-events: auto;        /* only inner button is clickable */
 }
 .cb-cursor-btn.hide {
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.7);
-  pointer-events: none;
 }
 .cb-cursor-inner {
   display: flex; align-items: center; gap: 8px;

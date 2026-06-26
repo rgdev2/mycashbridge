@@ -2629,23 +2629,36 @@
     el.setAttribute("aria-label", "Apply Now");
     el.innerHTML =
       '<div class="cb-cursor-ring"></div>' +
-      '<button class="cb-cursor-inner" data-apply>' +
+      '<button class="cb-cursor-inner" type="button">' +
         '<i data-lucide="phone-call"></i> Apply Now' +
       '</button>';
     document.body.appendChild(el);
     if (window.lucide) window.lucide.createIcons({ el: el });
 
+    /* direct click → open modal immediately (1 click, no delegation chain) */
+    var innerBtn = el.querySelector(".cb-cursor-inner");
+    if (innerBtn) {
+      innerBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        if (window.cbOpenApply) window.cbOpenApply("");
+      });
+    }
+
     /* lerp targets */
-    var mx = window.innerWidth / 2, my = window.innerHeight / 2; /* mouse pos   */
-    var cx = mx, cy = my;                                         /* current pos */
+    var mx = window.innerWidth / 2, my = window.innerHeight / 2; /* actual mouse */
+    var cx = mx, cy = my;                                         /* lerp'd pos   */
     var visible = false;
     var mouseActive = false;
     var idleTimer = null;
-    var rafId = null;
     var scrollY = 0;
 
-    /* elements to avoid hovering over */
-    var AVOID = "a, button, input, select, textarea, label, .modal, .drawer, header, nav, footer, .mobile-bar, .cb-sticky-bar, .scroll-nudge, .floats, .cookie";
+    /*
+     * AVOID list — elements under the REAL cursor that should hide the button.
+     * We use mx/my (real mouse) not cx/cy (lerp'd) so the button never
+     * accidentally checks itself and never flickers off on hover.
+     * The cursor button's own subtree is explicitly excluded below.
+     */
+    var AVOID = "a, input, select, textarea, .modal, .drawer, header, nav, footer, .mobile-bar, .cb-sticky-bar, .scroll-nudge, .floats, .cookie";
 
     function setVisible(v) {
       if (v === visible) return;
@@ -2655,23 +2668,31 @@
     }
 
     function isOverAvoid(x, y) {
+      /* temporarily disable pointer-events on our button so elementFromPoint
+         sees whatever is BEHIND it at the real cursor position */
+      el.style.pointerEvents = "none";
       var hit = document.elementFromPoint(x, y);
-      return hit ? !!hit.closest(AVOID) : false;
+      el.style.pointerEvents = "";
+      if (!hit) return false;
+      /* never avoid our own children */
+      if (el.contains(hit)) return false;
+      return !!hit.closest(AVOID);
     }
 
     function tick() {
-      /* smooth lerp — 0.12 for gentle lag */
-      cx += (mx - cx) * 0.12;
-      cy += (my - cy) * 0.12;
+      /* smooth lerp — 0.1 gives a nice weighted trail */
+      cx += (mx - cx) * 0.1;
+      cy += (my - cy) * 0.1;
 
       el.style.transform = "translate(calc(" + cx + "px - 50%), calc(" + cy + "px - 50%))";
 
+      /* use ACTUAL mouse pos (mx, my) for avoid-check, not lerp'd (cx, cy) */
       var shouldShow = mouseActive &&
-                       (scrollY > 300) &&
-                       !isOverAvoid(cx, cy);
+                       scrollY > 300 &&
+                       !isOverAvoid(mx, my);
       setVisible(shouldShow);
 
-      rafId = requestAnimationFrame(tick);
+      requestAnimationFrame(tick);
     }
 
     function onMouseMove(e) {
@@ -2680,20 +2701,15 @@
       scrollY = window.scrollY || window.pageYOffset;
       mouseActive = true;
       clearTimeout(idleTimer);
-      /* hide if mouse idle for 3 s */
       idleTimer = setTimeout(function () { mouseActive = false; }, 3000);
     }
 
-    function onScroll() {
-      scrollY = window.scrollY || window.pageYOffset;
-    }
-
     document.addEventListener("mousemove", onMouseMove, { passive: true });
-    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("scroll", function () {
+      scrollY = window.scrollY || window.pageYOffset;
+    }, { passive: true });
 
-    /* click on the inner button is already handled by global [data-apply] listener */
-
-    rafId = requestAnimationFrame(tick);
+    requestAnimationFrame(tick);
   }
 
   /* ============================================================
