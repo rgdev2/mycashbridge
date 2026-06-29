@@ -2900,8 +2900,8 @@
 
     function tick() {
       /* smooth lerp — 0.1 gives a nice weighted trail */
-      cx += (mx - cx) * 0.1;
-      cy += (my - cy) * 0.1;
+      cx += (mx - cx) * 0.04;
+      cy += (my - cy) * 0.04;
 
       el.style.transform = "translate(calc(" + cx + "px - 50%), calc(" + cy + "px - 50%))";
 
