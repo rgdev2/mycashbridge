@@ -2019,15 +2019,15 @@
           '<tbody>' +
             '<tr style="border-bottom:1px solid #eee">' +
               '<td style="padding:12px 8px;font-weight:600">Home Loan</td>' +
-              '<td style="padding:12px 8px;text-align:right;font-weight:700;color:var(--green-primary,#0c7a4e)">?7,000</td>' +
+              '<td style="padding:12px 8px;text-align:right;font-weight:700;color:var(--green-primary,#0c7a4e)">&#8377;7,000</td>' +
             '</tr>' +
             '<tr style="border-bottom:1px solid #eee">' +
               '<td style="padding:12px 8px;font-weight:600">LAP</td>' +
-              '<td style="padding:12px 8px;text-align:right;font-weight:700;color:var(--green-primary,#0c7a4e)">?10,000</td>' +
+              '<td style="padding:12px 8px;text-align:right;font-weight:700;color:var(--green-primary,#0c7a4e)">&#8377;10,000</td>' +
             '</tr>' +
             '<tr>' +
               '<td style="padding:12px 8px;font-weight:600">Business Loan</td>' +
-              '<td style="padding:12px 8px;text-align:right;font-weight:700;color:var(--green-primary,#0c7a4e)">?10,000</td>' +
+              '<td style="padding:12px 8px;text-align:right;font-weight:700;color:var(--green-primary,#0c7a4e)">&#8377;10,000</td>' +
             '</tr>' +
           '</tbody>' +
         '</table>' +
