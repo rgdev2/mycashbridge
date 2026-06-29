@@ -871,7 +871,11 @@ img.testi-av { object-fit: cover; display: block; }
 .cookie-actions .btn-sm { padding:9px 18px; }
 .cookie .btn-rej { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.4); }
 .cookie .btn-rej:hover { background:rgba(255,255,255,.08); }
-@media (max-width:600px){ .floats { /* keep above cookie */ } .cookie { bottom:80px; } }
+@media (max-width:600px){ .floats { /* keep above cookie */ } .cookie { bottom:80px; }
+  .cb-sticky-sub { display:none; }
+  .cb-sticky-inner { padding:10px 14px; }
+  .scroll-nudge { width:calc(100vw - 32px); right:16px; bottom:80px; }
+}
 
 /* cookie settings modal (simple) */
 .ck-modal { position:fixed; inset:0; z-index:320; display:none; align-items:center; justify-content:center; padding:20px; }
@@ -1289,19 +1293,143 @@ input.qb-range {
 /* Sticky bottom apply bar */
 .cb-sticky-bar {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 800;
-  background: var(--green-primary); color: #fff;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 20px; gap: 12px;
-  box-shadow: 0 -4px 20px rgba(0,0,0,.18);
-  transform: translateY(100%); transition: transform .35s ease;
+  background: var(--ink, #0a1628); color: #fff;
+  box-shadow: 0 -4px 24px rgba(0,0,0,.24);
+  transform: translateY(100%); transition: transform .38s cubic-bezier(.22,.68,0,1.1);
 }
 .cb-sticky-bar.visible { transform: translateY(0); }
-.cb-sticky-bar .sb-label { font-size: 14px; font-weight: 700; }
-.cb-sticky-bar .sb-sub   { font-size: 11px; opacity: .8; }
-.cb-sticky-bar .btn { white-space: nowrap; flex-shrink: 0;
-  background: var(--brand-lime); color: var(--green-primary);
-  border: none; padding: 8px 18px; border-radius: 8px;
-  font-weight: 800; cursor: pointer; font-size: 13px; }
+.cb-sticky-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 12px 22px; border-top: 2px solid var(--green-accent, #7fe06a);
+  max-width: 1260px; margin: 0 auto;
+}
+.cb-sticky-msg {
+  display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1;
+}
+.cb-sticky-ic { width: 22px; height: 22px; color: var(--brand-lime, #b4f032); flex-shrink: 0; }
+.cb-sticky-title { display: block; font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cb-sticky-sub { display: block; font-size: 11px; opacity: .7; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cb-sticky-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.cb-sticky-apply { background: var(--brand-lime, #b4f032) !important; color: var(--green-deep, #073d27) !important;
+  border: none !important; border-radius: 8px !important; padding: 9px 20px !important;
+  font-size: 13px !important; font-weight: 800 !important; white-space: nowrap; }
+.cb-sticky-apply i { width: 14px; height: 14px; }
+.cb-sticky-dismiss { background: none; border: none; cursor: pointer; color: rgba(255,255,255,.4);
+  padding: 6px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: color .2s; }
+.cb-sticky-dismiss:hover { color: #fff; }
+.cb-sticky-dismiss i { width: 16px; height: 16px; }
+
+/* Scroll nudge card – slides in from bottom-right */
+.scroll-nudge {
+  position: fixed; right: 20px; bottom: 90px; z-index: 700;
+  width: 300px; background: var(--white, #fff); border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,.18); padding: 18px;
+  border-left: 4px solid var(--green-primary, #0c7a4e);
+  transform: translateY(24px) translateX(16px); opacity: 0;
+  transition: transform .45s cubic-bezier(.22,.68,0,1.2), opacity .35s ease;
+  pointer-events: none;
+}
+.scroll-nudge.show { transform: translateY(0) translateX(0); opacity: 1; pointer-events: auto; }
+.scroll-nudge-close {
+  position: absolute; top: 10px; right: 10px; background: none; border: none;
+  cursor: pointer; color: var(--text-soft, #8a9bb4); padding: 4px;
+  display: flex; align-items: center; justify-content: center; border-radius: 50%;
+  transition: background .2s;
+}
+.scroll-nudge-close:hover { background: var(--hairline, #eef1f6); }
+.scroll-nudge-close i { width: 14px; height: 14px; }
+.scroll-nudge-body { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.scroll-nudge-emoji { font-size: 30px; line-height: 1; flex-shrink: 0; }
+.scroll-nudge-title { font-size: 15px; font-weight: 700; color: var(--text-strong); display: block; margin-bottom: 4px; }
+.scroll-nudge-sub { font-size: 12px; color: var(--text-soft); margin: 0; line-height: 1.5; }
+.scroll-nudge-cta i { width: 14px; height: 14px; }
+.scroll-nudge-progress {
+  height: 3px; background: var(--hairline, #eef1f6); border-radius: 2px; margin-top: 12px; overflow: hidden;
+}
+.scroll-nudge-progress-bar {
+  height: 100%; background: var(--green-primary); border-radius: 2px; width: 100%;
+  transform-origin: left; animation: nudgeTimer 8s linear forwards;
+}
+@keyframes nudgeTimer { to { transform: scaleX(0); } }
+
+/* Back-to-top button (inside .floats) */
+.cb-btt {
+  background: var(--white, #fff) !important; color: var(--text-strong) !important;
+  border: 1.5px solid var(--hairline) !important;
+  opacity: 0; transform: translateY(8px); pointer-events: none;
+  transition: opacity .3s ease, transform .3s ease, background .2s, color .2s;
+}
+.cb-btt.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.cb-btt:hover { background: var(--green-primary) !important; color: #fff !important; border-color: var(--green-primary) !important; }
+.cb-btt i { width: 22px; height: 22px; }
+
+/* Floats shift up when sticky bar is visible */
+.floats { transition: bottom .35s cubic-bezier(.22,.68,0,1.1); }
+
+/* ============================================================
+   CURSOR-FOLLOWING APPLY BUTTON
+   ============================================================ */
+.cb-cursor-btn {
+  position: fixed;
+  top: 0; left: 0;             /* positioned via JS transform */
+  z-index: 9000;
+  pointer-events: none;        /* outer wrapper never catches events */
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+  transition: opacity .25s ease, transform .25s cubic-bezier(.34,1.56,.64,1);
+  will-change: transform, opacity;
+}
+.cb-cursor-btn.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.cb-cursor-btn.show .cb-cursor-inner {
+  pointer-events: auto;        /* only inner button is clickable */
+}
+.cb-cursor-btn.hide {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.7);
+}
+.cb-cursor-inner {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--green-primary, #0c7a4e);
+  color: #fff;
+  padding: 11px 20px;
+  border-radius: 50px;
+  font-size: 13px; font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 8px 28px rgba(12,122,78,.45), 0 2px 8px rgba(0,0,0,.15);
+  border: none; cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  letter-spacing: .01em;
+  transition: background .2s, box-shadow .2s, transform .15s;
+}
+.cb-cursor-inner:hover {
+  background: var(--green-deep, #073d27);
+  box-shadow: 0 12px 36px rgba(12,122,78,.55);
+  transform: scale(1.06);
+}
+.cb-cursor-inner:active { transform: scale(.96); }
+.cb-cursor-inner i { width: 15px; height: 15px; flex-shrink: 0; }
+
+/* pulse ring around the button */
+.cb-cursor-ring {
+  position: absolute; inset: -8px;
+  border-radius: 50px;
+  border: 2px solid rgba(12,122,78,.35);
+  animation: cursorRing 2s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes cursorRing {
+  0%   { inset: -8px;  opacity: .8; }
+  100% { inset: -20px; opacity: 0; }
+}
+
+/* hide on touch/mobile — cursor tracking doesn't apply */
+@media (hover: none), (max-width: 768px) {
+  .cb-cursor-btn { display: none !important; }
+}
 
 /* Animations */
 @keyframes qbFadeIn  { from { opacity: 0; } to { opacity: 1; } }

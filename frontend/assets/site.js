@@ -1096,7 +1096,7 @@
     "Estimated Eligibility": "अनुमानित एलिजिबिलिटी",
     "Secure & Encrypted": "सिक्योर और एन्क्रिप्टेड",
     "Cashback": "कैशबैक",
-    "Get App": "ऐप डाउनलोड करें",
+    "Start Now": "शुरू करें",
     "Step 1 of 2": "चरण 1 / 2",
     "Apply for a Business Loan": "बिज़नेस लोन के लिए अप्लाई करें",
     "6 min read": "6 मिनट में पढ़ें",
@@ -1833,7 +1833,7 @@
       '<div class="lang-toggle" data-no-i18n><button data-l="en" data-setlang="en">EN</button><button data-l="hi" data-setlang="hi">हिं</button></div>' +
       '<a class="nav-tel" href="tel:' + CFG.phoneRaw + '"><i data-lucide="phone-call"></i> ' + CFG.phone + '</a>' +
       '<button class="btn btn-filled btn-sm" data-apply data-i18n="nav.apply">Apply now</button>' +
-      '<a class="btn btn-filled btn-sm nav-download-btn" href="https://play.google.com/store" target="_blank" rel="noopener"><i data-lucide="smartphone"></i> Get App</a>' +
+      '<button class="btn btn-outline btn-sm nav-download-btn" data-apply><i data-lucide="arrow-right"></i> Start Now</button>' +
       '<button class="hamburger" aria-label="Menu" data-drawer-open><i data-lucide="menu"></i></button>' +
     '</div></header>' + drawerHTML();
   }
@@ -1957,11 +1957,41 @@
      ============================================================ */
   function floatsHTML() {
     return '<div class="floats">' +
+      '<button class="float-btn cb-btt" id="cbBtt" aria-label="Back to top" title="Back to top"><i data-lucide="chevron-up"></i></button>' +
       '<a class="float-btn float-wa" href="https://wa.me/' + CFG.whatsapp + '?text=Hi%20' + encodeURIComponent(CFG.brand) + '%2C%20I%27d%20like%20help%20with%20a%20loan." target="_blank" rel="noopener" aria-label="WhatsApp"><i data-lucide="message-circle"></i></a>' +
       '<a class="float-btn float-call" href="tel:' + CFG.phoneRaw + '" aria-label="Call us"><i data-lucide="phone"></i></a></div>' +
     '<div class="mobile-bar"><div class="mobile-bar-inner">' +
       '<a class="btn btn-outline" href="tel:' + CFG.phoneRaw + '"><i data-lucide="phone"></i> Call</a>' +
-      '<button class="btn btn-filled" data-apply><i data-lucide="pencil-line"></i> Apply now</button></div></div>';
+      '<button class="btn btn-filled" data-apply><i data-lucide="pencil-line"></i> Apply now</button></div></div>' +
+    /* ── Scroll nudge card (slides in from bottom-right at ~55% scroll depth) ── */
+    '<div class="scroll-nudge" id="cbScrollNudge" role="complementary" aria-label="Quick apply">' +
+      '<button class="scroll-nudge-close" id="cbNudgeClose" aria-label="Dismiss"><i data-lucide="x"></i></button>' +
+      '<div class="scroll-nudge-body">' +
+        '<span class="scroll-nudge-emoji">💰</span>' +
+        '<div>' +
+          '<b class="scroll-nudge-title">Get a call back in 30 sec</b>' +
+          '<p class="scroll-nudge-sub">Free · No obligation · Won\'t affect CIBIL score</p>' +
+        '</div>' +
+      '</div>' +
+      '<button class="btn btn-filled btn-block scroll-nudge-cta" data-apply><i data-lucide="phone-call"></i> Apply Now — It\'s Free</button>' +
+      '<div class="scroll-nudge-progress"><div class="scroll-nudge-progress-bar" id="cbNudgeBar"></div></div>' +
+    '</div>' +
+    /* ── Sticky bottom CTA bar (slides up after 350 px scroll, hides near footer) ── */
+    '<div class="cb-sticky-bar" id="cbStickyBar">' +
+      '<div class="cb-sticky-inner">' +
+        '<div class="cb-sticky-msg">' +
+          '<i data-lucide="zap" class="cb-sticky-ic"></i>' +
+          '<div>' +
+            '<b class="cb-sticky-title">Get the best loan offers — free, no commitment</b>' +
+            '<span class="cb-sticky-sub">30-second form · Won\'t affect your CIBIL · Money in 24 hrs</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="cb-sticky-actions">' +
+          '<button class="btn cb-sticky-apply" data-apply><i data-lucide="phone-call"></i> Start Now</button>' +
+          '<button class="cb-sticky-dismiss" id="cbStickyDismiss" aria-label="Dismiss"><i data-lucide="x"></i></button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
   }
 
   /* ============================================================
@@ -2801,17 +2831,201 @@
   }
 
   /* ============================================================
+     CURSOR-FOLLOWING APPLY BUTTON
+     Appears on desktop after 300 px scroll; smoothly tracks
+     the mouse with lerp interpolation; hides over nav/footer/
+     buttons/inputs and when user hasn't moved mouse recently.
+     ============================================================ */
+  function initCursorApply() {
+    /* touch / small screen → skip entirely */
+    if (window.matchMedia("(hover:none)").matches) return;
+    if (window.innerWidth < 769) return;
+
+    /* inject DOM */
+    var el = document.createElement("div");
+    el.className = "cb-cursor-btn";
+    el.id = "cbCursorApply";
+    el.setAttribute("aria-label", "Apply Now");
+    el.innerHTML =
+      '<div class="cb-cursor-ring"></div>' +
+      '<button class="cb-cursor-inner" type="button">' +
+        '<i data-lucide="phone-call"></i> Apply Now' +
+      '</button>';
+    document.body.appendChild(el);
+    if (window.lucide) window.lucide.createIcons({ el: el });
+
+    /* direct click → open modal immediately (1 click, no delegation chain) */
+    var innerBtn = el.querySelector(".cb-cursor-inner");
+    if (innerBtn) {
+      innerBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        if (window.cbOpenApply) window.cbOpenApply("");
+      });
+    }
+
+    /* lerp targets */
+    var mx = window.innerWidth / 2, my = window.innerHeight / 2; /* actual mouse */
+    var cx = mx, cy = my;                                         /* lerp'd pos   */
+    var visible = false;
+    var mouseActive = false;
+    var idleTimer = null;
+    var scrollY = 0;
+
+    /*
+     * AVOID list — elements under the REAL cursor that should hide the button.
+     * We use mx/my (real mouse) not cx/cy (lerp'd) so the button never
+     * accidentally checks itself and never flickers off on hover.
+     * The cursor button's own subtree is explicitly excluded below.
+     */
+    var AVOID = "a, input, select, textarea, .modal, .drawer, header, nav, footer, .mobile-bar, .cb-sticky-bar, .scroll-nudge, .floats, .cookie";
+
+    function setVisible(v) {
+      if (v === visible) return;
+      visible = v;
+      if (v) { el.classList.add("show"); el.classList.remove("hide"); }
+      else   { el.classList.add("hide"); el.classList.remove("show"); }
+    }
+
+    function isOverAvoid(x, y) {
+      /* temporarily disable pointer-events on our button so elementFromPoint
+         sees whatever is BEHIND it at the real cursor position */
+      el.style.pointerEvents = "none";
+      var hit = document.elementFromPoint(x, y);
+      el.style.pointerEvents = "";
+      if (!hit) return false;
+      /* never avoid our own children */
+      if (el.contains(hit)) return false;
+      return !!hit.closest(AVOID);
+    }
+
+    function tick() {
+      /* smooth lerp — 0.1 gives a nice weighted trail */
+      cx += (mx - cx) * 0.1;
+      cy += (my - cy) * 0.1;
+
+      el.style.transform = "translate(calc(" + cx + "px - 50%), calc(" + cy + "px - 50%))";
+
+      /* use ACTUAL mouse pos (mx, my) for avoid-check, not lerp'd (cx, cy) */
+      var shouldShow = mouseActive &&
+                       scrollY > 300 &&
+                       !isOverAvoid(mx, my);
+      setVisible(shouldShow);
+
+      requestAnimationFrame(tick);
+    }
+
+    function onMouseMove(e) {
+      mx = e.clientX;
+      my = e.clientY;
+      scrollY = window.scrollY || window.pageYOffset;
+      mouseActive = true;
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(function () { mouseActive = false; }, 3000);
+    }
+
+    document.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("scroll", function () {
+      scrollY = window.scrollY || window.pageYOffset;
+    }, { passive: true });
+
+    requestAnimationFrame(tick);
+  }
+
+  /* ============================================================
      STICKY OFFER BAR — appears after 40% scroll on product pages
      ============================================================ */
   function initStickyBar() {
-    var bar = document.getElementById("cbStickyBar"); if (!bar) return;
-    var shown = false;
-    window.addEventListener("scroll", function() {
-      var threshold = document.body.scrollHeight * 0.4;
-      if (!shown && window.scrollY > threshold) {
-        bar.classList.add("visible"); shown = true;
+    var bar      = document.getElementById("cbStickyBar");
+    var dismiss  = document.getElementById("cbStickyDismiss");
+    var btt      = document.getElementById("cbBtt");
+    var nudge    = document.getElementById("cbScrollNudge");
+    var nudgeClose = document.getElementById("cbNudgeClose");
+    var nudgeBar = document.getElementById("cbNudgeBar");
+    var floats   = document.querySelector(".floats");
+
+    var barDismissed  = !!sessionStorage.getItem("cb_bar_dismissed");
+    var nudgeDismissed = !!sessionStorage.getItem("cb_nudge_dismissed");
+    var nudgeShown    = false;
+    var nudgeTimer    = null;
+
+    function nearFooter() {
+      var docH = document.documentElement.scrollHeight;
+      return (window.scrollY || window.pageYOffset) + window.innerHeight > docH - 160;
+    }
+
+    function update() {
+      var scrollY  = window.scrollY || window.pageYOffset;
+      var docH     = document.documentElement.scrollHeight;
+      var winH     = window.innerHeight;
+      var pct      = scrollY / Math.max(docH - winH, 1);
+      var atFooter = nearFooter();
+
+      /* ── Back-to-top ── */
+      if (btt) {
+        if (scrollY > 600) btt.classList.add("show"); else btt.classList.remove("show");
       }
+
+      /* ── Sticky bar ── */
+      if (bar) {
+        var showBar = !barDismissed && scrollY > 350 && !atFooter;
+        if (showBar) bar.classList.add("visible"); else bar.classList.remove("visible");
+        /* shift floats above bar on desktop */
+        if (floats) floats.style.bottom = showBar ? "74px" : "18px";
+      }
+
+      /* ── Scroll nudge (once, at ~55 % depth) ── */
+      if (nudge && !nudgeDismissed && !nudgeShown && pct >= 0.55 && !atFooter) {
+        nudgeShown = true;
+        nudge.classList.add("show");
+        /* restart progress-bar animation */
+        if (nudgeBar) { nudgeBar.style.animation = "none"; nudgeBar.offsetHeight; nudgeBar.style.animation = ""; }
+        /* auto-hide after 8 s unless user hovers */
+        nudgeTimer = setTimeout(function () {
+          if (!nudge.matches(":hover")) hideNudge();
+        }, 8000);
+        nudge.addEventListener("mouseenter", function () { clearTimeout(nudgeTimer); }, { once: true });
+        nudge.addEventListener("mouseleave", function () { nudgeTimer = setTimeout(hideNudge, 2000); }, { once: true });
+      }
+      /* hide nudge near footer */
+      if (atFooter && nudge) nudge.classList.remove("show");
+    }
+
+    function hideNudge() {
+      if (nudge) nudge.classList.remove("show");
+    }
+
+    /* scroll listener (RAF-throttled) */
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+      if (!ticking) { requestAnimationFrame(function () { update(); ticking = false; }); ticking = true; }
     }, { passive: true });
+
+    /* dismiss sticky bar */
+    if (dismiss) {
+      dismiss.addEventListener("click", function () {
+        barDismissed = true;
+        sessionStorage.setItem("cb_bar_dismissed", "1");
+        if (bar) bar.classList.remove("visible");
+        if (floats) floats.style.bottom = "18px";
+      });
+    }
+
+    /* dismiss nudge */
+    if (nudgeClose) {
+      nudgeClose.addEventListener("click", function () {
+        nudgeDismissed = true; nudgeShown = true;
+        sessionStorage.setItem("cb_nudge_dismissed", "1");
+        clearTimeout(nudgeTimer);
+        hideNudge();
+      });
+    }
+
+    /* back to top */
+    if (btt) {
+      btt.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+    }
+
+    update(); /* run once on load */
   }
 
   function stickyBarHTML(loanLabel, flow) {
@@ -2868,6 +3082,7 @@
     initMotion();
     initStickyBar();
     initExitIntent();
+    initCursorApply();
     initTrustNudge();
   }
   function wireQb() {
@@ -2942,6 +3157,7 @@
     initMotion();
     initStickyBar();
     initExitIntent();
+    initCursorApply();
     initTrustNudge();
     /* Phase 3: drain queued leads from previous failed submissions */
     try { drainLeadRetryQueue(); } catch (e) {}
