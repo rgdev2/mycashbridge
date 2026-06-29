@@ -392,7 +392,55 @@
     "Start Now": "\u0936\u0941\u0930\u0942 \u0915\u0930\u0947\u0902", "Refer Now": "\u0905\u092D\u0940 \u0930\u0947\u092B\u0930 \u0915\u0930\u0947\u0902",
     "Apply now \u2014 it\u2019s free": "\u0905\u092D\u0940 \u0906\u0935\u0947\u0926\u0928 \u0915\u0930\u0947\u0902 \u2014 \u092E\u0941\u092B\u094D\u0924 \u0939\u0948",
     "128+ lenders": "128+ \u0932\u0947\u0902\u0921\u0930", "40,000+ helped": "40,000+ \u0915\u0940 \u092E\u0926\u0926", "Rates from 8.5%": "8.5% \u0938\u0947 \u0926\u0930\u0947\u0902", "Bank-grade secure": "\u092C\u0948\u0902\u0915-\u0938\u094D\u0924\u0930 \u0938\u0941\u0930\u0915\u094D\u0937\u093F\u0924",
-    "months": "\u092E\u0939\u0940\u0928\u0947"
+    "months": "\u092E\u0939\u0940\u0928\u0947",
+    "Apply Once \u2014 compare": "\u090F\u0915 \u092C\u093E\u0930 \u0906\u0935\u0947\u0926\u0928 \u0915\u0930\u0947\u0902 \u2014 \u0924\u0941\u0932\u0928\u093E \u0915\u0930\u0947\u0902",
+    ", get the best offer": ", \u0938\u0930\u094D\u0935\u0936\u094D\u0930\u0947\u0937\u094D\u0920 \u0911\u092B\u0930 \u092A\u093E\u090F\u0902",
+    "Upload documents once \u2014": "\u0926\u0938\u094D\u0924\u093E\u0935\u0947\u091C \u090F\u0915 \u092C\u093E\u0930 \u0905\u092A\u0932\u094B\u0921 \u0915\u0930\u0947\u0902 \u2014",
+    "save time & effort": "\u0938\u092E\u092F \u0914\u0930 \u092E\u0947\u0939\u0928\u0924 \u092C\u091A\u093E\u090F\u0902",
+    "Instant": "\u0924\u0924\u094D\u0915\u093E\u0932",
+    "sanction & disbursal in 24 hours": "24 \u0918\u0902\u091F\u0947 \u092E\u0947\u0902 \u0938\u094D\u0935\u0940\u0915\u0943\u0924\u093F \u0914\u0930 \u0935\u093F\u0924\u0930\u0923",
+    "No hidden charges": "\u0915\u094B\u0908 \u091B\u0941\u092A\u093E \u0936\u0941\u0932\u094D\u0915 \u0928\u0939\u0940\u0902",
+    "\u2014 what you see is what you pay": "\u2014 \u091C\u094B \u0926\u093F\u0916\u0947 \u0935\u0939\u0940 \u092D\u0941\u0917\u0924\u093E\u0928 \u0915\u0930\u0947\u0902",
+    "Apply now \u2014 it's free": "\u0905\u092D\u0940 \u0906\u0935\u0947\u0926\u0928 \u0915\u0930\u0947\u0902 \u2014 \u092E\u0941\u092B\u094D\u0924 \u0939\u0948",
+    "Why customers choose us": "\u0917\u094D\u0930\u093E\u0939\u0915 \u0939\u092E\u0947\u0902 \u0915\u094D\u092F\u094B\u0902 \u091A\u0941\u0928\u0924\u0947 \u0939\u0948\u0902",
+    "Why Customers Choose Us": "\u0917\u094D\u0930\u093E\u0939\u0915 \u0939\u092E\u0947\u0902 \u0915\u094D\u092F\u094B\u0902 \u091A\u0941\u0928\u0924\u0947 \u0939\u0948\u0902",
+    "Apply Once. Compare": "\u090F\u0915 \u092C\u093E\u0930 \u0906\u0935\u0947\u0926\u0928 \u0915\u0930\u0947\u0902\u0964 \u0924\u0941\u0932\u0928\u093E \u0915\u0930\u0947\u0902",
+    ". Get the best offer delivered to you.": "\u0964 \u0938\u0930\u094D\u0935\u0936\u094D\u0930\u0947\u0937\u094D\u0920 \u0911\u092B\u0930 \u0906\u092A\u0924\u0915 \u092A\u0939\u0941\u0902\u091A\u093E\u090F\u0902\u0964",
+    "\u2013 what you see is what you pay": "\u2013 \u091C\u094B \u0926\u093F\u0916\u0947 \u0935\u0939\u0940 \u092D\u0941\u0917\u0924\u093E\u0928 \u0915\u0930\u0947\u0902",
+    "128+ partners": "128+ \u0938\u093E\u091D\u0947\u0926\u093E\u0930",
+    "Banks, NBFCs & HFCs": "\u092C\u0948\u0902\u0915, NBFC \u0914\u0930 HFC",
+    "24-hr disbursal": "24 \u0918\u0902\u091F\u0947 \u092E\u0947\u0902 \u0935\u093F\u0924\u0930\u0923",
+    "For approved applicants": "\u0905\u0928\u0941\u092E\u094B\u0926\u093F\u0924 \u0906\u0935\u0947\u0926\u0915\u094B\u0902 \u0915\u0947 \u0932\u093F\u090F",
+    "Customers helped": "\u0917\u094D\u0930\u093E\u0939\u0915\u094B\u0902 \u0915\u0940 \u092E\u0926\u0926",
+    "Bank-grade": "\u092C\u0948\u0902\u0915-\u0938\u094D\u0924\u0930",
+    "256-bit secure & private": "256-\u092C\u093F\u091F \u0938\u0941\u0930\u0915\u094D\u0937\u093F\u0924 \u0914\u0930 \u0917\u094B\u092A\u0928\u0940\u092F",
+    "All Major Banks & NBFCs": "\u0938\u092D\u0940 \u092A\u094D\u0930\u092E\u0941\u0916 \u092C\u0948\u0902\u0915 \u0914\u0930 NBFC",
+    "One application \u2013 offers sourced across leading lenders": "\u090F\u0915 \u0906\u0935\u0947\u0926\u0928 \u2013 \u0936\u0940\u0930\u094D\u0937 \u0932\u0947\u0902\u0921\u0930\u094B\u0902 \u0938\u0947 \u0911\u092B\u0930",
+    "RBI-regulated lending partners": "RBI-\u0935\u093F\u0928\u093F\u092F\u092E\u093F\u0924 \u0932\u0947\u0902\u0921\u093F\u0902\u0917 \u092A\u093E\u0930\u094D\u091F\u0928\u0930",
+    "256-bit secure": "256-\u092C\u093F\u091F \u0938\u0941\u0930\u0915\u094D\u0937\u093F\u0924",
+    "Hand-picked offers from": "\u0939\u093E\u0925 \u0938\u0947 \u091A\u0941\u0928\u0947 \u0917\u090F \u0911\u092B\u0930",
+    "Money in minutes via pre-approved offers": "\u092A\u094D\u0930\u0940-\u0905\u0928\u0941\u092E\u094B\u0926\u093F\u0924 \u0911\u092B\u0930 \u0938\u0947 \u092E\u093F\u0928\u091F\u094B\u0902 \u092E\u0947\u0902 \u092A\u0948\u0938\u093E",
+    "Quick sanction & disbursal": "\u0924\u0947\u091C \u0938\u094D\u0935\u0940\u0915\u0943\u0924\u093F \u0914\u0930 \u0935\u093F\u0924\u0930\u0923",
+    "Products": "\u0909\u0924\u094D\u092A\u093E\u0926",
+    "Popular Guides": "\u0932\u094B\u0915\u092A\u094D\u0930\u093F\u092F \u0917\u093E\u0907\u0921",
+    "Legal": "\u0915\u093E\u0928\u0942\u0928\u0940",
+    "Compare": "\u0924\u0941\u0932\u0928\u093E \u0915\u0930\u0947\u0902",
+    "Best Personal Loan": "\u0938\u0930\u094D\u0935\u0936\u094D\u0930\u0947\u0937\u094D\u0920 \u0935\u094D\u092F\u0915\u094D\u0924\u093F\u0917\u0924 \u0932\u094B\u0928",
+    "Loan for Low CIBIL": "\u0915\u092E CIBIL \u0915\u0947 \u0932\u093F\u090F \u0932\u094B\u0928",
+    "Business Loan for MSMEs": "MSME \u0915\u0947 \u0932\u093F\u090F \u0935\u094D\u092F\u093E\u092A\u093E\u0930 \u0932\u094B\u0928",
+    "Improve Credit Score": "\u0915\u094D\u0930\u0947\u0921\u093F\u091F \u0938\u094D\u0915\u094B\u0930 \u0938\u0941\u0927\u093E\u0930\u0947\u0902",
+    "Privacy Policy": "\u0917\u094B\u092A\u0928\u0940\u092F\u0924\u093E \u0928\u0940\u0924\u093F",
+    "Your Rights (DPDP)": "\u0906\u092A\u0915\u0947 \u0905\u0927\u093F\u0915\u093E\u0930 (DPDP)",
+    "Terms & Conditions": "\u0928\u093F\u092F\u092E \u0935 \u0936\u0930\u094D\u0924\u0947\u0902",
+    "Disclaimer": "\u0905\u0938\u094D\u0935\u0940\u0915\u0930\u0923",
+    "Grievance Redressal": "\u0936\u093F\u0915\u093E\u092F\u0924 \u0928\u093F\u0935\u093E\u0930\u0923",
+    "Partner Lenders & Disclosures": "\u092A\u093E\u0930\u094D\u091F\u0928\u0930 \u0932\u0947\u0902\u0921\u0930 \u0914\u0930 \u092A\u094D\u0930\u0915\u091F\u0940\u0915\u0930\u0923",
+    "Cookie Policy": "\u0915\u0941\u0915\u0940 \u0928\u0940\u0924\u093F",
+    "Refund & Cancellation": "\u0935\u093E\u092A\u0938\u0940 \u0914\u0930 \u0930\u0926\u094D\u0926\u0940\u0915\u0930\u0923",
+    "Data Retention Policy": "\u0921\u0947\u091F\u093E \u0938\u0902\u0917\u094D\u0930\u0939\u0923 \u0928\u0940\u0924\u093F",
+    "Data Breach Policy": "\u0921\u0947\u091F\u093E \u0909\u0932\u094D\u0932\u0902\u0918\u0928 \u0928\u0940\u0924\u093F",
+    "Fair Practices Code": "\u0909\u091A\u093F\u0924 \u0906\u091A\u0930\u0923 \u0938\u0902\u0939\u093F\u0924\u093E",
+    "Consent & Communication": "\u0938\u0939\u092E\u0924\u093F \u0914\u0930 \u0938\u0902\u091A\u093E\u0930"
   };
     var PH_HI = {
     "e.g. Rohan Sharma": "\u091C\u0948\u0938\u0947 \u0930\u094B\u0939\u0928 \u0936\u0930\u094D\u092E\u093E", "10-digit mobile": "10-\u0905\u0902\u0915 \u092E\u094B\u092C\u093E\u0907\u0932",
@@ -645,7 +693,7 @@
     return '<footer class="footer"><div class="wrap footer-grid cols5">' +
       '<div>' +
         '' + logoLockup('cb-logo-foot') +
-        '<p class="desc">A Lending Service Provider (LSP) helping you compare and apply for loans, cards and more from leading banks & NBFCs � with clear EMIs and honest guidance.</p>' +
+        '<p class="desc">A Lending Service Provider (LSP) helping you compare and apply for loans, cards and more from leading banks &amp; NBFCs &ndash; with clear EMIs and honest guidance.</p>' +
         '<div class="cert-strip">' +
           '<div class="cert-badge"><div class="cert-icon"><i data-lucide="shield-check"></i></div><div class="cert-info"><span class="cert-name">ISO 27001</span><span class="cert-label">Certified</span></div></div>' +
           '<div class="cert-badge"><div class="cert-icon"><i data-lucide="lock"></i></div><div class="cert-info"><span class="cert-name">SSL / TLS</span><span class="cert-label">256-bit Secure</span></div></div>' +
@@ -662,10 +710,10 @@
     '<div class="footer-legal">' +
       '<p class="footer-disc"><strong data-i18n="foot.disc_label">Disclaimer:</strong> <span data-i18n="disc.text">MyCashBridge is a Lending Service Provider (LSP) and is not a bank, NBFC or financial institution. We only facilitate customer applications for financial products offered by partner banks and NBFCs. Loan approvals, interest rates, credit limits, processing fees and related terms are determined solely by the respective financial institution based on its policies and your eligibility. We do not guarantee approval of any product and never charge customers a fee for standard applications.</span></p>' +
       '<p class="footer-disc" style="margin-top:10px">MyCashBridge is a <strong>Reddington Global Consultancy Private Limited</strong> company.</p>' +
-      '<p class="footer-disc" style="margin-top:4px">Registered office: ' + CFG.address + ', India &nbsp;�&nbsp; <a href="tel:' + CFG.phoneRaw + '">' + CFG.phone + '</a> &nbsp;�&nbsp; CIN: U72501HR2022PTC104372 &nbsp;�&nbsp; GSTIN: 06AALCR9469E1ZV</p>' +
-      '<p class="footer-disc" style="margin-top:4px">Inquiries: <a href="mailto:inquiry@mycashbridge.com">inquiry@mycashbridge.com</a> &nbsp;�&nbsp; Applications: <a href="mailto:application@mycashbridge.com">application@mycashbridge.com</a> &nbsp;�&nbsp; Privacy: <a href="mailto:privacy@mycashbridge.com">privacy@mycashbridge.com</a></p>' +
-      '<p class="footer-disc" style="margin-top:4px">Grievance Officer: <strong>Jyotsana Bora</strong> &nbsp;�&nbsp; <a href="mailto:grievance@mycashbridge.com">grievance@mycashbridge.com</a> &nbsp;�&nbsp; <a href="tel:+918796508140">+91 87965 08140</a></p>' +
-      '<div class="footer-bottom"><span>� ' + new Date().getFullYear() + ' ' + CFG.brand + '. All rights reserved.</span>' +
+      '<p class="footer-disc" style="margin-top:4px">Registered office: ' + CFG.address + ', India &nbsp;&bull;&nbsp; <a href="tel:' + CFG.phoneRaw + '">' + CFG.phone + '</a> &nbsp;&bull;&nbsp; CIN: U72501HR2022PTC104372 &nbsp;&bull;&nbsp; GSTIN: 06AALCR9469E1ZV</p>' +
+      '<p class="footer-disc" style="margin-top:4px">Inquiries: <a href="mailto:inquiry@mycashbridge.com">inquiry@mycashbridge.com</a> &nbsp;&bull;&nbsp; Applications: <a href="mailto:application@mycashbridge.com">application@mycashbridge.com</a> &nbsp;&bull;&nbsp; Privacy: <a href="mailto:privacy@mycashbridge.com">privacy@mycashbridge.com</a></p>' +
+      '<p class="footer-disc" style="margin-top:4px">Grievance Officer: <strong>Jyotsana Bora</strong> &nbsp;&bull;&nbsp; <a href="mailto:grievance@mycashbridge.com">grievance@mycashbridge.com</a> &nbsp;&bull;&nbsp; <a href="tel:+918796508140">+91 87965 08140</a></p>' +
+      '<div class="footer-bottom"><span>&copy; ' + new Date().getFullYear() + ' ' + CFG.brand + '. All rights reserved.</span>' +
         '<span class="links"><a href="' + BASE + 'pages/privacy-policy.html">Privacy</a><a href="' + BASE + 'pages/terms.html">Terms</a><a href="' + BASE + 'pages/disclaimer.html">Disclaimer</a><a href="#" data-cookie-settings>Cookie settings</a></span>' +
       '</div>' +
     '</div></footer>';
@@ -689,10 +737,10 @@
         '<span class="scroll-nudge-emoji">??</span>' +
         '<div>' +
           '<b class="scroll-nudge-title">Get a call back in 30 sec</b>' +
-          '<p class="scroll-nudge-sub">Free � No obligation � Won\'t affect CIBIL score</p>' +
+          '<p class="scroll-nudge-sub">Free &middot; No obligation &middot; Won't affect CIBIL score</p>' +
         '</div>' +
       '</div>' +
-      '<button class="btn btn-filled btn-block scroll-nudge-cta" data-apply><i data-lucide="phone-call"></i> Apply Now � It\'s Free</button>' +
+      '<button class="btn btn-filled btn-block scroll-nudge-cta" data-apply><i data-lucide="phone-call"></i> Apply Now &mdash; It's Free</button>' +
       '<div class="scroll-nudge-progress"><div class="scroll-nudge-progress-bar" id="cbNudgeBar"></div></div>' +
     '</div>' +
     /* -- Sticky bottom CTA bar (slides up after 350 px scroll, hides near footer) -- */
@@ -701,8 +749,8 @@
         '<div class="cb-sticky-msg">' +
           '<i data-lucide="gift" class="cb-sticky-ic"></i>' +
           '<div>' +
-            '<b class="cb-sticky-title">Refer a friend &amp; earn up to ?10,000 � per successful disbursal</b>' +
-            '<span class="cb-sticky-sub">Home Loan � LAP � Business Loan � No limit on referrals</span>' +
+            '<b class="cb-sticky-title">Refer a friend &amp; earn up to &#8377;10,000 &bull; per successful disbursal</b>' +
+            '<span class="cb-sticky-sub">Home Loan &bull; LAP &bull; Business Loan &bull; No limit on referrals</span>' +
           '</div>' +
         '</div>' +
         '<div class="cb-sticky-actions">' +
@@ -1103,7 +1151,7 @@
     function calc() {
       var P = +amtEl.value, n = +monEl.value, r = rate / 12 / 100;
       var emi = r === 0 ? P / n : P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1), total = emi * n;
-      if (amtOut) amtOut.textContent = inr(P); if (monOut) monOut.textContent = n + " months";
+      if (amtOut) amtOut.textContent = inr(P); if (monOut) monOut.textContent = n + " " + (curLang() === "hi" ? "\u092E\u0939\u0940\u0928\u0947" : "months");
       if (emiOut) emiOut.textContent = inr(emi); if (totOut) totOut.textContent = inr(total);
       if (intOut) intOut.textContent = inr(total - P); if (rateOut) rateOut.textContent = rate + "% p.a.";
     }
