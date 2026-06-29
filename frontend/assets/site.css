@@ -166,10 +166,19 @@ h1,h2,h3 { letter-spacing: -.01em; margin: 0; }
 .hero { background: var(--canvas); padding: 64px 0 72px; }
 .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; }
 .hero p.sub { font-size: 19px; line-height: 1.65; color: var(--text-strong); max-width: 470px; margin: 20px 0 0; }
-.hero-cta { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
-.hero-badges { display: flex; gap: 26px; margin-top: 34px; flex-wrap: wrap; }
-.hero-badge { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--text-strong); }
-.hero-badge i, .hero-badge svg { width: 18px; height: 18px; color: var(--green-accent); }
+/* Hero-embedded trust checkpoints */
+.hero-why { display: flex; flex-direction: column; gap: 9px; margin-top: 20px; }
+.hero-why-point { display: flex; align-items: flex-start; gap: 9px; font-size: 15px; color: var(--text-strong); line-height: 1.45; }
+.hw-tick { flex-shrink: 0; margin-top: 1px; }
+.hw-tick i { width: 17px; height: 17px; color: var(--green-accent); }
+.hero-cta { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+.hero-badges { display: flex; gap: 18px; margin-top: 18px; flex-wrap: wrap; }
+.hero-badge { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--text-strong); }
+.hero-badge i, .hero-badge svg { width: 16px; height: 16px; color: var(--green-accent); }
+@media (max-width: 600px) {
+  .hero-why { gap: 7px; }
+  .hero-why-point { font-size: 14px; }
+}
 
 /* EMI calculator widget */
 .emi { background: var(--white); border-radius: var(--radius-card); box-shadow: var(--shadow-card), 0 18px 40px rgba(0,0,0,.06); padding: 28px; }
@@ -191,6 +200,175 @@ h1,h2,h3 { letter-spacing: -.01em; margin: 0; }
 .bank { display: inline-flex; align-items: center; gap: 8px; color: var(--text-soft); font-weight: 700; font-size: 15px; opacity: .9; }
 .bank .dot { width: 26px; height: 26px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
   color: #fff; font-size: 13px; font-weight: 800; }
+
+/* ============================================================
+   TRUSTED PARTNERS (data-driven)
+   ============================================================ */
+.partners { padding-block: 72px; background: var(--white); }
+.partners-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 22px; flex-wrap: wrap; }
+.partners-copy { max-width: 700px; }
+.partners-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.partners-switch button {
+  border: 1px solid var(--hairline);
+  background: var(--white);
+  color: var(--text-strong);
+  border-radius: var(--radius-pill);
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.partners-switch button.active,
+.partners-switch button:hover {
+  border-color: var(--green-accent);
+  color: var(--green-primary);
+  background: var(--green-house);
+}
+.partner-scroller {
+  overflow: hidden;
+  margin: 4px 0 18px;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+/* Hero-placement variant – sits right below the trust strip */
+.partner-scroller-hero {
+  background: var(--white);
+  padding: 10px 0 6px;
+  margin: 0;
+  border-top: 1px solid var(--border-light);
+}
+.partner-scroller-track {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  animation: partnerMarquee 42s linear infinite;
+  will-change: transform;
+}
+.partner-scroller:hover .partner-scroller-track {
+  animation-play-state: paused;
+}
+.partner-scroller .partner-card {
+  min-width: 170px;
+  min-height: 72px;
+  padding: 10px 14px;
+  box-shadow: none;
+}
+.partner-scroller .partner-card:hover {
+  transform: none;
+}
+.partner-scroller .partner-logo {
+  height: 36px;
+}
+@keyframes partnerMarquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.partner-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+.partner-card {
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  background: #fff;
+  min-height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.partner-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+  border-color: #cde3d8;
+}
+.partner-logo {
+  width: 100%;
+  height: 46px;
+  object-fit: contain;
+}
+.partner-name-fallback {
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--green-primary);
+}
+.partner-meta {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.partner-meta .muted {
+  font-size: 12px;
+}
+
+/* loan-page partner band */
+.loan-partner-strip {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  padding: 18px;
+  margin-top: 18px;
+}
+.loan-partner-strip h3 {
+  font-size: 18px;
+  color: var(--green-primary);
+  margin: 0 0 6px;
+}
+.loan-partner-strip p {
+  margin: 0 0 14px;
+  color: var(--text-soft);
+  font-size: 14px;
+}
+.loan-partner-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+.loan-partner-grid .partner-card {
+  min-height: 70px;
+  padding: 10px;
+}
+.loan-partner-grid .partner-logo {
+  height: 38px;
+}
+
+@media (max-width: 1160px) {
+  .partner-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+@media (max-width: 980px) {
+  .partner-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .loan-partner-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+  .partner-scroller .partner-card { min-width: 148px; }
+  .partner-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .loan-partner-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 460px) {
+  .partners { padding-block: 56px; }
+  .partners-switch button { font-size: 11px; padding: 6px 12px; }
+  .partner-scroller .partner-card { min-width: 136px; }
+  .partner-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .loan-partner-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .partner-scroller-track {
+    animation: none;
+  }
+}
 
 /* ============================================================
    PRODUCT GRID

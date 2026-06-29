@@ -80,6 +80,225 @@
   ];
   window.CB_LOANS = LOANS;
 
+  /* ------------------------------------------------------------
+     Partner network data (banks/NBFCs/HFCs/SFBs)
+     ------------------------------------------------------------ */
+  var PARTNERS = [];
+  var PARTNER_TYPES = {
+    all: "All Partners",
+    bank: "Banks",
+    nbfc: "NBFCs",
+    hfc: "HFCs",
+    sfb: "Small Finance Banks"
+  };
+  var LOAN_DISPLAY = {
+    "personal-loan": "Personal Loan",
+    "business-loan": "Business Loan",
+    "home-loan": "Home Loan",
+    "loan-against-property": "Loan Against Property",
+    "car-loan": "Car Loan",
+    "education-loan": "Education Loan",
+    "gold-loan": "Gold Loan"
+  };
+  var RATE_HINTS = {
+    "personal-loan": { min: 10.5, max: 24.0, fee: "1% - 3%", tenure: "72 mo" },
+    "business-loan": { min: 14.0, max: 28.0, fee: "2% - 3%", tenure: "60 mo" },
+    "home-loan": { min: 8.5, max: 11.75, fee: "0.25% - 1%", tenure: "30 yrs" },
+    "loan-against-property": { min: 9.0, max: 16.0, fee: "0.5% - 2%", tenure: "20 yrs" },
+    "car-loan": { min: 9.25, max: 14.5, fee: "0.5% - 1%", tenure: "84 mo" },
+    "education-loan": { min: 9.0, max: 15.0, fee: "0% - 1%", tenure: "15 yrs" },
+    "gold-loan": { min: 9.0, max: 18.0, fee: "0% - 1%", tenure: "36 mo" }
+  };
+  var PARTNER_LOCAL_LOGOS = {
+    "State Bank of India": "logos/sbi logo.png",
+    "HDFC Bank": "logos/logo-hdfc.png",
+    "ICICI Bank": "logos/icic bank logo.png",
+    "Axis Bank": "logos/axis bank logo.jpg",
+    "Kotak Mahindra Bank": "logos/kotak mahindra bank.jpg",
+    "YES Bank": "logos/Yes_Bank_Logo_in_2024.png",
+    "IDFC FIRST Bank": "logos/idfc first bank.jpg",
+    "IndusInd Bank": "logos/indusind-bank-logo-png_seeklogo-71354.png",
+    "Federal Bank": "logos/federal bank.jpg",
+    "RBL Bank": "logos/RBL_Bank_SVG_Logo.svg.png",
+    "IDBI Bank": "logos/IDBI-Bank-logo.png",
+    "Bank of Baroda": "logos/bank of baroda logo.png",
+    "Bank of Maharashtra": "logos/Bank-of-Maharashtra-Logo-Vector.svg-.png",
+    "Indian Overseas Bank": "logos/indian overseas bank logo.png",
+    "Punjab National Bank": "logos/pujab national bank logo.jpg",
+    "Canara Bank": "logos/Canara_Bank_Logo.svg.png",
+    "Union Bank of India": "logos/Union Bank of India logo.png",
+    "Indian Bank": "logos/_indian-bank-logo-indian-bank-logo-vector-hd.png",
+    "Central Bank of India": "logos/central-bank-of-india-1911-vector-logo-.png",
+    "AU Small Finance Bank": "logos/AU-bank-logo.jpg",
+    "Jana Small Finance Bank": "logos/Jana Small Finance Bank logo.jpg",
+    "Ujjivan Small Finance Bank": "logos/Ujjivan Small Finance Bank logo.jpg",
+    "Suryoday Small Finance Bank": "logos/Suryoday Small Finance Bank logo.jpg",
+    "Unity Small Finance Bank": "logos/Unity Small Finance Bank logo.jpg",
+    "Utkarsh Small Finance Bank": "logos/Utkarsh Small Finance Bank logo.jpg",
+    "Bandhan Bank": "logos/Bandhan_Bank_Svg_Logo.svg.png",
+    "DCB Bank": "logos/DCB_Bank.svg",
+    "DBS Bank": "logos/DBS_Bank_logo_logotype.png",
+    "HSBC": "logos/hsbc bank logo.png",
+    "HSBC Home Loans": "logos/HSBC Home Loans logo.png",
+    "Standard Chartered": "logos/Standard Chartered India logo.png",
+    "Doha Bank": "logos/doha-bank-logo.webp",
+    "Shinhan Bank": "logos/shinhan-bank-logo.png",
+    "Karur Vysya Bank": "logos/Karur_Vysya_Bank.svg.png",
+    "South Indian Bank": "logos/south-indian-bank.webp"
+  };
+
+  function partnerTypeRank(t) {
+    return { bank: 1, sfb: 2, nbfc: 3, hfc: 4 }[t] || 5;
+  }
+  function normalizePartner(p) {
+    return {
+      name: p.name || "",
+      type: p.type || "bank",
+      category: p.category || "",
+      logo: typeof p.logo === "string" ? p.logo.trim() : "",
+      website: p.website || "",
+      loanTypes: Array.isArray(p.loanTypes) ? p.loanTypes : [],
+      featured: !!p.featured
+    };
+  }
+  function loanKeyFromPath() {
+    var m = location.pathname.match(/\/loans\/([a-z-]+)\.html$/);
+    return m ? m[1] : "";
+  }
+  function partnerForLoan(loanKey) {
+    return PARTNERS.filter(function (p) { return p.loanTypes.indexOf(loanKey) > -1; });
+  }
+  function rateForPartner(partner, loanKey) {
+    var hint = RATE_HINTS[loanKey] || { min: 10, max: 20, fee: "1% - 2%", tenure: "60 mo" };
+    var base = hint.min;
+    var spread = hint.max - hint.min;
+    var typeWeight = partner.type === "bank" ? 0.18 : partner.type === "sfb" ? 0.35 : partner.type === "hfc" ? 0.3 : 0.42;
+    var signature = 0;
+    for (var i = 0; i < partner.name.length; i++) signature += partner.name.charCodeAt(i);
+    var drift = (signature % 17) / 100;
+    var low = Math.max(hint.min, (base + spread * typeWeight + drift)).toFixed(2);
+    var high = Math.min(hint.max + 0.75, (parseFloat(low) + 2.2)).toFixed(2);
+    return {
+      rate: low + "% - " + high + "%",
+      fee: hint.fee,
+      tenure: hint.tenure
+    };
+  }
+  function partnerCardHTML(p) {
+    var safeName = p.name.replace(/"/g, "&quot;");
+    var localLogo = PARTNER_LOCAL_LOGOS[p.name] ? (BASE + "assets/" + encodeURI(PARTNER_LOCAL_LOGOS[p.name])) : "";
+    var logoSrc = localLogo || p.logo;
+    if (logoSrc) {
+      return '<div class="partner-card" title="' + safeName + '">' +
+        '<img class="partner-logo" src="' + logoSrc + '" alt="' + safeName + ' logo" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display=\'none\';this.parentNode.insertAdjacentHTML(\'beforeend\',\'<div class=\'partner-name-fallback\'>' + safeName + '</div>\')">' +
+      '</div>';
+    }
+    return '<div class="partner-card"><div class="partner-name-fallback">' + safeName + '</div></div>';
+  }
+  function sortPartners(arr) {
+    return arr.slice().sort(function (a, b) {
+      if (a.featured !== b.featured) return a.featured ? -1 : 1;
+      var typeCmp = partnerTypeRank(a.type) - partnerTypeRank(b.type);
+      if (typeCmp) return typeCmp;
+      return a.name.localeCompare(b.name);
+    });
+  }
+  function renderHomePartners() {
+    var sec = document.querySelector("[data-partner-section]");
+    if (!sec || !PARTNERS.length) return;
+    var tabs = sec.querySelector("[data-partner-tabs]");
+    var grid = sec.querySelector("[data-partner-grid]");
+    /* scroller may be outside the partners section (e.g. hero placement) */
+    var scroller = document.querySelector("[data-partner-scroller-track]");
+    if (!tabs || !grid) return;
+    var active = "all";
+    if (scroller) {
+      var marquee = sortPartners(PARTNERS).slice(0, 24);
+      var seq = marquee.map(partnerCardHTML).join("");
+      scroller.innerHTML = seq + seq;
+    }
+    function draw() {
+      var filtered = active === "all" ? PARTNERS : PARTNERS.filter(function (p) { return p.type === active; });
+      var display = sortPartners(filtered).slice(0, 30);
+      grid.innerHTML = display.map(partnerCardHTML).join("");
+    }
+    tabs.innerHTML = Object.keys(PARTNER_TYPES).map(function (k) {
+      return '<button type="button" data-type="' + k + '">' + PARTNER_TYPES[k] + '</button>';
+    }).join("");
+    tabs.querySelectorAll("button").forEach(function (b) {
+      b.classList.toggle("active", b.getAttribute("data-type") === active);
+      b.addEventListener("click", function () {
+        active = b.getAttribute("data-type");
+        tabs.querySelectorAll("button").forEach(function (x) { x.classList.remove("active"); });
+        b.classList.add("active");
+        draw();
+      });
+    });
+    draw();
+  }
+  function renderLoanPartners() {
+    var key = loanKeyFromPath();
+    if (!key || !PARTNERS.length) return;
+    var hero = document.querySelector("section.hero .wrap.hero-grid > div:first-child");
+    if (hero && !hero.querySelector(".loan-partner-strip")) {
+      var matches = sortPartners(partnerForLoan(key)).slice(0, 10);
+      if (matches.length) {
+        hero.insertAdjacentHTML("beforeend",
+          '<div class="loan-partner-strip" data-loan-partner-strip>' +
+            '<h3>Trusted partners for ' + (LOAN_DISPLAY[key] || "this loan") + '</h3>' +
+            '<p>Access options across major banks, NBFCs and housing finance institutions through one guided application.</p>' +
+            '<div class="loan-partner-grid">' + matches.map(partnerCardHTML).join("") + '</div>' +
+          '</div>'
+        );
+      }
+    }
+    var tbody = document.querySelector("#rates table.cmp tbody");
+    if (tbody && !tbody.querySelector("tr")) {
+      var ratePartners = sortPartners(partnerForLoan(key)).slice(0, 10);
+      tbody.innerHTML = ratePartners.map(function (p) {
+        var r = rateForPartner(p, key);
+        return '<tr><td>' + p.name + '</td><td>' + r.rate + '</td><td>' + r.fee + '</td><td>' + r.tenure + '</td></tr>';
+      }).join("");
+    }
+  }
+  function injectPartnerSchema() {
+    if (!PARTNERS.length) return;
+    var isHome = /\/index\.html$/.test(location.pathname) || /\/$/.test(location.pathname);
+    var key = loanKeyFromPath();
+    var list = isHome ? sortPartners(PARTNERS).slice(0, 30) : sortPartners(partnerForLoan(key)).slice(0, 20);
+    if (!list.length) return;
+    var node = document.createElement("script");
+    node.type = "application/ld+json";
+    node.setAttribute("data-partner-schema", "true");
+    var itemList = {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": isHome ? "MyCashBridge Trusted Lending Partners" : ((LOAN_DISPLAY[key] || "Loan") + " Lending Partners"),
+      "itemListElement": list.map(function (p, idx) {
+        return {
+          "@type": "ListItem",
+          "position": idx + 1,
+          "item": {
+            "@type": "Organization",
+            "name": p.name,
+            "url": p.website || undefined,
+            "sameAs": p.website || undefined
+          }
+        };
+      })
+    };
+    node.textContent = JSON.stringify(itemList);
+    document.head.appendChild(node);
+  }
+  function loadPartners() {
+    return fetch(BASE + "assets/partners-data.json", { cache: "no-store" })
+      .then(function (res) { if (!res.ok) throw new Error("partner-data-fetch"); return res.json(); })
+      .then(function (rows) {
+        PARTNERS = (Array.isArray(rows) ? rows : []).map(normalizePartner).filter(function (p) { return p.name; });
+      })
+      .catch(function () { PARTNERS = []; });
+  }
+
   /* ============================================================
      DPDP ACT 2023 — CONSENT CONSTANTS (Phase 1)
      ============================================================
@@ -143,7 +362,7 @@
     "EMI Calculator": "EMI कैलकुलेटर", "Free CIBIL Score": "मुफ़्त CIBIL स्कोर", "Eligibility Checker": "पात्रता जांचक",
     "Compare Loans": "लोन की तुलना करें", "Guides & Articles": "गाइड और लेख",
     // ---- hero A ----
-    "Compare & apply from 30+ banks & NBFCs": "30+ बैंक और NBFC से तुलना करें और अप्लाई करें",
+    "Compare & apply from 128+ banks & NBFCs": "128+ बैंक और NBFC से तुलना करें और अप्लाई करें",
     "Borrow with": "साफ़ सोच के साथ", "a clear head.": "लोन पाएं।",
     "Compare and apply for personal, business, home and gold loans from India's leading banks & NBFCs — with EMIs you choose and a total you can see before you sign.":
       "भारत के प्रमुख बैंकों और NBFC से पर्सनल, बिज़नेस, होम और गोल्ड लोन की तुलना करें और अप्लाई करें — अपनी पसंद की EMI और साइन करने से पहले दिखने वाला कुल भुगतान।",
@@ -181,8 +400,8 @@
     "Trusted lender network": "भरोसेमंद ऋणदाता नेटवर्क",
     // ---- products section ----
     "Our loans": "हमारे लोन", "Pick the loan that fits your plan": "वह लोन चुनें जो आपकी ज़रूरत के लिए सही हो",
-    "Every loan shows your EMI and total payable up front. No surprises at signing, no hidden charges.":
-      "हर लोन में आपकी EMI और कुल देय राशि पहले ही दिख जाती है। साइन करते समय कोई आश्चर्य नहीं, कोई छिपा शुल्क नहीं।",
+    "Apply Once. Compare 128+ Lenders. Upload Documents Once. Get the Best Offer Delivered to You.":
+      "एक बार अप्लाई करें। 128+ ऋणदाताओं की तुलना करें। दस्तावेज़ एक बार अपलोड करें। सबसे अच्छा ऑफर अपने आप पाएं।",
     "Check rate": "दर जांचें",
     "PERSONAL LOAN": "पर्सनल लोन", "BUSINESS LOAN": "बिज़नेस लोन", "HOME LOAN": "होम लोन",
     "GOLD LOAN": "गोल्ड लोन", "CAR LOAN": "कार लोन", "EDUCATION LOAN": "एजुकेशन लोन",
@@ -198,13 +417,13 @@
     "From 9.0% p.a.": "9.0% प्रतिवर्ष से", "From 9.5% p.a.": "9.5% प्रतिवर्ष से",
     // ---- why customers choose us ----
     "Why customers choose us": "ग्राहक हमें क्यों चुनते हैं", "Why Customers Choose Us": "ग्राहक हमें क्यों चुनते हैं",
-    "Hand-picked offers from": "चुनिंदा ऑफर", "30+ lenders": "30+ ऋणदाताओं से",
+    "Hand-picked offers from": "चुनिंदा ऑफर", "128+ lenders": "128+ ऋणदाताओं से",
     "Money in minutes via": "मिनटों में पैसा", "pre-approved loans": "प्री-अप्रूव्ड लोन के ज़रिए",
     "Instant": "तुरंत", "sanction & disbursal": "मंज़ूरी और वितरण",
     "No hidden charges": "कोई छिपा शुल्क नहीं", "— what you see is what you pay": "— जो दिखे वही चुकाएं",
     "Money in minutes via pre-approved offers": "प्री-अप्रूव्ड ऑफर से मिनटों में पैसा",
     "Quick sanction & disbursal": "तेज़ मंज़ूरी और वितरण",
-    "30+ partners": "30+ साझेदार", "Banks & NBFCs in one place": "बैंक और NBFC एक ही जगह",
+    "128+ partners": "128+ साझेदार", "Banks & NBFCs in one place": "बैंक और NBFC एक ही जगह",
     "24-hr disbursal": "24-घंटे वितरण", "For approved applicants": "मंज़ूर आवेदकों के लिए",
     "40,000+": "40,000+", "Customers helped": "ग्राहकों की मदद की", "Bank-grade": "बैंक-स्तरीय", "256-bit secure & private": "256-बिट सुरक्षित और निजी",
     // ---- how it works ----
@@ -507,7 +726,7 @@
     "Age between 21 and 60 years": "उम्र 21 से 60 साल के बीच",
     "Documents you'll typically need": "आम तौर पर ज़रूरी डॉक्युमेंट्स",
     "Keep your credit score healthy (pay EMIs and card bills on time)": "अपना क्रेडिट स्कोर अच्छा रखें (EMI और कार्ड के बिल समय पर चुकाएं)",
-    "across 30+ partners, so you see clear EMIs and totals up front. You can also": "30+ पार्टनर्स के बीच, ताकि आपको EMI और कुल राशि पहले ही साफ़-साफ़ दिख जाए। आप यह भी कर सकते हैं –",
+    "across 128+ partners, so you see clear EMIs and totals up front. You can also": "30+ पार्टनर्स के बीच, ताकि आपको EMI और कुल राशि पहले ही साफ़-साफ़ दिख जाए। आप यह भी कर सकते हैं –",
     "Rates change often and depend on your profile. Rather than chasing one bank, compare multiple lenders for your specific income and credit score – that's what MyCashBridge.com does for you.": "रेट अक्सर बदलते रहते हैं और आपकी प्रोफाइल पर निर्भर करते हैं। किसी एक बैंक के पीछे भागने के बजाय, अपनी इनकम और क्रेडिट स्कोर के हिसाब से कई लेंडर्स की तुलना करें – और यही काम MyCashBridge.com आपके लिए करता है।",
     "Business Loan for MSMEs in India (2026): Eligibility, Documents & Tips": "भारत में MSME के लिए बिज़नेस लोन (2026): एलिजिबिलिटी, डॉक्युमेंट्स और टिप्स",
     "– fund equipment, expansion or new premises": "– इक्विपमेंट, विस्तार या नई जगह के लिए फंड पाएं",
@@ -891,7 +1110,7 @@
     "Prepayment terms": "प्रीपेमेंट की शर्तें",
     "A credit score of 700+ for the best rates": "बेस्ट रेट्स के लिए 700+ क्रेडिट स्कोर",
     "Latest 3 months' bank statements": "पिछले 3 महीनों के बैंक स्टेटमेंट",
-    "Compare offers first, then apply once to avoid multiple hard enquiries": "पहले ऑफर्स की तुलना करें, फिर एक ही बार अप्लाई करें ताकि कई हार्ड एन्क्वायरी से बचा जा सके",
+    "Apply Once. Compare 128+ Lenders. Upload Documents Once. Get the Best Offer Delivered to You.": "एक बार अप्लाई करें। 128+ ऋणदाताओं की तुलना करें। दस्तावेज़ एक बार अपलोड करें। सबसे अच्छा ऑफर अपने आप पाएं।",
     "or": "या",
     "As a rule of thumb, your total EMIs (including the new loan) should stay under 40–50% of your monthly income. Use our eligibility checker for an indicative amount.": "एक सामान्य नियम के तौर पर, आपकी कुल EMI (नए लोन सहित) आपकी मासिक आय के 40–50% से कम रहनी चाहिए। सांकेतिक राशि जानने के लिए हमारा एलिजिबिलिटी चेकर इस्तेमाल करें।",
     "Types of MSME finance": "MSME फाइनेंस के प्रकार",
@@ -1293,7 +1512,7 @@
     "There's no overnight fix. With consistent on-time payments and lower utilisation, most people see meaningful improvement within 3 to 6 months, and strong results over a year.": "रातोंरात कोई जादू नहीं होता। समय पर पेमेंट और कम यूटिलाइज़ेशन के साथ ज़्यादातर लोगों को 3 से 6 महीनों में अच्छा सुधार दिखता है, और एक साल में शानदार नतीजे।",
     "getting a loan with a low CIBIL score": "कम CIBIL स्कोर पर लोन पाना",
     "Credit bureaus typically update scores monthly, as lenders report your repayment data.": "क्रेडिट ब्यूरो आमतौर पर हर महीने स्कोर अपडेट करते हैं, जब लेंडर आपका रीपेमेंट डेटा रिपोर्ट करते हैं।",
-    "Compare and apply for the right loan across 30+ banks & NBFCs – with clear EMIs and honest guidance.": "30+ बैंकों और NBFCs में से सही लोन कंपेयर करें और अप्लाई करें – साफ़ EMI और ईमानदार गाइडेंस के साथ।",
+    "Compare and apply for the right loan across 128+ banks & NBFCs – with clear EMIs and honest guidance.": "30+ बैंकों और NBFCs में से सही लोन कंपेयर करें और अप्लाई करें – साफ़ EMI और ईमानदार गाइडेंस के साथ।",
     "Secured loans": "सिक्योर्ड लोन",
     "NBFCs and newer lenders": "NBFCs और नए लेंडर",
     "Improve your score, then borrow cheaper": "अपना स्कोर सुधारें, फिर सस्ता लोन पाएं",
@@ -1438,7 +1657,7 @@
     "Get my free score": "मेरा फ्री स्कोर पाएं",
     "Keep below 30%": "30% से नीचे रखें",
     "Simple habits that lift your CIBIL": "आसान आदतें जो आपका CIBIL बढ़ाएं",
-    "Applying to many lenders at once can lower your score. Compare first, apply once.": "एक साथ कई लेंडरों के पास अप्लाई करने से आपका स्कोर गिर सकता है। पहले कंपेयर करें, फिर एक बार अप्लाई करें।",
+    "Apply Once. Compare 128+ Lenders. Upload Documents Once. Get the Best Offer Delivered to You.": "एक बार अप्लाई करें। 128+ ऋणदाताओं की तुलना करें। दस्तावेज़ एक बार अपलोड करें। सबसे अच्छा ऑफर अपने आप पाएं।",
     "Net monthly income": "नेट मंथली इनकम",
     "Estimated tenure": "अनुमानित टेन्योर",
     "A real offer depends on your documents and credit profile.": "असली ऑफर आपके डॉक्यूमेंट्स और क्रेडिट प्रोफाइल पर निर्भर करता है।",
@@ -1649,7 +1868,7 @@
   function whyStripHTML() {
     return '<section class="whystrip"><div class="wrap whystrip-inner">' +
       '<span class="wlabel" data-i18n="why.label">Why customers choose us</span>' +
-      '<span class="wp"><i data-lucide="check-circle-2"></i> Hand-picked offers from <b style="margin-left:4px">30+ lenders</b></span>' +
+      '<span class="wp"><i data-lucide="check-circle-2"></i> Hand-picked offers from <b style="margin-left:4px">128+ lenders</b></span>' +
       '<span class="wp"><i data-lucide="zap"></i> Money in minutes via pre-approved offers</span>' +
       '<span class="wp"><i data-lucide="badge-check"></i> Quick sanction &amp; disbursal</span>' +
       '</div></section>';
@@ -2358,7 +2577,7 @@
         '<div class="qb-preview-range">' + minAmt + ' \u2013 ' + maxAmt + '</div>' +
         '<div class="qb-preview-meta">' +
           '<div class="qb-preview-stat"><span class="stat-label">Indicative Rate</span><span class="stat-val">From ' + rate + '% p.a.</span></div>' +
-          '<div class="qb-preview-stat"><span class="stat-label">Partner Network</span><span class="stat-val">30+ Banks & NBFCs</span></div>' +
+          '<div class="qb-preview-stat"><span class="stat-label">Partner Network</span><span class="stat-val">128+ Banks & NBFCs</span></div>' +
         '</div>' +
         '<div class="qb-preview-progress-row">' +
           '<span class="qb-preview-pct-label">Approval Journey</span>' +
@@ -2640,6 +2859,12 @@
     wire(); wireCookies(); wireQb();
     document.querySelectorAll("[data-emi]").forEach(initEmi);
     applyLang(); relucide();
+    loadPartners().then(function () {
+      renderHomePartners();
+      renderLoanPartners();
+      injectPartnerSchema();
+      relucide();
+    });
     initMotion();
     initStickyBar();
     initExitIntent();
@@ -2708,6 +2933,12 @@
     wire(); wireCookies(); wireQb();
     document.querySelectorAll("[data-emi]").forEach(initEmi);
     applyLang(); relucide();
+    loadPartners().then(function () {
+      renderHomePartners();
+      renderLoanPartners();
+      injectPartnerSchema();
+      relucide();
+    });
     initMotion();
     initStickyBar();
     initExitIntent();

@@ -1,0 +1,515 @@
+[
+  {
+    "name": "State Bank of India",
+    "type": "bank",
+    "category": "Public Sector Bank",
+    "logo": "assets/logos/sbi logo.png",
+    "website": "https://sbi.co.in",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "construction-finance", "commercial-property-loan", "balance-transfer", "credit-cards", "insurance-products", "personal-loan", "car-loan", "education-loan", "gold-loan"],
+    "featured": true
+  },
+  {
+    "name": "HDFC Bank",
+    "type": "bank",
+    "category": "Private Sector Bank",
+    "logo": "assets/logos/logo-hdfc.png",
+    "website": "https://www.hdfcbank.com",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "construction-finance", "commercial-property-loan", "balance-transfer", "credit-cards", "insurance-products", "personal-loan", "car-loan", "education-loan", "gold-loan"],
+    "featured": true
+  },
+  {
+    "name": "ICICI Bank",
+    "type": "bank",
+    "category": "Private Sector Bank",
+    "logo": "assets/logos/icic bank logo.png",
+    "website": "https://www.icicibank.com",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "construction-finance", "commercial-property-loan", "balance-transfer", "credit-cards", "insurance-products", "personal-loan", "car-loan", "education-loan", "gold-loan"],
+    "featured": true
+  },
+  {
+    "name": "Axis Bank",
+    "type": "bank",
+    "category": "Private Sector Bank",
+    "logo": "assets/logos/axis bank logo.jpg",
+    "website": "https://www.axisbank.com",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "construction-finance", "commercial-property-loan", "balance-transfer", "credit-cards", "insurance-products", "personal-loan", "car-loan", "education-loan"],
+    "featured": true
+  },
+  {
+    "name": "Kotak Mahindra Bank",
+    "type": "bank",
+    "category": "Private Sector Bank",
+    "logo": "assets/logos/kotak mahindra bank.jpg",
+    "website": "https://www.kotak.com",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "construction-finance", "balance-transfer", "credit-cards", "insurance-products", "personal-loan", "car-loan", "education-loan"],
+    "featured": true
+  },
+  {
+    "name": "YES Bank",
+    "type": "bank",
+    "category": "Private Sector Bank",
+    "logo": "assets/logos/Yes_Bank_Logo_in_2024.png",
+    "website": "https://www.yesbank.in",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "balance-transfer", "credit-cards", "insurance-products", "personal-loan", "car-loan"],
+    "featured": true
+  },
+  {
+    "name": "IDFC FIRST Bank",
+    "type": "bank",
+    "category": "Private Sector Bank",
+    "logo": "assets/logos/idfc first bank.jpg",
+    "website": "https://www.idfcfirstbank.com",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "balance-transfer", "credit-cards", "insurance-products", "personal-loan", "car-loan", "education-loan"],
+    "featured": true
+  },
+  {
+    "name": "IndusInd Bank",
+    "type": "bank",
+    "category": "Private Sector Bank",
+    "logo": "assets/logos/indusind-bank-logo-png_seeklogo-71354.png",
+    "website": "https://www.indusind.com",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "credit-cards", "insurance-products", "personal-loan", "car-loan"],
+    "featured": true
+  },
+  {
+    "name": "Federal Bank",
+    "type": "bank",
+    "category": "Private Sector Bank",
+    "logo": "assets/logos/federal bank.jpg",
+    "website": "https://www.federalbank.co.in",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "credit-cards", "insurance-products", "personal-loan", "car-loan", "education-loan", "gold-loan"],
+    "featured": true
+  },
+  {
+    "name": "RBL Bank",
+    "type": "bank",
+    "category": "Private Sector Bank",
+    "logo": "assets/logos/RBL_Bank_SVG_Logo.svg.png",
+    "website": "https://www.rblbank.com",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "credit-cards", "insurance-products", "personal-loan", "car-loan"],
+    "featured": false
+  },
+  {
+    "name": "IDBI Bank",
+    "type": "bank",
+    "category": "Private Sector Bank",
+    "logo": "assets/logos/IDBI-Bank-logo.png",
+    "website": "https://www.idbibank.in",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "credit-cards", "personal-loan", "education-loan", "car-loan"],
+    "featured": false
+  },
+  {
+    "name": "Bank of Baroda",
+    "type": "bank",
+    "category": "Public Sector Bank",
+    "logo": "assets/logos/bank of baroda logo.png",
+    "website": "https://www.bankofbaroda.in",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "construction-finance", "commercial-property-loan", "balance-transfer", "credit-cards", "insurance-products", "personal-loan", "car-loan", "education-loan", "gold-loan"],
+    "featured": true
+  },
+  {
+    "name": "Bank of Maharashtra",
+    "type": "bank",
+    "category": "Public Sector Bank",
+    "logo": "assets/logos/Bank-of-Maharashtra-Logo-Vector.svg-.png",
+    "website": "https://bankofmaharashtra.in",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "personal-loan", "car-loan", "education-loan", "gold-loan"],
+    "featured": false
+  },
+  {
+    "name": "Indian Overseas Bank",
+    "type": "bank",
+    "category": "Public Sector Bank",
+    "logo": "assets/logos/indian overseas bank logo.png",
+    "website": "https://www.iob.in",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "personal-loan", "education-loan", "gold-loan"],
+    "featured": false
+  },
+  {
+    "name": "Punjab National Bank",
+    "type": "bank",
+    "category": "Public Sector Bank",
+    "logo": "assets/logos/pujab national bank logo.jpg",
+    "website": "https://www.pnbindia.in",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "construction-finance", "commercial-property-loan", "balance-transfer", "credit-cards", "insurance-products", "personal-loan", "car-loan", "education-loan", "gold-loan"],
+    "featured": true
+  },
+  {
+    "name": "Canara Bank",
+    "type": "bank",
+    "category": "Public Sector Bank",
+    "logo": "assets/logos/Canara_Bank_Logo.svg.png",
+    "website": "https://canarabank.com",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "construction-finance", "commercial-property-loan", "balance-transfer", "credit-cards", "insurance-products", "personal-loan", "car-loan", "education-loan", "gold-loan"],
+    "featured": true
+  },
+  {
+    "name": "Union Bank of India",
+    "type": "bank",
+    "category": "Public Sector Bank",
+    "logo": "assets/logos/Union Bank of India logo.png",
+    "website": "https://www.unionbankofindia.co.in",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "construction-finance", "commercial-property-loan", "balance-transfer", "credit-cards", "insurance-products", "personal-loan", "car-loan", "education-loan", "gold-loan"],
+    "featured": true
+  },
+  {
+    "name": "Indian Bank",
+    "type": "bank",
+    "category": "Public Sector Bank",
+    "logo": "assets/logos/_indian-bank-logo-indian-bank-logo-vector-hd.png",
+    "website": "https://www.indianbank.in",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "credit-cards", "personal-loan", "car-loan", "education-loan", "gold-loan"],
+    "featured": true
+  },
+  {
+    "name": "Central Bank of India",
+    "type": "bank",
+    "category": "Public Sector Bank",
+    "logo": "assets/logos/central-bank-of-india-1911-vector-logo-.png",
+    "website": "https://www.centralbankofindia.co.in",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "personal-loan", "education-loan", "gold-loan"],
+    "featured": true
+  },
+  {
+    "name": "AU Small Finance Bank",
+    "type": "sfb",
+    "category": "Small Finance Bank",
+    "logo": "assets/logos/AU-bank-logo.jpg",
+    "website": "https://www.aubank.in",
+    "loanTypes": ["home-loan", "business-loan", "working-capital", "credit-cards", "insurance-products", "personal-loan", "car-loan", "education-loan"],
+    "featured": true
+  },
+  {
+    "name": "Jana Small Finance Bank",
+    "type": "sfb",
+    "category": "Small Finance Bank",
+    "logo": "assets/logos/Jana Small Finance Bank logo.jpg",
+    "website": "https://www.janabank.com",
+    "loanTypes": ["home-loan", "business-loan", "working-capital", "insurance-products", "personal-loan", "gold-loan"],
+    "featured": false
+  },
+  {
+    "name": "Ujjivan Small Finance Bank",
+    "type": "sfb",
+    "category": "Small Finance Bank",
+    "logo": "assets/logos/Ujjivan Small Finance Bank logo.jpg",
+    "website": "https://www.ujjivansfb.in",
+    "loanTypes": ["home-loan", "business-loan", "working-capital", "insurance-products", "personal-loan", "gold-loan"],
+    "featured": false
+  },
+  {
+    "name": "Suryoday Small Finance Bank",
+    "type": "sfb",
+    "category": "Small Finance Bank",
+    "logo": "assets/logos/Suryoday Small Finance Bank logo.jpg",
+    "website": "https://www.suryodaybank.com",
+    "loanTypes": ["home-loan", "business-loan", "working-capital", "insurance-products", "personal-loan", "gold-loan"],
+    "featured": false
+  },
+  {
+    "name": "Unity Small Finance Bank",
+    "type": "sfb",
+    "category": "Small Finance Bank",
+    "logo": "assets/logos/Unity Small Finance Bank logo.jpg",
+    "website": "https://theunitybank.com",
+    "loanTypes": ["home-loan", "business-loan", "working-capital", "personal-loan"],
+    "featured": false
+  },
+  {
+    "name": "Utkarsh Small Finance Bank",
+    "type": "sfb",
+    "category": "Small Finance Bank",
+    "logo": "assets/logos/Utkarsh Small Finance Bank logo.jpg",
+    "website": "https://www.utkarsh.bank",
+    "loanTypes": ["home-loan", "business-loan", "working-capital", "personal-loan", "gold-loan"],
+    "featured": false
+  },
+  {
+    "name": "Bandhan Bank",
+    "type": "bank",
+    "category": "Private Sector Bank",
+    "logo": "assets/logos/Bandhan_Bank_Svg_Logo.svg.png",
+    "website": "https://bandhanbank.com",
+    "loanTypes": ["home-loan", "business-loan", "working-capital", "insurance-products", "personal-loan", "gold-loan"],
+    "featured": false
+  },
+  {
+    "name": "DCB Bank",
+    "type": "bank",
+    "category": "Private Sector Bank",
+    "logo": "assets/logos/DCB_Bank.svg",
+    "website": "https://www.dcbbank.com",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "construction-finance", "commercial-property-loan", "balance-transfer", "personal-loan", "car-loan"],
+    "featured": false
+  },
+  {
+    "name": "DBS Bank",
+    "type": "bank",
+    "category": "Foreign Bank",
+    "logo": "assets/logos/DBS_Bank_logo_logotype.png",
+    "website": "https://www.dbs.com",
+    "loanTypes": ["business-loan", "working-capital", "credit-cards", "insurance-products", "personal-loan"],
+    "featured": false
+  },
+  {
+    "name": "HSBC",
+    "type": "bank",
+    "category": "Foreign Bank",
+    "logo": "assets/logos/hsbc bank logo.png",
+    "website": "https://www.hsbc.co.in",
+    "loanTypes": ["home-loan", "business-loan", "working-capital", "credit-cards", "insurance-products", "personal-loan", "education-loan"],
+    "featured": false
+  },
+  {
+    "name": "Standard Chartered",
+    "type": "bank",
+    "category": "Foreign Bank",
+    "logo": "assets/logos/Standard Chartered India logo.png",
+    "website": "https://www.sc.com/in",
+    "loanTypes": ["business-loan", "working-capital", "credit-cards", "insurance-products", "personal-loan"],
+    "featured": false
+  },
+  {
+    "name": "Deutsche Bank",
+    "type": "bank",
+    "category": "Foreign Bank",
+    "logo": "assets/logos/Deutsche Bank India logo",
+    "website": "https://www.db.com/india",
+    "loanTypes": ["business-loan", "working-capital", "commercial-property-loan", "insurance-products"],
+    "featured": false
+  },
+  {
+    "name": "Doha Bank",
+    "type": "bank",
+    "category": "Foreign Bank",
+    "logo": "assets/logos/doha-bank-logo.webp",
+    "website": "https://www.dohabank.com",
+    "loanTypes": ["business-loan", "working-capital", "commercial-property-loan"],
+    "featured": false
+  },
+  {
+    "name": "Shinhan Bank",
+    "type": "bank",
+    "category": "Foreign Bank",
+    "logo": "assets/logos/shinhan-bank-logo.png",
+    "website": "https://www.shinhan.com",
+    "loanTypes": ["business-loan", "working-capital", "personal-loan"],
+    "featured": false
+  },
+  {
+    "name": "Karur Vysya Bank",
+    "type": "bank",
+    "category": "Private Sector Bank",
+    "logo": "assets/logos/Karur_Vysya_Bank.svg.png",
+    "website": "https://www.kvb.co.in",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "commercial-property-loan", "personal-loan", "car-loan", "gold-loan"],
+    "featured": false
+  },
+  {
+    "name": "South Indian Bank",
+    "type": "bank",
+    "category": "Private Sector Bank",
+    "logo": "assets/logos/south-indian-bank.webp",
+    "website": "https://www.southindianbank.com",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "personal-loan", "car-loan", "education-loan", "gold-loan"],
+    "featured": false
+  },
+  {
+    "name": "Fed Bank Financial Services",
+    "type": "nbfc",
+    "category": "NBFC",
+    "logo": "assets/logos/Fed Bank Financial Services logo.jpg",
+    "website": "https://www.fedfina.com",
+    "loanTypes": ["loan-against-property", "business-loan", "working-capital", "personal-loan", "gold-loan"],
+    "featured": false
+  },
+  {
+    "name": "Bajaj Finance",
+    "type": "nbfc",
+    "category": "NBFC",
+    "logo": "assets/logos/Bajaj_Finserv_Logo.png",
+    "website": "https://www.bajajfinserv.in",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "construction-finance", "commercial-property-loan", "balance-transfer", "credit-cards", "insurance-products", "personal-loan", "car-loan", "education-loan", "gold-loan"],
+    "featured": true
+  },
+  {
+    "name": "Tata Capital",
+    "type": "nbfc",
+    "category": "NBFC",
+    "logo": "assets/logos/Tata Capital.png",
+    "website": "https://www.tatacapital.com",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "construction-finance", "commercial-property-loan", "balance-transfer", "insurance-products", "personal-loan", "car-loan", "education-loan", "gold-loan"],
+    "featured": true
+  },
+  {
+    "name": "Aditya Birla Finance",
+    "type": "nbfc",
+    "category": "NBFC",
+    "logo": "assets/logos/Aditya Birla Finance logo.webp",
+    "website": "https://www.adityabirlacapital.com",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "construction-finance", "commercial-property-loan", "balance-transfer", "insurance-products", "personal-loan"],
+    "featured": true
+  },
+  {
+    "name": "L&T Finance",
+    "type": "nbfc",
+    "category": "NBFC",
+    "logo": "assets/logos/l-t-finance-logo.png",
+    "website": "https://www.ltfinance.com",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "construction-finance", "commercial-property-loan", "personal-loan", "car-loan", "gold-loan"],
+    "featured": true
+  },
+  {
+    "name": "Mahindra Finance",
+    "type": "nbfc",
+    "category": "NBFC",
+    "logo": "assets/logos/Mahindra-Finance-logo-Vector.png",
+    "website": "https://www.mahindrafinance.com",
+    "loanTypes": ["business-loan", "working-capital", "construction-finance", "commercial-property-loan", "personal-loan", "car-loan", "insurance-products"],
+    "featured": true
+  },
+  {
+    "name": "Shriram Finance",
+    "type": "nbfc",
+    "category": "NBFC",
+    "logo": "assets/logos/Shriram Finance logo.jpg",
+    "website": "https://www.shriramfinance.in",
+    "loanTypes": ["loan-against-property", "business-loan", "working-capital", "commercial-property-loan", "personal-loan", "car-loan", "gold-loan", "insurance-products"],
+    "featured": true
+  },
+  {
+    "name": "Hero FinCorp",
+    "type": "nbfc",
+    "category": "NBFC",
+    "logo": "assets/logos/Hero_FinCorp_Logo.svg.png",
+    "website": "https://www.herofincorp.com",
+    "loanTypes": ["business-loan", "working-capital", "personal-loan", "car-loan", "insurance-products"],
+    "featured": false
+  },
+  {
+    "name": "Poonawalla Fincorp",
+    "type": "nbfc",
+    "category": "NBFC",
+    "logo": "assets/logos/Poonawalla Fincorp logo.png",
+    "website": "https://poonawallafincorp.com",
+    "loanTypes": ["loan-against-property", "business-loan", "working-capital", "personal-loan"],
+    "featured": true
+  },
+  {
+    "name": "Cholamandalam Finance",
+    "type": "nbfc",
+    "category": "NBFC",
+    "logo": "assets/logos/Cholamandalam Finance logo.jpg",
+    "website": "https://www.cholamandalam.com",
+    "loanTypes": ["loan-against-property", "business-loan", "working-capital", "construction-finance", "commercial-property-loan", "personal-loan", "car-loan", "insurance-products"],
+    "featured": true
+  },
+  {
+    "name": "Muthoot Finance",
+    "type": "nbfc",
+    "category": "NBFC",
+    "logo": "assets/logos/Muthoot_Finance_Logo.svg.png",
+    "website": "https://www.muthootfinance.com",
+    "loanTypes": ["loan-against-property", "business-loan", "working-capital", "gold-loan", "insurance-products"],
+    "featured": true
+  },
+  {
+    "name": "Manappuram Finance",
+    "type": "nbfc",
+    "category": "NBFC",
+    "logo": "assets/logos/Manappuram-Finance-Limited-Gold-loan-Company-1024x729.webp",
+    "website": "https://www.manappuram.com",
+    "loanTypes": ["loan-against-property", "business-loan", "working-capital", "gold-loan", "insurance-products"],
+    "featured": true
+  },
+  {
+    "name": "IIFL Finance",
+    "type": "nbfc",
+    "category": "NBFC",
+    "logo": "assets/logos/IIFL Finance logo.jpg",
+    "website": "https://www.iifl.com",
+    "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "construction-finance", "commercial-property-loan", "personal-loan", "gold-loan"],
+    "featured": true
+  },
+  {
+    "name": "LIC Housing Finance",
+    "type": "hfc",
+    "category": "Housing Finance Company",
+    "logo": "assets/logos/LIC Housing Finance.png",
+    "website": "https://www.lichousing.com",
+    "loanTypes": ["home-loan", "loan-against-property", "construction-finance", "commercial-property-loan", "balance-transfer"],
+    "featured": true
+  },
+  {
+    "name": "PNB Housing Finance",
+    "type": "hfc",
+    "category": "Housing Finance Company",
+    "logo": "assets/logos/PNB Housing Finance logo.jpg",
+    "website": "https://www.pnbhousing.com",
+    "loanTypes": ["home-loan", "loan-against-property", "construction-finance", "commercial-property-loan", "balance-transfer"],
+    "featured": true
+  },
+  {
+    "name": "Aavas Financiers",
+    "type": "hfc",
+    "category": "Housing Finance Company",
+    "logo": "assets/logos/Aavas_Financiers_Logo.svg.png",
+    "website": "https://www.aavas.in",
+    "loanTypes": ["home-loan", "loan-against-property", "construction-finance", "balance-transfer"],
+    "featured": true
+  },
+  {
+    "name": "Home First Finance",
+    "type": "hfc",
+    "category": "Housing Finance Company",
+    "logo": "assets/logos/Home First Finance.png",
+    "website": "https://homefirstindia.com",
+    "loanTypes": ["home-loan", "loan-against-property", "construction-finance", "balance-transfer"],
+    "featured": true
+  },
+  {
+    "name": "Aptus Housing",
+    "type": "hfc",
+    "category": "Housing Finance Company",
+    "logo": "assets/logos/Aptus Housing Finance logo.jpg",
+    "website": "https://www.aptusindia.com",
+    "loanTypes": ["home-loan", "loan-against-property", "construction-finance", "balance-transfer"],
+    "featured": true
+  },
+  {
+    "name": "GIC Housing Finance",
+    "type": "hfc",
+    "category": "Housing Finance Company",
+    "logo": "assets/logos/GIC Housing Finance logo.png",
+    "website": "https://www.gichf.com",
+    "loanTypes": ["home-loan", "loan-against-property", "construction-finance", "commercial-property-loan", "balance-transfer"],
+    "featured": true
+  },
+  {
+    "name": "Sundaram Home Finance",
+    "type": "hfc",
+    "category": "Housing Finance Company",
+    "logo": "assets/logos/Sundaram Home Finance.png",
+    "website": "https://www.sundaramhome.in",
+    "loanTypes": ["home-loan", "loan-against-property", "construction-finance", "commercial-property-loan", "balance-transfer"],
+    "featured": false
+  },
+  {
+    "name": "PNB Housing Finance (LAP)",
+    "type": "hfc",
+    "category": "Housing Finance Company",
+    "logo": "assets/logos/PNB Housing Finance logo.jpg",
+    "website": "https://www.pnbhousing.com",
+    "loanTypes": ["loan-against-property", "commercial-property-loan", "working-capital"],
+    "featured": false
+  },
+  {
+    "name": "HSBC Home Loans",
+    "type": "bank",
+    "category": "Foreign Bank",
+    "logo": "assets/logos/HSBC Home Loans logo.png",
+    "website": "https://www.hsbc.co.in",
+    "loanTypes": ["home-loan", "balance-transfer"],
+    "featured": false
+  }
+]
