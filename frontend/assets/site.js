@@ -734,7 +734,7 @@
     '<div class="scroll-nudge" id="cbScrollNudge" role="complementary" aria-label="Quick apply">' +
       '<button class="scroll-nudge-close" id="cbNudgeClose" aria-label="Dismiss"><i data-lucide="x"></i></button>' +
       '<div class="scroll-nudge-body">' +
-        '<span class="scroll-nudge-emoji">??</span>' +
+        '<span class="scroll-nudge-emoji">\uD83D\uDCDE</span>' +
         '<div>' +
           '<b class="scroll-nudge-title">Get a call back in 30 sec</b>' +
           '<p class="scroll-nudge-sub">Free &middot; No obligation &middot; Won\'t affect CIBIL score</p>' +
@@ -827,7 +827,7 @@
           '</button>' +
         '</form>' +
         '<div id="referThanks" style="display:none;text-align:center;padding:16px 0">' +
-          '<div style="font-size:40px;margin-bottom:8px">??</div>' +
+          '<div style="font-size:40px;margin-bottom:8px">\uD83C\uDF89</div>' +
           '<h4 style="font-size:18px;font-weight:800;color:var(--green-primary,#0c7a4e);margin:0 0 8px">Referral Submitted!</h4>' +
           '<p style="font-size:14px;color:var(--text-soft,#5a6472);margin:0">We\'ll reach out to your friend shortly. Reward is credited after disbursal.</p>' +
         '</div>' +
@@ -1683,7 +1683,7 @@
         '<div class="qb-thanks">' +
           '<div class="confetti"></div>' +
           '<img class="thanks-setu" src="' + BASE + 'assets/setu/setu-celebrate.svg" alt="" aria-hidden="true">' +
-          '<h3>You\'re all set! ??</h3>' +
+          '<h3>You\'re all set! \uD83C\uDF89</h3>' +
           '<p>A MyCashBridge expert will call you within <strong>24 hours</strong> with the best offers. Keep your phone handy.</p>' +
           '<div class="qb-ref"></div>' +
           '<button class="btn btn-filled" id="qbDoneBtn">Done</button>' +

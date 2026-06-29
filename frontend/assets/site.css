@@ -245,38 +245,46 @@ h1,h2,h3 { letter-spacing: -.01em; margin: 0; }
 }
 .partner-scroller-track {
   display: flex;
+  flex-wrap: nowrap;
   gap: 0;
   width: max-content;
-  animation: partnerMarquee 42s linear infinite;
+  animation: partnerMarquee 38s linear infinite;
   will-change: transform;
   align-items: center;
+  -webkit-animation: partnerMarquee 38s linear infinite;
 }
 .partner-scroller:hover .partner-scroller-track {
   animation-play-state: paused;
+  -webkit-animation-play-state: paused;
 }
 .partner-scroller .partner-card {
-  width: 160px;
-  min-width: 160px;
-  max-width: 160px;
-  min-height: 72px;
-  height: 80px;
-  padding: 10px 16px;
+  width: 148px;
+  min-width: 148px;
+  max-width: 148px;
+  min-height: 64px;
+  height: 72px;
+  padding: 8px 12px;
   box-shadow: none;
   flex-shrink: 0;
   flex-grow: 0;
-  margin-right: 16px;
+  margin: 0 10px;
   overflow: hidden;
+  border-radius: 10px;
 }
 .partner-scroller .partner-card:hover {
   transform: none;
 }
 .partner-scroller .partner-logo {
   width: auto;
-  max-width: 120px;
-  height: 36px;
+  max-width: 110px;
+  height: 32px;
   object-fit: contain;
   margin: 0 auto;
   display: block;
+}
+@-webkit-keyframes partnerMarquee {
+  from { -webkit-transform: translateX(0); transform: translateX(0); }
+  to { -webkit-transform: translateX(-50%); transform: translateX(-50%); }
 }
 @keyframes partnerMarquee {
   from { transform: translateX(0); }
