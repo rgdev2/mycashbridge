@@ -1371,24 +1371,25 @@ input.qb-range {
    ============================================================ */
 .cb-cursor-btn {
   position: fixed;
-  top: 0; left: 0;             /* positioned via JS transform */
+  right: 20px;
+  top: 50%;
   z-index: 9000;
-  pointer-events: none;        /* outer wrapper never catches events */
+  pointer-events: none;
   opacity: 0;
-  transform: translate(-50%, -50%) scale(0.6);
+  transform: translateY(-50%) scale(0.6);
   transition: opacity .25s ease, transform .25s cubic-bezier(.34,1.56,.64,1);
   will-change: transform, opacity;
 }
 .cb-cursor-btn.show {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+  transform: translateY(-50%) scale(1);
 }
 .cb-cursor-btn.show .cb-cursor-inner {
   pointer-events: auto;        /* only inner button is clickable */
 }
 .cb-cursor-btn.hide {
   opacity: 0;
-  transform: translate(-50%, -50%) scale(0.7);
+  transform: translateY(-50%) scale(0.7);
 }
 .cb-cursor-inner {
   display: flex; align-items: center; gap: 8px;

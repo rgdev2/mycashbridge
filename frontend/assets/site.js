@@ -2899,28 +2899,26 @@
     }
 
     function tick() {
-      /* smooth lerp — 0.1 gives a nice weighted trail */
-      cx += (mx - cx) * 0.04;
-      cy += (my - cy) * 0.04;
+      /* position button based on scroll position instead of cursor */
+      var viewportHeight = window.innerHeight;
+      var maxScroll = document.documentElement.scrollHeight - viewportHeight;
+      var scrollPercent = maxScroll > 0 ? scrollY / maxScroll : 0;
+      var buttonTop = viewportHeight * scrollPercent + (viewportHeight * 0.5);
+      
+      /* smooth lerp for the top position */
+      cy += (buttonTop - cy) * 0.08;
+      
+      el.style.transform = "translateY(calc(" + cy + "px - 50%))";
 
-      el.style.transform = "translate(calc(" + cx + "px - 50%), calc(" + cy + "px - 50%))";
-
-      /* use ACTUAL mouse pos (mx, my) for avoid-check, not lerp'd (cx, cy) */
-      var shouldShow = mouseActive &&
-                       scrollY > 300 &&
-                       !isOverAvoid(mx, my);
+      /* show button when scrolled past 300px */
+      var shouldShow = scrollY > 300;
       setVisible(shouldShow);
 
       requestAnimationFrame(tick);
     }
 
     function onMouseMove(e) {
-      mx = e.clientX;
-      my = e.clientY;
       scrollY = window.scrollY || window.pageYOffset;
-      mouseActive = true;
-      clearTimeout(idleTimer);
-      idleTimer = setTimeout(function () { mouseActive = false; }, 3000);
     }
 
     document.addEventListener("mousemove", onMouseMove, { passive: true });
