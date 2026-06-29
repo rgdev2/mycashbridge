@@ -81,16 +81,16 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc:      ["'self'"],
-      scriptSrc:       ["'self'", "'unsafe-inline'", "https://www.googletagmanager.com", "https://www.google-analytics.com", "https://ssl.google-analytics.com"],
+      scriptSrc:       ["'self'", "'unsafe-inline'", "https://www.googletagmanager.com", "https://www.google-analytics.com", "https://ssl.google-analytics.com", "https://googleads.g.doubleclick.net", "https://www.googleadservices.com", "https://pagead2.googlesyndication.com"],
       // Issue #1 Fix: allow Google Fonts stylesheet (loaded by colors_and_type.css @import)
       styleSrc:        ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
       // Issue #1 Fix: allow Google Fonts webfont files (served from fonts.gstatic.com)
       fontSrc:         ["'self'", "https://fonts.gstatic.com"],
-      imgSrc:          ["'self'", "data:", "blob:", "https://www.googletagmanager.com", "https://www.google-analytics.com", "https://ssl.google-analytics.com"],
-      connectSrc:      ["'self'", "https://www.google-analytics.com", "https://analytics.google.com", "https://stats.g.doubleclick.net", "https://region1.google-analytics.com", "https://www.googletagmanager.com"],
+      imgSrc:          ["'self'", "data:", "blob:", "https://www.googletagmanager.com", "https://www.google-analytics.com", "https://ssl.google-analytics.com", "https://www.google.com", "https://googleads.g.doubleclick.net", "https://www.googleadservices.com", "https://td.doubleclick.net", "https://pagead2.googlesyndication.com"],
+      connectSrc:      ["'self'", "https://www.google-analytics.com", "https://analytics.google.com", "https://stats.g.doubleclick.net", "https://region1.google-analytics.com", "https://www.googletagmanager.com", "https://googleads.g.doubleclick.net", "https://www.googleadservices.com", "https://td.doubleclick.net"],
       objectSrc:       ["'none'"],
-      // GTM noscript fallback uses an iframe from googletagmanager.com
-      frameSrc:        ["https://www.googletagmanager.com"],
+      // GTM noscript fallback + DoubleClick conversion tracking use iframes
+      frameSrc:        ["https://www.googletagmanager.com", "https://td.doubleclick.net", "https://googleads.g.doubleclick.net"],
       frameAncestors:  ["'self'"],
       formAction:      ["'self'"],
       baseUri:         ["'self'"],
