@@ -1857,3 +1857,282 @@ input.qb-range {
   .partner-card { border: 1px solid ButtonText; }
   .scroll-nudge { border: 1px solid ButtonText; }
 }
+
+/* ============================================================
+   MOBILE RESPONSIVE PASS 2 — Phone-first polish
+   Covers: iPhone SE (375px), Galaxy A (360px), Redmi (392px),
+   iPhone 14/15 Pro (393px), Galaxy S23 (393px), etc.
+   ============================================================ */
+
+/* 1. Prevent ALL horizontal overflow — every screen size */
+html { overflow-x: hidden; }
+*, *::before, *::after { box-sizing: border-box; }
+
+/* 2. iOS tap highlight suppression */
+a, button { -webkit-tap-highlight-color: rgba(0,0,0,.06); }
+
+/* 3. Prevent iOS input font-size zoom (16px minimum) */
+@media (max-width: 768px) {
+  .field input, .field select, .field textarea,
+  .req-form input, .req-form select, .req-form textarea,
+  .qb-form-inner input, .qb-form-inner select,
+  .emi input[type="range"] { font-size: 16px; }
+}
+
+/* 4. Hero sub-paragraph: too large (19px) on mobile */
+@media (max-width: 768px) {
+  .hero p.sub { font-size: 16px; max-width: 100%; line-height: 1.6; }
+}
+@media (max-width: 480px) {
+  .hero p.sub { font-size: 15px; margin: 14px 0 0; }
+}
+
+/* 5. Hero CTA: stack to column at 480px (not just 360px) */
+@media (max-width: 480px) {
+  .hero-cta { flex-direction: column; gap: 10px; }
+  .hero-cta .btn { width: 100%; justify-content: center; text-align: center; }
+}
+
+/* 6. Hero badges: tighter on 480px */
+@media (max-width: 480px) {
+  .hero-badges { gap: 10px; }
+  .hero-badge { font-size: 12px; }
+}
+
+/* 7. Hero stat: prevent ₹50,00,00,000+ from overflowing */
+@media (max-width: 600px) {
+  .hero-stat { flex-wrap: wrap; gap: 14px; }
+  .hero-stat .s b { word-break: break-word; line-height: 1.2; }
+}
+
+/* 8. Topstrip: allow wrapping on phones */
+@media (max-width: 480px) {
+  .topstrip { flex-wrap: wrap; justify-content: center; gap: 4px 10px; padding: 6px 12px; }
+  .topstrip span { font-size: 11px; }
+}
+
+/* 9. Apply-card / elig-card (Hero B inline form): mobile padding */
+@media (max-width: 600px) {
+  .apply-card, .elig-card { padding: 20px 16px; border-radius: 14px; box-shadow: var(--shadow-card), 0 4px 20px rgba(0,0,0,.06); }
+  .apply-card .head h3, .elig-card .head h3 { font-size: 19px; }
+}
+@media (max-width: 480px) {
+  .apply-card, .elig-card { padding: 16px 14px; }
+}
+
+/* 10. EMI widget output: stack rate/total vertically on small phones */
+@media (max-width: 480px) {
+  .emi-out .small { flex-direction: column; gap: 3px; }
+}
+@media (max-width: 360px) {
+  .emi-row .v { font-size: 17px; white-space: normal; word-break: break-word; }
+}
+
+/* 11. Modal: full bottom-sheet on phones up to 600px */
+@media (max-width: 600px) {
+  .modal { align-items: flex-end; padding: 0; }
+  .modal-box {
+    width: 100%; max-width: 100%;
+    border-radius: 20px 20px 0 0;
+    max-height: 90vh; max-height: 90dvh;
+    margin: 0;
+    padding: 20px 18px calc(20px + env(safe-area-inset-bottom, 0px));
+    overflow-y: auto; -webkit-overflow-scrolling: touch;
+  }
+  .modal-close { top: 14px; right: 14px; }
+}
+
+/* 12. Nav brand: compact on very small phones */
+@media (max-width: 360px) {
+  .cb-name { font-size: 17px !important; }
+  .nav-inner { padding: 0 10px !important; }
+}
+
+/* 13. Testimonial: reduce top heading margin on mobile */
+@media (max-width: 600px) {
+  .testi-head { margin-bottom: 28px; }
+  .testi-section { padding-block: 48px; }
+}
+
+/* 14. Article/guide pages: mobile padding */
+@media (max-width: 600px) {
+  .art-hero { padding: 30px 0 24px; }
+  .art-body h2 { font-size: 20px; }
+  .art-body p { font-size: 15px; }
+  .art-cta { gap: 14px; flex-direction: column; align-items: flex-start; }
+}
+
+/* 15. Cookie banner: above mobile bar + proper margins */
+@media (max-width: 600px) {
+  .cookie { bottom: 80px; left: 10px; right: 10px; border-radius: 14px; }
+  .cookie-inner { gap: 14px; }
+  .cookie-txt { font-size: 13px; }
+}
+
+/* 16. Scroll nudge compact layout */
+@media (max-width: 600px) {
+  .scroll-nudge { padding: 14px 16px 12px; gap: 10px; }
+  .scroll-nudge-title { font-size: 14px; }
+  .scroll-nudge-sub { font-size: 11px; line-height: 1.5; }
+  .scroll-nudge-emoji { font-size: 20px; }
+}
+
+/* 17. Sticky bar: slim on all phones */
+@media (max-width: 600px) {
+  .cb-sticky-inner { padding: 9px 14px; gap: 10px; flex-wrap: nowrap; }
+  .cb-sticky-title { font-size: 12px; white-space: normal; }
+  .cb-sticky-sub { display: none; }
+  .cb-sticky-apply { padding: 8px 14px !important; font-size: 13px !important; white-space: nowrap; }
+}
+
+/* 18. CTA strip: comfortable on all phone sizes */
+@media (max-width: 600px) {
+  .cta-strip { padding: 28px 16px; border-radius: 18px; }
+  .cta-strip h2 { font-size: 22px; }
+  .cta-strip p { font-size: 14px; margin-bottom: 16px; }
+}
+@media (max-width: 380px) {
+  .cta-strip h2 { font-size: 20px; }
+}
+
+/* 19. The .pick product-type grid in Hero C */
+@media (max-width: 480px) {
+  .pick { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .pick a { padding: 14px 10px; }
+  .pick a span { font-size: 12px; }
+}
+
+/* 20. Product cards: text sizing on small screens */
+@media (max-width: 480px) {
+  .prod h3 { font-size: 17px; }
+  .prod p { font-size: 13px; }
+  .prod { padding: 20px 16px; }
+}
+
+/* 21. Why-us & tool cards: compact on phones */
+@media (max-width: 480px) {
+  .why { padding: 18px 14px; }
+  .why b { font-size: 15px; }
+  .tool { padding: 18px 14px; }
+  .tool b { font-size: 15px; }
+}
+
+/* 22. Step cards: comfortable gap on phones */
+@media (max-width: 480px) {
+  .step { padding: 16px; gap: 12px; }
+  .step-ic { width: 38px; height: 38px; flex: 0 0 38px; }
+  .step b { font-size: 15px; }
+}
+
+/* 23. Review cards on mobile */
+@media (max-width: 600px) {
+  .rev { padding: 18px 16px; }
+  .rev p { font-size: 14px; }
+}
+
+/* 24. FAQ / accordion: min touch target */
+@media (max-width: 600px) {
+  .qa-q { min-height: 52px; padding: 14px 16px; font-size: 15px; }
+  .qa-a { padding: 0 16px 14px; font-size: 14px; line-height: 1.6; }
+}
+
+/* 25. Founder quote box on mobile */
+@media (max-width: 480px) {
+  .founder { padding: 22px 16px; border-radius: 16px; }
+  .founder h3 { font-size: 20px; }
+  .founder .f-msg { font-size: 15px; }
+  .founder .quote-mark { font-size: 72px; }
+}
+
+/* 26. Goals grid: 2 col at 480px (currently only at 520px) */
+@media (max-width: 480px) {
+  .goals { grid-template-columns: repeat(2, 1fr); gap: 20px 12px; }
+  .goal .medal { width: 70px; height: 70px; }
+  .goal .medal i, .goal .medal svg { width: 28px; height: 28px; }
+  .goal b { font-size: 14px; }
+  .goal span { font-size: 12px; }
+}
+
+/* 27. Trust network on mobile */
+@media (max-width: 480px) {
+  .trust-net { gap: 12px; }
+  .trust-net .tn-text b { font-size: 16px; }
+  .trust-net .tn-sep { display: none; }
+}
+
+/* 28. Whybox on mobile */
+@media (max-width: 600px) {
+  .whybox { padding: 22px 16px; border-radius: 16px; }
+  .whybox-left h3 { font-size: 22px; }
+  .whypoint { font-size: 15px; gap: 10px; }
+}
+
+/* 29. Section heading + eyebrow on 480px */
+@media (max-width: 480px) {
+  .h-sec { font-size: 22px; }
+  .eyebrow { font-size: 11px; }
+  .lead { font-size: 15px; }
+}
+
+/* 30. Body bottom padding: above the sticky mobile bar */
+@media (max-width: 600px) {
+  body { padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* 31. Float buttons: hidden on mobile (mobile-bar replaces them) */
+@media (max-width: 600px) {
+  .floats { display: none !important; }
+}
+
+/* 32. Drawer panel: comfortable width on small screens */
+@media (max-width: 380px) {
+  .drawer-panel { width: 92vw; padding: 16px 14px; }
+}
+
+/* 33. Ensure no fixed-width children exceed viewport */
+@media (max-width: 600px) {
+  .nav-drop { display: none !important; }
+  .emi { max-width: 100%; }
+  .qb-box { max-width: 100vw; }
+  .modal-box { max-width: 100vw; }
+  .cookie { max-width: calc(100vw - 20px); }
+}
+
+/* 34. IMG tags: always scale down, never overflow */
+img, svg, video, iframe { max-width: 100%; }
+
+/* 35. Long words (URLs, email, ₹ amounts) in body text */
+p, li, td, dd { overflow-wrap: break-word; word-break: break-word; }
+
+/* 36. Gscore rating widget on mobile */
+@media (max-width: 480px) {
+  .gscore { padding: 6px 12px; gap: 8px; }
+  .gscore .num { font-size: 18px; }
+}
+
+/* 37. Section padding on 480px */
+@media (max-width: 480px) {
+  .section { padding-block: 44px; }
+  .section-sm { padding-block: 32px; }
+  .band { padding-block: 44px; }
+}
+
+/* 38. QBP (quick-apply popup) compact on tiny screens */
+@media (max-width: 380px) {
+  .qb-header { padding: 14px 16px 12px; }
+  .qb-content { padding: 12px 14px 0; }
+  .qb-tiles { gap: 8px; }
+  .qb-tile { padding: 12px 8px 10px; }
+}
+
+/* 39. CC tabs: always scrollable, compact on phone */
+@media (max-width: 480px) {
+  .cc-tab { padding: 10px 14px; font-size: 12.5px; }
+  .cc-card { padding: 14px; }
+}
+
+/* 40. Ensure compare table is always scrollable on phones */
+@media (max-width: 600px) {
+  .cmp-wrap, .cmp { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
+  .cmp th, .cmp td { font-size: 12.5px; padding: 10px 8px; }
+}
