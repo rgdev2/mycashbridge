@@ -2865,11 +2865,9 @@
 
     /* lerp targets */
     var mx = window.innerWidth / 2, my = window.innerHeight / 2; /* actual mouse */
-    var cx = mx, cy = my;                                         /* lerp'd pos   */
+    var cy = window.innerHeight / 2;                              /* lerp'd pos   */
     var visible = false;
-    var mouseActive = false;
-    var idleTimer = null;
-    var scrollY = 0;
+    var scrollY = window.scrollY || window.pageYOffset;           /* initialize with current scroll */
 
     /*
      * AVOID list — elements under the REAL cursor that should hide the button.
