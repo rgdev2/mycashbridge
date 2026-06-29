@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    CASH BRIDGE — shared site styles
    Built on the Mera Loan design language (warm cream canvas,
    lime CTAs, deep-green text, aqua bands, full-pill buttons).
@@ -1645,3 +1645,215 @@ input.qb-range {
 .req-sent.show { display:flex; }
 .req-sent i { width:20px; height:20px; color:var(--green-primary); flex:none; }
 @media (max-width:560px){ .req-form .form-grid { grid-template-columns:1fr; } }
+
+
+/* ============================================================
+   RESPONSIVE COMPREHENSIVE — 2025 FULL-SCREEN UPDATE
+   Covers: large desktop, iPad landscape, compare table scroll,
+   footer padding, iOS safe areas, landscape mobile, touch targets,
+   360px ultra-small, and general mobile polish.
+   ============================================================ */
+
+/* ---- 1400px+ large monitors: slightly wider content ---- */
+@media (min-width: 1400px) {
+  .wrap { max-width: 1280px; }
+  .h-hero { font-size: 62px; }
+  .h-sec { font-size: 38px; }
+}
+
+/* ---- iPad landscape / small laptop (981–1024px) ---- */
+@media (min-width: 981px) and (max-width: 1024px) {
+  .wrap { padding-inline: 28px; }
+  .hero-grid { gap: 36px; }
+  .footer-grid.cols5 { grid-template-columns: repeat(3, 1fr); }
+  .footer-legal { padding-inline: 28px; }
+}
+/* goals: 5-col is too many between 901–1024px */
+@media (min-width: 901px) and (max-width: 1024px) {
+  .goals { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ---- Compare table: horizontal scroll (CSS-only, no HTML change) ---- */
+@media (max-width: 768px) {
+  .cmp { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .cmp th, .cmp td { white-space: nowrap; font-size: 13px; padding: 11px 10px; }
+}
+
+/* ---- Footer: responsive padding + text size ---- */
+@media (max-width: 768px) {
+  .footer { padding-top: 44px; }
+  .footer-legal { padding: 18px 20px 0; }
+  .footer-disc { font-size: 12px; line-height: 1.75; }
+}
+@media (max-width: 600px) {
+  .footer-legal { padding: 14px 14px 0; }
+  .footer-disc { font-size: 11px; line-height: 1.8; }
+  .footer-bottom { font-size: 12px; gap: 10px; }
+  .footer-bottom .links { gap: 8px; flex-wrap: wrap; }
+}
+
+/* ---- iOS safe-area insets (notch / Dynamic Island / home indicator) ---- */
+@media (max-width: 600px) {
+  body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
+  .mobile-bar { padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
+  .cookie { bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+  .scroll-nudge { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+  .cb-sticky-bar { padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .qb-box { padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* ---- Landscape mobile: compact hero for short viewports ---- */
+@media (max-height: 560px) and (orientation: landscape) {
+  .hero { padding: 20px 0 24px; }
+  .h-hero { font-size: 26px; }
+  .hero-grid { gap: 16px; }
+  .hero p.sub { font-size: 14px; margin: 6px 0 0; }
+  .hero-cta { margin-top: 10px; gap: 8px; }
+  .hero-badges { display: none; }
+  .hero-stat { display: none; }
+  .hero-why { margin-top: 8px; gap: 4px; }
+  .hero-why-point { font-size: 13px; }
+  .section { padding-block: 36px; }
+  .band { padding-block: 36px; }
+  .nav-inner { height: 56px; }
+  .testi-section { padding-block: 36px; }
+}
+
+/* ---- Hero stat: large Indian rupee strings on mobile ---- */
+@media (max-width: 600px) {
+  .hero-stat { gap: 16px; }
+  .hero-stat .s b { font-size: 20px; }
+  .hero-stat .s span { font-size: 11px; }
+}
+@media (max-width: 400px) {
+  .hero-stat { gap: 10px; flex-wrap: wrap; }
+  .hero-stat .s b { font-size: 17px; }
+}
+
+/* ---- EMI widget: better sizing on mobile ---- */
+@media (max-width: 600px) {
+  .emi { padding: 18px 16px; }
+  .emi-out { padding: 14px 16px; margin-top: 14px; }
+  .emi-row .v { font-size: 19px; }
+  .emi-out .big { font-size: 24px; }
+}
+
+/* ---- Nav: minor tweaks on mobile ---- */
+@media (max-width: 600px) {
+  .nav-inner { gap: 6px; }
+  .nav-logo .cb-tag { display: none; }
+  .topstrip { font-size: 11px; gap: 8px; padding: 6px 12px; }
+}
+
+/* ---- whystrip: compact gap on mobile ---- */
+@media (max-width: 600px) {
+  .whystrip-inner { gap: 14px; padding: 14px 0; }
+  .whystrip .wp { font-size: 13px; gap: 7px; }
+}
+
+/* ---- Sticky bar: slim down on narrow phones ---- */
+@media (max-width: 480px) {
+  .cb-sticky-inner { padding: 8px 12px; gap: 8px; }
+  .cb-sticky-title { font-size: 12px; }
+  .cb-sticky-apply { padding: 7px 14px !important; font-size: 12px !important; }
+}
+
+/* ---- Scroll nudge: full-width safety on tiny screens ---- */
+@media (max-width: 380px) {
+  .scroll-nudge { width: calc(100vw - 24px); right: 12px; }
+}
+
+/* ---- Modal: bottom-sheet style on very small screens ---- */
+@media (max-width: 420px) {
+  .modal { padding: 0; align-items: flex-end; }
+  .modal-box {
+    width: 100%; border-radius: 20px 20px 0 0;
+    max-height: 92vh; max-height: 92dvh;
+    padding: 20px 16px;
+  }
+  .modal-close { top: 12px; right: 12px; }
+}
+
+/* ---- CTA strip: phone-friendly ---- */
+@media (max-width: 480px) {
+  .cta-strip { padding: 28px 16px; border-radius: 16px; }
+  .cta-strip h2 { font-size: 22px; }
+  .cta-strip p { font-size: 14px; margin-bottom: 18px; }
+}
+
+/* ---- Touch target sizes: 44px minimum (touch-screen devices) ---- */
+@media (pointer: coarse) {
+  .btn { min-height: 44px; }
+  .btn-sm { min-height: 40px; }
+  .qa-q { min-height: 52px; }
+  .drawer-group > a, .drawer-acc-head { min-height: 52px; }
+  .field input, .field select { min-height: 48px; }
+  .qb-form-inner input, .qb-form-inner select { min-height: 44px; }
+  .qb-tile { min-height: 66px; }
+  .cc-apply-btn { min-height: 40px; }
+  .lang-toggle button { min-height: 36px; min-width: 36px; }
+  .hamburger { min-height: 44px; min-width: 44px; }
+}
+
+/* ---- Drawer panel: tighter on mobile ---- */
+@media (max-width: 600px) {
+  .drawer-panel { padding: 14px; }
+  .drawer-acc-body a { font-size: 14px; padding: 8px 4px 8px 12px; }
+  .drawer-group > a, .drawer-acc-head { font-size: 15px; padding: 12px 4px; }
+}
+
+/* ---- Quick-apply popup: very small screens ---- */
+@media (max-width: 380px) {
+  .qb-content { padding: 10px 12px 0; }
+  .qb-header { padding: 12px 14px 10px; }
+  .qb-preview-range { font-size: 20px; }
+  .qb-tiles { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+}
+
+/* ---- Ultra-small phones (360px) — budget Android common in India ---- */
+@media (max-width: 360px) {
+  .wrap { padding-inline: 10px; }
+  .h-hero { font-size: 22px; }
+  .h-sec { font-size: 18px; }
+  .btn-lg { padding: 11px 14px; font-size: 14px; }
+  .hero-cta { flex-direction: column; }
+  .hero-cta .btn { width: 100%; justify-content: center; }
+  .hero-badges { gap: 8px; }
+  .hero-badge { font-size: 11px; gap: 5px; }
+  .hero-stat .s b { font-size: 15px; }
+  .hero-stat .s span { font-size: 10px; }
+  .nav-inner { padding: 0 10px; gap: 4px; }
+  .emi { padding: 14px 12px; }
+  .emi-row .v { font-size: 17px; }
+  .emi-out .big { font-size: 20px; }
+  .emi-out { padding: 12px 12px; }
+  .card { padding: 16px 12px; }
+  .prod { padding: 18px 14px; }
+  .why { padding: 18px 14px; }
+  .tool { padding: 18px 14px; }
+  .step { padding: 16px 12px; }
+  .cta-strip { padding: 22px 12px; border-radius: 12px; }
+  .cta-strip h2 { font-size: 19px; }
+  .cta-strip p { font-size: 13px; }
+  /* Disable mask-image gradient on very small screens (rendering cost + clipping) */
+  .partner-scroller { mask-image: none; -webkit-mask-image: none; }
+  .partner-scroller .partner-card { width: 110px; min-width: 110px; max-width: 110px; height: 58px; margin: 0 6px; }
+  .partner-scroller .partner-logo { max-width: 86px; height: 26px; }
+  .qb-box { border-radius: 14px 14px 0 0; }
+  .cookie { left: 8px; right: 8px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .footer-grid, .footer-grid.cols5 { grid-template-columns: 1fr; }
+  .scroll-nudge { width: calc(100vw - 20px); right: 10px; }
+  .topstrip { gap: 4px; font-size: 10px; }
+  .topstrip .btn { display: none; }
+  .cb-sticky-inner { padding: 7px 10px; }
+  .cb-sticky-title { font-size: 11px; }
+  .rev-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- High-contrast / forced-colors accessibility ---- */
+@media (forced-colors: active) {
+  .btn-filled, .btn-outline, .float-btn { border: 2px solid ButtonText; }
+  .partner-card { border: 1px solid ButtonText; }
+  .scroll-nudge { border: 1px solid ButtonText; }
+}
