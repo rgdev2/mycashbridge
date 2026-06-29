@@ -737,10 +737,10 @@
         '<span class="scroll-nudge-emoji">??</span>' +
         '<div>' +
           '<b class="scroll-nudge-title">Get a call back in 30 sec</b>' +
-          '<p class="scroll-nudge-sub">Free &middot; No obligation &middot; Won't affect CIBIL score</p>' +
+          '<p class="scroll-nudge-sub">Free &middot; No obligation &middot; Won\'t affect CIBIL score</p>' +
         '</div>' +
       '</div>' +
-      '<button class="btn btn-filled btn-block scroll-nudge-cta" data-apply><i data-lucide="phone-call"></i> Apply Now &mdash; It's Free</button>' +
+      '<button class="btn btn-filled btn-block scroll-nudge-cta" data-apply><i data-lucide="phone-call"></i> Apply Now &mdash; It\'s Free</button>' +
       '<div class="scroll-nudge-progress"><div class="scroll-nudge-progress-bar" id="cbNudgeBar"></div></div>' +
     '</div>' +
     /* -- Sticky bottom CTA bar (slides up after 350 px scroll, hides near footer) -- */
