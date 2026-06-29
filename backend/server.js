@@ -86,8 +86,8 @@ app.use(helmet({
       styleSrc:        ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
       // Issue #1 Fix: allow Google Fonts webfont files (served from fonts.gstatic.com)
       fontSrc:         ["'self'", "https://fonts.gstatic.com"],
-      imgSrc:          ["'self'", "data:", "blob:", "https://www.googletagmanager.com", "https://www.google-analytics.com", "https://ssl.google-analytics.com", "https://www.google.com", "https://googleads.g.doubleclick.net", "https://www.googleadservices.com", "https://td.doubleclick.net", "https://pagead2.googlesyndication.com"],
-      connectSrc:      ["'self'", "https://www.google-analytics.com", "https://analytics.google.com", "https://stats.g.doubleclick.net", "https://region1.google-analytics.com", "https://www.googletagmanager.com", "https://googleads.g.doubleclick.net", "https://www.googleadservices.com", "https://td.doubleclick.net"],
+      imgSrc:          ["'self'", "data:", "blob:", "https://www.googletagmanager.com", "https://www.google-analytics.com", "https://ssl.google-analytics.com", "https://www.google.com", "https://www.google.co.in", "https://googleads.g.doubleclick.net", "https://www.googleadservices.com", "https://td.doubleclick.net", "https://pagead2.googlesyndication.com"],
+      connectSrc:      ["'self'", "https://www.google-analytics.com", "https://analytics.google.com", "https://stats.g.doubleclick.net", "https://region1.google-analytics.com", "https://www.googletagmanager.com", "https://googleads.g.doubleclick.net", "https://ad.doubleclick.net", "https://www.googleadservices.com", "https://td.doubleclick.net", "https://www.google.com", "https://www.google.co.in"],
       objectSrc:       ["'none'"],
       // GTM noscript fallback + DoubleClick conversion tracking use iframes
       frameSrc:        ["https://www.googletagmanager.com", "https://td.doubleclick.net", "https://googleads.g.doubleclick.net"],
