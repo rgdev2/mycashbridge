@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    CASH BRIDGE � shared site behaviour (v2)
    Nav with product dropdowns � EN/HI language engine �
    working cookie consent (blocks non-essential cookies) �
@@ -1830,10 +1830,10 @@
         dropdown("Tools", "nav.tools", BASE + "tools/emi-calculator.html", dropItems(TOOLS, "tools"), true) +
       '</nav>' +
       '<span class="nav-spacer"></span>' +
-      '<div class="lang-toggle" data-no-i18n><button data-l="en" data-setlang="en">EN</button><button data-l="hi" data-setlang="hi">???</button></div>' +
+      '<div class="lang-toggle" data-no-i18n><button data-l="en" data-setlang="en">EN</button><button data-l="hi" data-setlang="hi">\u0939\u093F\u0902</button></div>' +
       '<a class="nav-tel" href="tel:' + CFG.phoneRaw + '"><i data-lucide="phone-call"></i> ' + CFG.phone + '</a>' +
       '<button class="btn btn-filled btn-sm" data-apply data-i18n="nav.apply">Apply now</button>' +
-      '<button class="btn btn-outline btn-sm nav-download-btn" data-apply><i data-lucide="arrow-right"></i> Start Now</button>' +
+      '<button class="btn btn-outline btn-sm nav-download-btn" id="cbNavReferBtn"><i data-lucide="share-2"></i> Refer Now</button>' +
       '<button class="hamburger" aria-label="Menu" data-drawer-open><i data-lucide="menu"></i></button>' +
     '</div></header>' + drawerHTML();
   }
@@ -1848,7 +1848,7 @@
   function drawerHTML() {
     return '<div class="drawer" id="drawer"><div class="drawer-scrim" data-drawer-close></div><div class="drawer-panel">' +
       '<div class="drawer-head">' + logoLockup() + '<button class="drawer-close" data-drawer-close><i data-lucide="x"></i></button></div>' +
-      '<div class="drawer-group" style="display:flex;gap:8px;border-top:none"><div class="lang-toggle" data-no-i18n><button data-l="en" data-setlang="en">EN</button><button data-l="hi" data-setlang="hi">???</button></div></div>' +
+      '<div class="drawer-group" style="display:flex;gap:8px;border-top:none"><div class="lang-toggle" data-no-i18n><button data-l="en" data-setlang="en">EN</button><button data-l="hi" data-setlang="hi">\u0939\u093F\u0902</button></div></div>' +
       drawerAcc("Loans", LOANS, "loans") +
       drawerAcc("Credit Cards", CARDS, "pages") +
       drawerAcc("Insurance", INSURANCE, "pages") +
@@ -2354,7 +2354,7 @@
     /* Refer Now modal */
     document.addEventListener("click", function (e) {
       var t = e.target;
-      if (t.closest("#cbReferNowBtn")) { openReferModal(); }
+      if (t.closest("#cbReferNowBtn") || t.closest("#cbNavReferBtn")) { openReferModal(); }
       if (t.closest("#referModalClose") || t.closest("#referModalScrim")) { closeReferModal(); }
     });
     document.addEventListener("submit", function (e) {
@@ -2380,7 +2380,7 @@
     var amtEl = root.querySelector("[data-emi-amount]"), monEl = root.querySelector("[data-emi-months]");
     var amtOut = root.querySelector("[data-emi-amount-out]"), monOut = root.querySelector("[data-emi-months-out]");
     var emiOut = root.querySelector("[data-emi-out]"), totOut = root.querySelector("[data-emi-total]"), intOut = root.querySelector("[data-emi-interest]"), rateOut = root.querySelector("[data-emi-rate]");
-    function inr(n) { return "?" + Math.round(n).toLocaleString("en-IN"); }
+    function inr(n) { return "\u20B9" + Math.round(n).toLocaleString("en-IN"); }
     function calc() {
       var P = +amtEl.value, n = +monEl.value, r = rate / 12 / 100;
       var emi = r === 0 ? P / n : P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1), total = emi * n;
