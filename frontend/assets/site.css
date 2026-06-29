@@ -1369,68 +1369,9 @@ input.qb-range {
 /* ============================================================
    CURSOR-FOLLOWING APPLY BUTTON
    ============================================================ */
-.cb-cursor-btn {
-  position: fixed;
-  right: 30px;
-  top: 50%;
-  z-index: 9000;
-  pointer-events: none;
-  opacity: 0;
-  transform: translateY(-50%) scale(0.6);
-  transition: opacity .25s ease, transform .25s cubic-bezier(.34,1.56,.64,1);
-  will-change: transform, opacity;
-}
-.cb-cursor-btn.show {
-  opacity: 1;
-  transform: translateY(-50%) scale(1);
-  pointer-events: auto;
-}
-.cb-cursor-btn.show .cb-cursor-inner {
-  pointer-events: auto;        /* only inner button is clickable */
-}
-.cb-cursor-btn.hide {
-  opacity: 0;
-  transform: translateY(-50%) scale(0.7);
-}
-.cb-cursor-inner {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--green-primary, #0c7a4e);
-  color: #fff;
-  padding: 11px 20px;
-  border-radius: 50px;
-  font-size: 13px; font-weight: 700;
-  white-space: nowrap;
-  box-shadow: 0 8px 28px rgba(12,122,78,.45), 0 2px 8px rgba(0,0,0,.15);
-  border: none; cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  letter-spacing: .01em;
-  transition: background .2s, box-shadow .2s, transform .15s;
-}
-.cb-cursor-inner:hover {
-  background: var(--green-deep, #073d27);
-  box-shadow: 0 12px 36px rgba(12,122,78,.55);
-  transform: scale(1.06);
-}
-.cb-cursor-inner:active { transform: scale(.96); }
-.cb-cursor-inner i { width: 15px; height: 15px; flex-shrink: 0; }
-
-/* pulse ring around the button */
-.cb-cursor-ring {
-  position: absolute; inset: -8px;
-  border-radius: 50px;
-  border: 2px solid rgba(12,122,78,.35);
-  animation: cursorRing 2s ease-out infinite;
-  pointer-events: none;
-}
-@keyframes cursorRing {
-  0%   { inset: -8px;  opacity: .8; }
-  100% { inset: -20px; opacity: 0; }
-}
-
-/* hide on touch/mobile — cursor tracking doesn't apply */
-@media (hover: none), (max-width: 768px) {
-  .cb-cursor-btn { display: none !important; }
+/* hide scroll-apply button on mobile */
+@media (max-width: 768px) {
+  #cbScrollApply { display: none !important; }
 }
 
 /* Animations */

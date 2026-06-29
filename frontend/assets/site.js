@@ -2831,113 +2831,64 @@
   }
 
   /* ============================================================
-     CURSOR-FOLLOWING APPLY BUTTON
-     Appears on desktop after 300 px scroll; smoothly tracks
-     the mouse with lerp interpolation; hides over nav/footer/
-     buttons/inputs and when user hasn't moved mouse recently.
+     SCROLL-LINKED FLOATING APPLY BUTTON
+     Fixed on the right edge of the screen. Appears after 300px
+     scroll. Moves vertically with the scrollbar so it always
+     stays at the same relative position as the scroll thumb.
      ============================================================ */
   function initCursorApply() {
-    /* touch / small screen → skip entirely */
-    if (window.matchMedia("(hover:none)").matches) return;
+    /* mobile / touch → skip */
     if (window.innerWidth < 769) return;
 
-    /* inject DOM */
+    /* create button */
     var el = document.createElement("div");
-    el.className = "cb-cursor-btn";
-    el.id = "cbCursorApply";
-    el.setAttribute("aria-label", "Apply Now");
+    el.id = "cbScrollApply";
+    el.style.cssText = "position:fixed;right:20px;top:50%;z-index:9000;opacity:0;transform:translateY(-50%) scale(0.8);transition:opacity .3s ease,transform .3s ease;pointer-events:none;";
     el.innerHTML =
-      '<div class="cb-cursor-ring"></div>' +
-      '<button class="cb-cursor-inner" type="button">' +
-        '<i data-lucide="phone-call"></i> Apply Now' +
-      '</button>';
+      '<button type="button" style="display:flex;align-items:center;gap:8px;' +
+      'background:#0c7a4e;color:#fff;padding:12px 20px;border-radius:50px;' +
+      'font-size:14px;font-weight:700;white-space:nowrap;letter-spacing:.01em;border:none;cursor:pointer;' +
+      'box-shadow:0 8px 28px rgba(12,122,78,.45),0 2px 8px rgba(0,0,0,.15);' +
+      'font-family:inherit;transition:background .2s,box-shadow .2s,transform .15s;">' +
+      '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.34 2 2 0 0 1 3.6 1.17h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.74a16 16 0 0 0 6.35 6.35l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>' +
+      'Apply Now</button>';
     document.body.appendChild(el);
-    if (window.lucide) window.lucide.createIcons({ el: el });
-    
-    /* set initial state */
-    el.style.opacity = "0";
-    el.style.pointerEvents = "none";
 
-    /* direct click → open modal immediately (1 click, no delegation chain) */
-    var innerBtn = el.querySelector(".cb-cursor-inner");
-    if (innerBtn) {
-      innerBtn.addEventListener("click", function (e) {
-        e.stopPropagation();
-        if (window.cbOpenApply) window.cbOpenApply("");
-      });
-    }
+    /* hover effect on inner button */
+    var btn = el.querySelector("button");
+    btn.addEventListener("mouseenter", function () { btn.style.background = "#073d27"; btn.style.transform = "scale(1.05)"; });
+    btn.addEventListener("mouseleave", function () { btn.style.background = "#0c7a4e"; btn.style.transform = "scale(1)"; });
+    btn.addEventListener("click", function () {
+      if (window.cbOpenApply) window.cbOpenApply("");
+    });
 
-    /* lerp targets */
-    var mx = window.innerWidth / 2, my = window.innerHeight / 2; /* actual mouse */
-    var cy = window.innerHeight / 2;                              /* lerp'd pos   */
-    var visible = false;
-    var scrollY = window.scrollY || window.pageYOffset;           /* initialize with current scroll */
+    /* state */
+    var currentTopPct = 50;
+    var shown = false;
 
-    /*
-     * AVOID list — elements under the REAL cursor that should hide the button.
-     * We use mx/my (real mouse) not cx/cy (lerp'd) so the button never
-     * accidentally checks itself and never flickers off on hover.
-     * The cursor button's own subtree is explicitly excluded below.
-     */
-    var AVOID = "a, input, select, textarea, .modal, .drawer, header, nav, footer, .mobile-bar, .cb-sticky-bar, .scroll-nudge, .floats, .cookie";
+    function update() {
+      var scrollY    = window.scrollY || window.pageYOffset;
+      var maxScroll  = document.documentElement.scrollHeight - window.innerHeight;
+      var pct        = maxScroll > 0 ? scrollY / maxScroll : 0;
 
-    function setVisible(v) {
-      if (v === visible) return;
-      visible = v;
-      if (v) {
-        el.classList.add("show");
-        el.classList.remove("hide");
-        el.style.opacity = "1";
-        el.style.pointerEvents = "auto";
-      } else {
-        el.classList.add("hide");
-        el.classList.remove("show");
-        el.style.opacity = "0";
-        el.style.pointerEvents = "none";
-      }
-    }
+      /* map scroll 0–100 % → button top 15 %–85 % of viewport */
+      var targetPct  = 15 + pct * 70;
+      currentTopPct += (targetPct - currentTopPct) * 0.1;
+      el.style.top    = currentTopPct + "%";
 
-    function isOverAvoid(x, y) {
-      /* temporarily disable pointer-events on our button so elementFromPoint
-         sees whatever is BEHIND it at the real cursor position */
-      el.style.pointerEvents = "none";
-      var hit = document.elementFromPoint(x, y);
-      el.style.pointerEvents = "";
-      if (!hit) return false;
-      /* never avoid our own children */
-      if (el.contains(hit)) return false;
-      return !!hit.closest(AVOID);
-    }
-
-    function tick() {
-      /* position button based on scroll position instead of cursor */
-      var viewportHeight = window.innerHeight;
-      var maxScroll = document.documentElement.scrollHeight - viewportHeight;
-      var scrollPercent = maxScroll > 0 ? scrollY / maxScroll : 0;
-      var buttonTop = viewportHeight * scrollPercent + (viewportHeight * 0.5);
-      
-      /* smooth lerp for the top position */
-      cy += (buttonTop - cy) * 0.08;
-      
-      el.style.transform = "translateY(calc(" + cy + "px - 50%))";
-
-      /* show button when scrolled past 300px */
+      /* show/hide */
       var shouldShow = scrollY > 300;
-      setVisible(shouldShow);
+      if (shouldShow !== shown) {
+        shown = shouldShow;
+        el.style.opacity       = shouldShow ? "1" : "0";
+        el.style.pointerEvents = shouldShow ? "auto" : "none";
+        el.style.transform     = "translateY(-50%) scale(" + (shouldShow ? "1" : "0.8") + ")";
+      }
 
-      requestAnimationFrame(tick);
+      requestAnimationFrame(update);
     }
 
-    function onMouseMove(e) {
-      scrollY = window.scrollY || window.pageYOffset;
-    }
-
-    document.addEventListener("mousemove", onMouseMove, { passive: true });
-    window.addEventListener("scroll", function () {
-      scrollY = window.scrollY || window.pageYOffset;
-    }, { passive: true });
-
-    requestAnimationFrame(tick);
+    requestAnimationFrame(update);
   }
 
   /* ============================================================
