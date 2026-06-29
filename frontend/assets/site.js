@@ -2853,6 +2853,10 @@
       '</button>';
     document.body.appendChild(el);
     if (window.lucide) window.lucide.createIcons({ el: el });
+    
+    /* set initial state */
+    el.style.opacity = "0";
+    el.style.pointerEvents = "none";
 
     /* direct click → open modal immediately (1 click, no delegation chain) */
     var innerBtn = el.querySelector(".cb-cursor-inner");
@@ -2880,8 +2884,17 @@
     function setVisible(v) {
       if (v === visible) return;
       visible = v;
-      if (v) { el.classList.add("show"); el.classList.remove("hide"); }
-      else   { el.classList.add("hide"); el.classList.remove("show"); }
+      if (v) {
+        el.classList.add("show");
+        el.classList.remove("hide");
+        el.style.opacity = "1";
+        el.style.pointerEvents = "auto";
+      } else {
+        el.classList.add("hide");
+        el.classList.remove("show");
+        el.style.opacity = "0";
+        el.style.pointerEvents = "none";
+      }
     }
 
     function isOverAvoid(x, y) {
