@@ -136,7 +136,7 @@
     "Unity Small Finance Bank": "logos/Unity Small Finance Bank logo.jpg",
     "Utkarsh Small Finance Bank": "logos/Utkarsh Small Finance Bank logo.jpg",
     "Bandhan Bank": "logos/Bandhan_Bank_Svg_Logo.svg.png",
-    "DCB Bank": "logos/DCB_Bank.svg",
+    "DCB Bank": "logos/DCB-BANK.png",
     "DBS Bank": "logos/DBS_Bank_logo_logotype.png",
     "HSBC": "logos/hsbc bank logo.png",
     "HSBC Home Loans": "logos/HSBC Home Loans logo.png",

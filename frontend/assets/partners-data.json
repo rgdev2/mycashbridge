@@ -237,7 +237,7 @@
     "name": "DCB Bank",
     "type": "bank",
     "category": "Private Sector Bank",
-    "logo": "assets/logos/DCB_Bank.svg",
+    "logo": "assets/logos/DCB-BANK.png",
     "website": "https://www.dcbbank.com",
     "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "construction-finance", "commercial-property-loan", "balance-transfer", "personal-loan", "car-loan"],
     "featured": false
@@ -345,7 +345,7 @@
     "name": "Aditya Birla Finance",
     "type": "nbfc",
     "category": "NBFC",
-    "logo": "assets/logos/Aditya Birla Finance logo.webp",
+    "logo": "assets/logos/Aditya Birla Finance logo.jpg",
     "website": "https://www.adityabirlacapital.com",
     "loanTypes": ["home-loan", "loan-against-property", "business-loan", "working-capital", "construction-finance", "commercial-property-loan", "balance-transfer", "insurance-products", "personal-loan"],
     "featured": true
@@ -417,7 +417,7 @@
     "name": "Manappuram Finance",
     "type": "nbfc",
     "category": "NBFC",
-    "logo": "assets/logos/Manappuram-Finance-Limited-Gold-loan-Company-1024x729.webp",
+    "logo": "assets/logos/Manappuram-Finance-Limited-Gold.jpg",
     "website": "https://www.manappuram.com",
     "loanTypes": ["loan-against-property", "business-loan", "working-capital", "gold-loan", "insurance-products"],
     "featured": true
