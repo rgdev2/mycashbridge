@@ -1,8 +1,8 @@
 ﻿/* ============================================================
-   CASH BRIDGE � shared site behaviour (v2)
-   Nav with product dropdowns � EN/HI language engine �
-   working cookie consent (blocks non-essential cookies) �
-   apply modal � forms?email � EMI � FAQ � why-choose strip.
+   CASH BRIDGE — shared site behaviour (v2)
+   Nav with product dropdowns — EN/HI language engine —
+   working cookie consent (blocks non-essential cookies) —
+   apply modal — forms?email — EMI — FAQ — why-choose strip.
    ============================================================ */
 (function () {
   "use strict";
@@ -16,7 +16,7 @@
     phoneRaw: "918796508140",
     whatsapp: "918796508140",
     address: "750, Udyog Vihar Phase 5, Sector 19, Gurugram, Haryana 122016",
-    thanksTitle: "Thank you � we've got your request!",
+    thanksTitle: "Thank you — we've got your request!",
     thanksBody: "A MyCashBridge expert will call you within 24 hours to take it forward. Please keep your phone handy."
   }, window.CASHBRIDGE);
   /* logo lockup: brand with tagline */
@@ -27,7 +27,7 @@
   var BASE = (function () {
     return /\/(loans|tools|pages|guides)\//.test(location.pathname) ? "../" : "";
   })();
-  /* logo source � uses the standalone bundler's inlined blob when present, else the normal asset path */
+  /* logo source — uses the standalone bundler's inlined blob when present, else the normal asset path */
   function LOGO_SRC() { return (window.__resources && window.__resources.cbLogo) || (BASE + "assets/looogogogog.png"); }
   /* split lockup: MCB mark image + separate live wordmark text */
   function MARK_SRC() { return (window.__resources && window.__resources.cbMark) || (BASE + "assets/mcb-mark.png"); }
@@ -300,10 +300,10 @@
   }
 
   /* ============================================================
-     DPDP ACT 2023 � CONSENT CONSTANTS (Phase 1)
+     DPDP ACT 2023 — CONSENT CONSTANTS (Phase 1)
      ============================================================
      Version must match backend/src/utils/consent.js CONSENT_VERSION.
-     Bump both when consent text changes � triggers re-collection of consent.
+     Bump both when consent text changes — triggers re-collection of consent.
 
      These values are sent with every lead submission so the backend
      can store verifiable proof of what was shown and agreed to.
@@ -314,7 +314,7 @@
     "loan enquiry via call, SMS, email or WhatsApp to process my application, and I accept " +
     "the Terms & Conditions and Privacy Policy. This overrides my DND/NDNC registration.";
 
-  /* localStorage retry queue � replaces formsubmit.co fallback (Phase 3) */
+  /* localStorage retry queue — replaces formsubmit.co fallback (Phase 3) */
   function queueLeadForRetry(payload) {
     try {
       var q = JSON.parse(localStorage.getItem("cb_lead_queue") || "[]");
@@ -333,7 +333,7 @@
       fetch("/api/lead", {
         method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(item)
       }).catch(function () {
-        // still failing � put back
+        // still failing — put back
         var q2 = JSON.parse(localStorage.getItem("cb_lead_queue") || "[]");
         q2.unshift(item);
         localStorage.setItem("cb_lead_queue", JSON.stringify(q2.slice(0, 5)));
@@ -342,7 +342,7 @@
   }
 
   /* ============================================================
-     i18n � full-page dictionary sweep (English ? Hindi)
+     i18n — full-page dictionary sweep (English ? Hindi)
      Translates EVERY matching visible text node + placeholders
      anywhere on the page, preserving icons & inline markup.
      ============================================================ */
@@ -506,7 +506,7 @@
         el = document.createElement("div");
         el.id = "cbTransToast";
         el.style.cssText = "position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:400;background:var(--ink);color:#fff;font:600 13px/1 var(--font-sans);padding:10px 16px;border-radius:50px;box-shadow:0 8px 24px rgba(0,0,0,.3);display:flex;align-items:center;gap:8px";
-        el.innerHTML = '<span style="width:13px;height:13px;border:2px solid rgba(255,255,255,.35);border-top-color:#9AEF5E;border-radius:50%;display:inline-block;animation:spin .7s linear infinite"></span> ????? ??? ?????? ?? ??? ??�';
+        el.innerHTML = '<span style="width:13px;height:13px;border:2px solid rgba(255,255,255,.35);border-top-color:#9AEF5E;border-radius:50%;display:inline-block;animation:spin .7s linear infinite"></span> ????? ??? ?????? ?? ??? ??—';
         document.body.appendChild(el);
       }
       el.style.display = "flex";
@@ -585,7 +585,7 @@
   }
   function navHTML() {
     return '' +
-    '<div class="topstrip"><span data-i18n="top.msg">New here? Check your eligibility in 10 seconds � it won\'t affect your credit score.</span>' +
+    '<div class="topstrip"><span data-i18n="top.msg">New here? Check your eligibility in 10 seconds — it won\'t affect your credit score.</span>' +
       '<a href="' + BASE + 'tools/eligibility.html" data-i18n="top.cta">Check now</a></div>' +
     '<header class="nav"><div class="nav-inner">' +
       '<a class="nav-logo cb-logo-link" href="' + BASE + 'index.html">' + logoLockup() + '</a>' +
@@ -849,12 +849,12 @@
   }
   function formFieldsHTML(ctx, loanLabel) {
     /*
-     * DPDP Act 2023 Phase 2 � Section 5 Notice
+     * DPDP Act 2023 Phase 2 — Section 5 Notice
      * A compact inline notice displayed immediately before form fields
      * stating: data collected, purpose, partner sharing, and rights link.
      * Design is intentionally minimal to preserve conversion rate.
      *
-     * DPDP Act 2023 Phase 1 � Split Consent
+     * DPDP Act 2023 Phase 1 — Split Consent
      * Service consent (required): processing the loan enquiry.
      * Marketing consent (optional): promotional communications.
      * Two separate checkboxes as required by Section 6(1)(a).
@@ -872,7 +872,7 @@
       '<div class="field"><label>Employment type</label><div class="seg" data-seg="employment"><div class="seg-opt" data-val="Salaried">Salaried</div><div class="seg-opt" data-val="Self-employed">Self-employed</div><div class="seg-opt" data-val="Business owner">Business</div><input type="hidden" name="employment"></div><span class="err">Select one</span></div>' +
       '<div class="field full"><label>PAN <span class="opt">(optional)</span></label><input name="pan" type="text" maxlength="10" placeholder="ABCDE1234F" style="text-transform:uppercase"></div>' +
       '<div class="field full"><div class="consent"><input type="checkbox" name="consent" id="' + ctx + '-consent"><label for="' + ctx + '-consent">I authorise ' + CFG.brand + ' and its partner banks/NBFCs to contact me regarding my loan enquiry via call, SMS, email or WhatsApp to process my application, and I accept the Terms &amp; Privacy Policy. This overrides my DND/NDNC registration.</label></div><span class="err">Please accept to continue</span></div>' +
-      /* Optional marketing consent � separate checkbox per DPDP s.6(1)(a) */
+      /* Optional marketing consent — separate checkbox per DPDP s.6(1)(a) */
       '<div class="field full" style="margin-top:-4px"><div class="consent"><input type="checkbox" name="mkt_consent" id="' + ctx + '-mkt"><label for="' + ctx + '-mkt" style="font-size:12px;color:var(--text-soft)">I also consent to receive promotional communications about other financial products from ' + CFG.brand + ' and its partners. <em>(Optional)</em></label></div></div>' +
       '</div><button class="btn btn-filled btn-block btn-lg" type="submit" style="margin-top:18px"><span class="btn-label"><i data-lucide="shield-check"></i> Get a call back</span></button>' +
       '<p style="text-align:center;font-size:12px;color:var(--text-soft);margin:12px 0 0">By continuing you agree it won\'t affect your credit score. We never charge a fee to apply.</p></form>';
@@ -947,11 +947,11 @@
     try {
       var data = new FormData(form), loan = form.getAttribute("data-loan") || "General enquiry";
       /*
-       * Phase 1 � Consent Evidence:
+       * Phase 1 — Consent Evidence:
        * Read both checkboxes and include consent metadata in payload.
        * Backend stores this as the consent sub-document on the lead record.
        * consent_service is always true (the required checkbox must be checked to reach here).
-       * consent_marketing is optional � false does NOT block lead creation.
+       * consent_marketing is optional — false does NOT block lead creation.
        */
       var mktConsent = form.querySelector('[name=mkt_consent]');
       var payload = {
@@ -966,7 +966,7 @@
         consent_service:   true,
         consent_marketing: mktConsent ? mktConsent.checked : false,
         consent_version:   CONSENT_VERSION,
-        _hp:               ""   /* honeypot � always empty from real users */
+        _hp:               ""   /* honeypot — always empty from real users */
       };
       Object.assign(payload, getUtm());
       /* Primary: our Express server ? MongoDB */
@@ -978,8 +978,8 @@
       }).then(function(r){ if (!r.ok) throw new Error(r.status); })
       .catch(function() {
         /*
-         * Phase 3 � Fallback: queue for retry on next page load.
-         * FormSubmit.co dependency removed � all data stays first-party.
+         * Phase 3 — Fallback: queue for retry on next page load.
+         * FormSubmit.co dependency removed — all data stays first-party.
          * Queued leads are retried automatically via drainLeadRetryQueue().
          */
         queueLeadForRetry(payload);
@@ -989,7 +989,7 @@
   function handleSubmit(e) {
     var form = e.target.closest(".lead-form"); if (!form) return; e.preventDefault();
     if (!validate(form)) { var fb = form.querySelector(".field.invalid input, .field.invalid select"); if (fb) fb.focus(); return; }
-    var btn = form.querySelector('button[type=submit]'); if (btn) { btn.disabled = true; var lbl = btn.querySelector(".btn-label"); if (lbl) lbl.innerHTML = '<span class="spinner"></span> Submitting�'; }
+    var btn = form.querySelector('button[type=submit]'); if (btn) { btn.disabled = true; var lbl = btn.querySelector(".btn-label"); if (lbl) lbl.innerHTML = '<span class="spinner"></span> Submitting…'; }
     setTimeout(function () { sendLead(form); showThanks(form); }, 850);
   }
 
@@ -997,7 +997,7 @@
   function closeDrawer() { var d = document.getElementById("drawer"); if (d) { d.classList.remove("open"); document.body.style.overflow = ""; } }
 
   /* ============================================================
-     COOKIE CONSENT � actually blocks/clears non-essential cookies
+     COOKIE CONSENT — actually blocks/clears non-essential cookies
      ============================================================ */
   var ESSENTIAL = ["cb_lang", "cb_cookie", "cb_hero_choice"]; // functional keys we allow
   var clearTimer = null;
@@ -1035,7 +1035,7 @@
   }
   function cookieHTML() {
     return '<div class="cookie" id="cookieBanner"><div class="cookie-inner">' +
-      '<div class="cookie-txt"><b data-i18n="cookie.title">We use cookies</b><span data-i18n="cookie.body">We use cookies to improve the site and understand traffic. Click �Accept all� to allow analytics &amp; marketing cookies, or reject non-essential ones. See our <a href="' + BASE + 'pages/cookie-policy.html">Cookie Policy</a>.</span></div>' +
+      '<div class="cookie-txt"><b data-i18n="cookie.title">We use cookies</b><span data-i18n="cookie.body">We use cookies to improve the site and understand traffic. Click “Accept all” to allow analytics &amp; marketing cookies, or reject non-essential ones. See our <a href="' + BASE + 'pages/cookie-policy.html">Cookie Policy</a>.</span></div>' +
       '<div class="cookie-actions">' +
         '<button class="btn btn-rej btn-sm" data-ck="reject" data-i18n="cookie.reject">Reject non-essential</button>' +
         '<button class="btn btn-ghost btn-sm" style="color:#fff;border-color:rgba(255,255,255,.4)" data-ck="settings" data-i18n="cookie.settings">Settings</button>' +
@@ -1052,7 +1052,7 @@
   }
   function saveConsent(obj) {
     /*
-     * Phase 8 � Cookie Consent Evidence:
+     * Phase 8 — Cookie Consent Evidence:
      * Persist consent to localStorage (existing UX, unchanged) AND
      * fire a silent POST to the backend so server-side evidence is
      * recorded independently of the user's device/browser storage.
@@ -1061,7 +1061,7 @@
     var withTs = Object.assign({ ts: Date.now() }, obj);
     localStorage.setItem("cb_cookie", JSON.stringify(withTs));
     enforceBlocking();
-    /* Server-side evidence (fire-and-forget � never blocks UX) */
+    /* Server-side evidence (fire-and-forget — never blocks UX) */
     try {
       fetch("/api/cookie-consent", {
         method:  "POST",
@@ -1159,7 +1159,7 @@
   }
 
   /* ============================================================
-     PREMIUM UX � scroll reveal + interaction polish
+     PREMIUM UX — scroll reveal + interaction polish
      ============================================================ */
   function initReveal() {
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1192,7 +1192,7 @@
   window.cbInitReveal = initReveal;
 
   /* ============================================================
-     GSAP MOTION LAYER � smooth, professional, reduced-motion safe.
+     GSAP MOTION LAYER — smooth, professional, reduced-motion safe.
      Loads local gsap + ScrollTrigger; falls back to initReveal()
      if the files fail to load or the user prefers reduced motion.
      ============================================================ */
@@ -1205,7 +1205,7 @@
     });
   }
 
-  /* count-up for stat numbers: keeps prefix (�), suffix (+, �) and en-IN grouping */
+  /* count-up for stat numbers: keeps prefix (₹), suffix (+, ₹) and en-IN grouping */
   function animateCounter(el) {
     var m = (el.textContent || "").match(/^([^0-9]*)([\d,]+(?:\.\d+)?)(.*)$/);
     if (!m) return;
@@ -1281,7 +1281,7 @@
       });
     });
 
-    /* layout shifts (fonts, lazy images, injected bands) � keep trigger positions honest */
+    /* layout shifts (fonts, lazy images, injected bands) — keep trigger positions honest */
     window.addEventListener("load", function () { ScrollTrigger.refresh(); });
   }
 
@@ -1297,16 +1297,50 @@
   }
 
   /* ============================================================
-     MULTI-STEP LEAD POPUP � Paisabazaar-inspired
+     MULTI-STEP LEAD POPUP — Paisabazaar-inspired
      Triggered by: [data-quick-apply], [data-service-type],
      product cards, navigation apply, exit-intent
      ============================================================ */
   var QB_STEPS = {
     loan: [
-      { id: "lf1", type: "form",
-        fields: ["name","mobile","city","income","employment","pan","consent"],
-        cta: "Get a call back"
-      }
+      /* Step 1 — Loan type tiles */
+      { id: "lt0", title: "What type of loan do you need?",
+        type: "tiles", field: "loan_type", required: true,
+        options: [
+          { val: "Personal Loan",          icon: "wallet",         label: "Personal Loan" },
+          { val: "Business Loan",          icon: "store",          label: "Business Loan" },
+          { val: "Home Loan",              icon: "home",           label: "Home Loan" },
+          { val: "Car Loan",               icon: "car",            label: "Car Loan" },
+          { val: "Education Loan",         icon: "graduation-cap", label: "Education" },
+          { val: "Gold Loan",              icon: "gem",            label: "Gold Loan" }
+        ]
+      },
+      /* Step 2 — Loan amount slider */
+      { id: "lt1", title: "How much do you need?",
+        subtitle: "Move the slider to select your loan amount.",
+        type: "slider", field: "loan_amount",
+        min: 50000, max: 5000000, step: 50000, default: 500000,
+        format: function(v) { return qbFmtAmt(v); }
+      },
+      /* Step 3 — Contact + profile (lead saved fire-and-forget on Next) */
+      { id: "lt2", title: "Tell us about yourself",
+        subtitle: "Takes 30 seconds. Won\u2019t affect your credit score.",
+        type: "lead_collect",
+        fields: ["name","mobile","income","employment","city","consent"]
+      },
+      /* Step 4 — Eligibility estimate (no bureau hit) */
+      { id: "lt3", type: "eligibility",
+        title: "Your Estimated Eligibility",
+        subtitle: "Based on your profile only \u2014 no credit report accessed yet."
+      },
+      /* Step 5 — Bureau consent gate */
+      { id: "lt4", type: "bureau_gate",
+        title: "Unlock Personalised Loan Offers"
+      },
+      /* Step 6 — Animated loading (auto-advances to step 7) */
+      { id: "lt5", type: "bureau_loading" },
+      /* Step 7 — Matched lenders */
+      { id: "lt6", type: "lender_results" }
     ],
     insurance: [
       { id: "is1", title: "Which insurance are you looking for?", type: "tiles",
@@ -1350,14 +1384,42 @@
       }
     ],
     general: [
-      { id: "gf1", type: "form",
-        fields: ["name","mobile","city","income","employment","pan","consent"],
-        cta: "Get a call back"
-      }
+      /* Same 7-step flow as loan — general apply starts with loan type selection */
+      { id: "gf0", title: "What type of loan do you need?",
+        type: "tiles", field: "loan_type", required: true,
+        options: [
+          { val: "Personal Loan",          icon: "wallet",         label: "Personal Loan" },
+          { val: "Business Loan",          icon: "store",          label: "Business Loan" },
+          { val: "Home Loan",              icon: "home",           label: "Home Loan" },
+          { val: "Car Loan",               icon: "car",            label: "Car Loan" },
+          { val: "Education Loan",         icon: "graduation-cap", label: "Education" },
+          { val: "Gold Loan",              icon: "gem",            label: "Gold Loan" }
+        ]
+      },
+      { id: "gf1", title: "How much do you need?",
+        subtitle: "Move the slider to select your loan amount.",
+        type: "slider", field: "loan_amount",
+        min: 50000, max: 5000000, step: 50000, default: 500000,
+        format: function(v) { return qbFmtAmt(v); }
+      },
+      { id: "gf2", title: "Tell us about yourself",
+        subtitle: "Takes 30 seconds. Won\u2019t affect your credit score.",
+        type: "lead_collect",
+        fields: ["name","mobile","income","employment","city","consent"]
+      },
+      { id: "gf3", type: "eligibility",
+        title: "Your Estimated Eligibility",
+        subtitle: "Based on your profile only \u2014 no credit report accessed yet."
+      },
+      { id: "gf4", type: "bureau_gate",
+        title: "Unlock Personalised Loan Offers"
+      },
+      { id: "gf5", type: "bureau_loading" },
+      { id: "gf6", type: "lender_results" }
     ]
   };
 
-  var _qbData = {}, _qbStep = 0, _qbFlow = "general", _qbFixedType = null;
+  var _qbData = {}, _qbStep = 0, _qbFlow = "general", _qbFixedType = null, _qbLoadingTimer = null;
 
   /* Collect UTM params from URL for lead attribution */
   function getUtm() {
@@ -1385,7 +1447,7 @@
   }
 
   /*
-   * qbLead � QuickBook popup lead submission (Phase 1 + Phase 3)
+   * qbLead — QuickBook popup lead submission (Phase 1 + Phase 3)
    * Consent evidence added; FormSubmit.co fallback replaced with retry queue.
    */
   function qbLead(data) {
@@ -1400,11 +1462,11 @@
         product_type:      productLabel,
         source_page:       location.pathname,
         submitted_at:      new Date().toLocaleString("en-IN"),
-        /* DPDP consent evidence � QB form service consent is always true */
+        /* DPDP consent evidence — QB form service consent is always true */
         consent_service:   true,
         consent_marketing: false,  // QB popup does not have marketing checkbox
         consent_version:   CONSENT_VERSION,
-        _hp:               ""   /* honeypot � must always be empty from real users */
+        _hp:               ""   /* honeypot — must always be empty from real users */
       }
     );
 
@@ -1426,7 +1488,7 @@
       if (!r.ok) throw new Error("API " + r.status);
     })
     .catch(function() {
-      /* Phase 3: queue for retry � FormSubmit.co dependency removed */
+      /* Phase 3: queue for retry — FormSubmit.co dependency removed */
       queueLeadForRetry(payload);
     });
   }
@@ -1452,7 +1514,7 @@
   function qbFormHTML(step) {
     var f = step.fields || [];
     var html = '<div class="qb-form-inner">';
-    /* Honeypot: hidden from real users via CSS, bots fill it � server drops submission */
+    /* Honeypot: hidden from real users via CSS, bots fill it — server drops submission */
     html += '<div class="hp-field" aria-hidden="true"><input name="_hp" type="text" tabindex="-1" autocomplete="off"></div>';
     if (f.indexOf("name") > -1) html += '<div class="field full"><label>Full name</label><input name="qb_name" type="text" placeholder="e.g. Rohan Sharma" autocomplete="name"><span class="err">Please enter your name</span></div>';
     if (f.indexOf("mobile") > -1) html += '<div class="field full"><label>Mobile number</label><div class="tel-wrap"><span class="cc">+91</span><input name="qb_mobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile" autocomplete="tel-national"></div><span class="err">Enter a valid 10-digit mobile</span></div>';
@@ -1504,6 +1566,211 @@
     '</div>';
   }
 
+  /* ---- QB helper: format loan amount as ₹X L / ₹X Cr ---- */
+  function qbFmtAmt(v) {
+    v = parseInt(v, 10) || 0;
+    if (v >= 10000000) return "\u20B9" + (v / 10000000).toFixed(1) + " Cr";
+    if (v >= 100000)   return "\u20B9" + (v / 100000).toFixed(0) + " L";
+    return "\u20B9" + v.toLocaleString("en-IN");
+  }
+
+  /* ---- Step 4: Eligibility estimate (no bureau) ---- */
+  function qbEligibilityHTML() {
+    var income     = _qbData.monthly_income || "";
+    var employment = _qbData.employment    || "";
+    var loanType   = _qbData.loan_type     || "Loan";
+    var reqAmt     = parseInt(_qbData.loan_amount || "500000", 10);
+    var minAmt, maxAmt, rate;
+    if (income.indexOf("Above") > -1) {
+      minAmt = 1000000; maxAmt = 3500000;
+      rate = (employment === "Salaried") ? "10.5" : "12.0";
+    } else if (income.indexOf("1,00,000") > -1) {
+      minAmt = 500000; maxAmt = 1800000;
+      rate = (employment === "Salaried") ? "11.0" : "13.0";
+    } else if (income.indexOf("50,000") > -1 && income.indexOf("Below") === -1) {
+      minAmt = 200000; maxAmt = 800000;
+      rate = (employment === "Salaried") ? "11.5" : "14.0";
+    } else {
+      minAmt = 50000; maxAmt = 300000; rate = "13.5";
+    }
+    var inRange = reqAmt >= minAmt && reqAmt <= maxAmt;
+    var msg = inRange
+      ? "Your requested amount of <strong>" + qbFmtAmt(reqAmt) + "</strong> falls within your estimated eligibility range."
+      : "Based on your salary and employment profile, you are <strong>likely eligible</strong> for loans between <strong>" + qbFmtAmt(minAmt) + "</strong> and <strong>" + qbFmtAmt(maxAmt) + "</strong>.";
+    return '<div class="qb-elig-wrap">' +
+      '<div class="qb-elig-card">' +
+        '<div class="qb-elig-label">Estimated Eligibility Range</div>' +
+        '<div class="qb-elig-range">' + qbFmtAmt(minAmt) + ' \u2013 ' + qbFmtAmt(maxAmt) + '</div>' +
+        '<div class="qb-elig-meta">' +
+          '<div class="qb-elig-stat"><span>Indicative Rate</span><b>From ' + rate + '% p.a.</b></div>' +
+          '<div class="qb-elig-stat"><span>Lender Network</span><b>50+ Banks &amp; NBFCs</b></div>' +
+          '<div class="qb-elig-stat"><span>Employment</span><b>' + (employment || "\u2014") + '</b></div>' +
+        '</div>' +
+      '</div>' +
+      '<p class="qb-elig-note">' + msg + '</p>' +
+      '<p class="qb-elig-wording">\u26a0\ufe0f Not approved. Not guaranteed. <em>Likely eligible.</em><br>' +
+        '<span style="font-size:11px;color:#aaa">This estimate is based on your salary and employment data only. No credit report has been accessed.</span></p>' +
+      '<div class="qb-elig-unlock">' +
+        '<span class="qb-elig-unlock-icon">\uD83D\uDD13</span>' +
+        '<div><strong>Unlock exact offers from 50+ lenders</strong><br>' +
+          '<span style="font-size:12px;color:#888">Verify your credit profile to see personalised rates. Soft check \u2014 score safe.</span></div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  /* ---- Step 5: Bureau consent gate ---- */
+  function qbBureauGateHTML() {
+    var maxDob = new Date();
+    maxDob.setFullYear(maxDob.getFullYear() - 18);
+    var maxDobStr = maxDob.toISOString().split("T")[0];
+    return '<div class="qb-bureau-gate">' +
+      '<p class="qb-bureau-intro">To provide <strong>exact offers</strong> from our lending partners, please verify your credit profile.<br>' +
+        '<strong style="color:var(--green-primary)">\u2705 Soft check only \u2014 it will NOT affect your credit score.</strong></p>' +
+      '<div class="qb-form-inner">' +
+        '<div class="hp-field" aria-hidden="true"><input name="_hp" type="text" tabindex="-1" autocomplete="off"></div>' +
+        '<div class="field full"><label>PAN Number</label>' +
+          '<input name="qb_pan" type="text" placeholder="ABCDE1234F" maxlength="10" style="text-transform:uppercase" autocomplete="off">' +
+          '<span class="err">Enter a valid PAN (e.g. ABCDE1234F)</span></div>' +
+        '<div class="field full"><label>Date of Birth</label>' +
+          '<input name="qb_dob" type="date" max="' + maxDobStr + '">' +
+          '<span class="err">Enter your date of birth (must be 18+)</span></div>' +
+        '<div class="field full"><div class="consent">' +
+          '<input type="checkbox" name="bureau_consent" id="bureau-consent">' +
+          '<label for="bureau-consent">I authorise MyCashBridge to access my credit information from credit bureaus (CIBIL / Experian / Equifax) to fetch personalised loan offers. This is a <strong>soft inquiry</strong> and will <strong>not affect</strong> my credit score.</label>' +
+        '</div><span class="err">Please accept to continue</span></div>' +
+      '</div>' +
+      '<div class="qb-bureau-trust">' +
+        '<span>\uD83D\uDD12 256-bit encrypted</span>' +
+        '<span>\u2705 Soft pull \u2014 score safe</span>' +
+        '<span>\uD83C\uDFE6 50+ lenders matched</span>' +
+      '</div>' +
+    '</div>';
+  }
+
+  /* ---- Step 6: Bureau loading animation ---- */
+  var QB_LOADING_LENDERS = ["HDFC Bank","ICICI Bank","Axis Bank","Kotak Mahindra Bank","SBI","IDFC FIRST Bank","IndusInd Bank","YES Bank"];
+  function qbBureauLoadingHTML() {
+    var loanType = _qbData.loan_type || "Loan";
+    var tickerHTML = QB_LOADING_LENDERS.map(function(l, i) {
+      return '<div class="qb-ticker-item" style="animation-delay:' + (i * 0.38) + 's">' +
+        '<span class="qb-ticker-dot"></span>' + l + '</div>';
+    }).join("");
+    return '<div class="qb-bureau-loading">' +
+      '<div class="qb-loading-ring"><div></div><div></div><div></div><div></div></div>' +
+      '<p class="qb-loading-headline">We\u2019re checking offers from <strong>35+ banks\u2026</strong></p>' +
+      '<p class="qb-loading-sub">Analysing your ' + loanType + ' eligibility across our partner network.</p>' +
+      '<div class="qb-lender-ticker">' + tickerHTML + '</div>' +
+    '</div>';
+  }
+  function qbStartLoadingAdvance() {
+    if (_qbLoadingTimer) clearTimeout(_qbLoadingTimer);
+    _qbLoadingTimer = setTimeout(function() {
+      _qbLoadingTimer = null;
+      var flow = QB_STEPS[_qbFlow] || QB_STEPS.general;
+      if (_qbStep < flow.length - 1) { _qbStep++; qbRenderStep(); }
+    }, 3200);
+  }
+
+  /* ---- Step 7: Matched lender results ---- */
+  var QB_LENDER_MAP = {
+    "Personal Loan":          ["HDFC Bank","ICICI Bank","Axis Bank","Kotak Mahindra Bank","IDFC FIRST Bank"],
+    "Business Loan":          ["HDFC Bank","ICICI Bank","Axis Bank","Bank of Baroda","Kotak Mahindra Bank"],
+    "Home Loan":               ["SBI","HDFC Bank","ICICI Bank","Axis Bank","Kotak Mahindra Bank"],
+    "Car Loan":                ["HDFC Bank","ICICI Bank","SBI","Axis Bank","Kotak Mahindra Bank"],
+    "Education Loan":          ["SBI","Bank of Baroda","HDFC Bank","ICICI Bank","Axis Bank"],
+    "Gold Loan":               ["Muthoot Finance","Manappuram Finance","HDFC Bank","SBI","ICICI Bank"],
+    "Loan Against Property":   ["HDFC Bank","Axis Bank","Kotak Mahindra Bank","ICICI Bank","IDFC FIRST Bank"]
+  };
+  function qbLenderResultsHTML() {
+    var loanType = _qbData.loan_type || "Personal Loan";
+    var income   = _qbData.monthly_income || "";
+    var lenders  = QB_LENDER_MAP[loanType] || QB_LENDER_MAP["Personal Loan"];
+    var rate = income.indexOf("Above") > -1 ? "10.5"
+             : income.indexOf("1,00,000") > -1 ? "11.0"
+             : income.indexOf("50,000") > -1 && income.indexOf("Below") === -1 ? "11.5"
+             : "12.5";
+    var rowsHTML = lenders.slice(0, 4).map(function(l) {
+      return '<div class="qb-lender-row">' +
+        '<span class="qb-lender-check">\u2705</span>' +
+        '<span class="qb-lender-name">' + l + '</span>' +
+        '<span class="qb-lender-badge">Eligible</span>' +
+      '</div>';
+    }).join("");
+    return '<div class="qb-lender-results">' +
+      '<div class="qb-results-header">' +
+        '<div class="qb-results-emoji">\uD83C\uDF89</div>' +
+        '<h4 class="qb-results-title">Great news! Offers found.</h4>' +
+        '<p class="qb-results-sub">Based on your profile, you are <strong>likely eligible</strong> with these lenders:</p>' +
+      '</div>' +
+      '<div class="qb-lender-list">' + rowsHTML + '</div>' +
+      '<div class="qb-results-rate">' +
+        '<span>\u26A1 Indicative rate from ' + rate + '% p.a.</span>' +
+        '<span style="font-size:11px;color:#bbb">Final rate subject to lender assessment</span>' +
+      '</div>' +
+      '<div class="qb-expert-call">' +
+        '<div class="qb-expert-icon"><i data-lucide="phone-call"></i></div>' +
+        '<div><strong>Our financial expert will call you shortly</strong><br>' +
+          '<span style="font-size:12px;color:#888">with exact rates, terms, and the best offer for your profile.</span></div>' +
+      '</div>' +
+      '<p class="qb-results-disclaimer">These are indicative matches based on your profile. Actual eligibility and rates are determined by the lender during assessment.</p>' +
+    '</div>';
+  }
+
+  /* ---- Bureau consent: fire-and-forget to /api/bureau-consent ---- */
+  function qbSubmitBureauConsent() {
+    try {
+      var payload = Object.assign({}, getUtm(), {
+        mobile:          _qbData.mobile         || "",
+        pan:             _qbData.pan            || "",
+        dob:             _qbData.dob            || "",
+        loan_type:       _qbData.loan_type      || "General",
+        loan_amount:     _qbData.loan_amount    || "",
+        source_page:     location.pathname,
+        bureau_consent:  true,
+        consent_version: CONSENT_VERSION,
+        _hp: ""
+      });
+      fetch("/api/bureau-consent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout ? AbortSignal.timeout(8000) : undefined
+      }).catch(function() {});
+    } catch(e) {}
+  }
+
+  /* ---- Fire-and-forget lead save (no thanks screen) ---- */
+  function qbSaveLead(data) {
+    try { qbLead(data); } catch(e) {}
+  }
+
+  /* ---- Bureau gate validation ---- */
+  function qbValidateBureauGate() {
+    var box = document.getElementById("qbPopup"); if (!box) return false;
+    var ok = true;
+    box.querySelectorAll(".field").forEach(function(f){ f.classList.remove("invalid"); });
+    var pan = box.querySelector("[name=qb_pan]");
+    if (!pan || !/^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$/.test(pan.value.trim())) {
+      if (pan && pan.closest(".field")) pan.closest(".field").classList.add("invalid"); ok = false;
+    }
+    var dob = box.querySelector("[name=qb_dob]");
+    if (!dob || !dob.value) {
+      if (dob && dob.closest(".field")) dob.closest(".field").classList.add("invalid"); ok = false;
+    }
+    var bc = box.querySelector("[name=bureau_consent]");
+    if (!bc || !bc.checked) {
+      if (bc && bc.closest(".field")) bc.closest(".field").classList.add("invalid"); ok = false;
+    }
+    return ok;
+  }
+
+  /* ---- Collect bureau gate form data ---- */
+  function qbCollectBureauData() {
+    var box = document.getElementById("qbPopup"); if (!box) return;
+    var pan = box.querySelector("[name=qb_pan]"); if (pan && pan.value.trim()) _qbData.pan = pan.value.trim().toUpperCase();
+    var dob = box.querySelector("[name=qb_dob]"); if (dob && dob.value) _qbData.dob = dob.value;
+  }
+
   function qbRenderStep() {
     var box = document.getElementById("qbPopup"); if (!box) return;
     var flow = QB_STEPS[_qbFlow] || QB_STEPS.general;
@@ -1525,26 +1792,46 @@
 
     // body
     var body = box.querySelector(".qb-body");
-    if (step.type === "tiles") body.innerHTML = qbTileHTML(step);
-    else if (step.type === "slider") body.innerHTML = qbSliderHTML(step);
-    else if (step.type === "preview") body.innerHTML = qbPreviewHTML();
+    if (step.type === "tiles")           body.innerHTML = qbTileHTML(step);
+    else if (step.type === "slider")     body.innerHTML = qbSliderHTML(step);
+    else if (step.type === "preview")    body.innerHTML = qbPreviewHTML();
+    else if (step.type === "eligibility") body.innerHTML = qbEligibilityHTML();
+    else if (step.type === "bureau_gate") body.innerHTML = qbBureauGateHTML();
+    else if (step.type === "bureau_loading") { body.innerHTML = qbBureauLoadingHTML(); qbStartLoadingAdvance(); }
+    else if (step.type === "lender_results") body.innerHTML = qbLenderResultsHTML();
     else body.innerHTML = qbFormHTML(step);
     body.innerHTML += ""; // flush
 
     // back / next buttons
     var backBtn = box.querySelector(".qb-back");
     var nextBtn = box.querySelector(".qb-next");
-    backBtn.style.display = _qbStep > 0 ? "" : "none";
-    var isFinalStep = (step.type === "form" || step.type === "final");
-    if (isFinalStep) {
-      nextBtn.innerHTML = '<i data-lucide="shield-check"></i> ' + (step.cta || "Get FREE Offers");
+    var hideNav = (step.type === "bureau_loading" || step.type === "lender_results");
+    backBtn.style.display = (_qbStep > 0 && !hideNav) ? "" : "none";
+    if (step.type === "form" || step.type === "final" || step.type === "lead_collect") {
+      nextBtn.innerHTML = '<i data-lucide="shield-check"></i> ' + (step.cta || "Get a call back");
       nextBtn.classList.add("qb-submit");
+    } else if (step.type === "eligibility") {
+      nextBtn.innerHTML = '\uD83D\uDD13 Unlock Personalised Loan Offers';
+      nextBtn.classList.remove("qb-submit");
+    } else if (step.type === "bureau_gate") {
+      nextBtn.innerHTML = '<i data-lucide="search"></i> Check My Eligibility';
+      nextBtn.classList.add("qb-submit");
+    } else if (step.type === "lender_results") {
+      nextBtn.innerHTML = '<i data-lucide="check-circle-2"></i> Done \u2014 Got it!';
+      nextBtn.classList.remove("qb-submit");
     } else {
       nextBtn.innerHTML = (step.cta || "Next") + ' <i data-lucide="arrow-right"></i>';
       nextBtn.classList.remove("qb-submit");
     }
-    // tiles: auto-advance on click, hide Next button
-    if (step.type === "tiles") { nextBtn.style.display = "none"; } else { nextBtn.style.display = ""; }
+    // tiles & bureau_loading: hide Next (auto-advance); lender_results shows Done button
+    if (step.type === "tiles" || step.type === "bureau_loading") {
+      nextBtn.style.display = "none";
+    } else {
+      nextBtn.style.display = "";
+    }
+    // Always show close button on the final step so users can dismiss on any page
+    var closeBtn2 = box.querySelector('#qbClose');
+    if (closeBtn2 && step.type === "lender_results") closeBtn2.style.display = "flex";
 
     // init slider listener
     var slider = box.querySelector("[data-qb-slider]");
@@ -1565,7 +1852,10 @@
     var box = document.getElementById("qbPopup"); if (!box) return true;
     var flow = QB_STEPS[_qbFlow] || QB_STEPS.general;
     var step = flow[_qbStep];
-    if (!step || step.type === "tiles" || step.type === "slider" || step.type === "preview") return true;
+    if (!step || step.type === "tiles" || step.type === "slider" || step.type === "preview" ||
+        step.type === "eligibility" || step.type === "bureau_loading" || step.type === "lender_results") return true;
+    /* bureau_gate has its own specialised validator */
+    if (step.type === "bureau_gate") return qbValidateBureauGate();
     var fields = step.fields || [];
     var ok = true;
     box.querySelectorAll(".field").forEach(function(f){ f.classList.remove("invalid"); });
@@ -1591,13 +1881,43 @@
   function qbNext() {
     var flow = QB_STEPS[_qbFlow] || QB_STEPS.general;
     var step = flow[_qbStep];
+    /* legacy single-step form: validate + save + show thanks screen */
     if (step.type === "form" || step.type === "final") {
       if (!qbValidateFormStep()) return;
       qbCollectFormData();
       qbSubmit();
       return;
     }
-    // For contact/profile steps: validate + persist data before advancing
+    /* Step 3 — lead_collect: validate, save lead fire-and-forget, advance to eligibility */
+    if (step.type === "lead_collect") {
+      if (!qbValidateFormStep()) return;
+      qbCollectFormData();
+      qbSaveLead(_qbData);
+      _qbStep = Math.min(_qbStep + 1, flow.length - 1);
+      qbRenderStep();
+      return;
+    }
+    /* Step 4 — eligibility: no validation, advance to bureau gate */
+    if (step.type === "eligibility") {
+      _qbStep = Math.min(_qbStep + 1, flow.length - 1);
+      qbRenderStep();
+      return;
+    }
+    /* Step 5 — bureau_gate: validate, collect, submit consent, advance to loading */
+    if (step.type === "bureau_gate") {
+      if (!qbValidateBureauGate()) return;
+      qbCollectBureauData();
+      qbSubmitBureauConsent();
+      _qbStep = Math.min(_qbStep + 1, flow.length - 1);
+      qbRenderStep();
+      return;
+    }
+    /* Step 7 — lender_results: close popup */
+    if (step.type === "lender_results") {
+      closeQbPopup();
+      return;
+    }
+    /* For contact/profile steps: validate + persist data before advancing */
     if (step.type === "contact" || step.type === "profile") {
       if (!qbValidateFormStep()) return;
       qbCollectFormData();
@@ -1609,7 +1929,7 @@
   function qbSubmit() {
     var box = document.getElementById("qbPopup"); if (!box) return;
     var nb = box.querySelector(".qb-next");
-    if (nb) { nb.disabled = true; nb.innerHTML = '<span class="spinner"></span> Submitting�'; }
+    if (nb) { nb.disabled = true; nb.innerHTML = '<span class="spinner"></span> Submitting…'; }
     setTimeout(function(){
       qbLead(_qbData);
       box.querySelector(".qb-content").style.display = "none";
@@ -1748,7 +2068,7 @@
       var maxScroll  = document.documentElement.scrollHeight - window.innerHeight;
       var pct        = maxScroll > 0 ? scrollY / maxScroll : 0;
 
-      /* map scroll 0�100 % ? button top 15 %�85 % of viewport */
+      /* map scroll 0–100 % → button top 15 %–85 % of viewport */
       var targetPct  = 15 + pct * 70;
       currentTopPct += (targetPct - currentTopPct) * 0.1;
       el.style.top    = currentTopPct + "%";
@@ -1769,7 +2089,7 @@
   }
 
   /* ============================================================
-     STICKY OFFER BAR � appears after 40% scroll on product pages
+     STICKY OFFER BAR — appears after 40% scroll on product pages
      ============================================================ */
   function initStickyBar() {
     var bar      = document.getElementById("cbStickyBar");
@@ -1868,7 +2188,7 @@
   function stickyBarHTML(loanLabel, flow) {
     return '<div class="cb-sticky-bar" id="cbStickyBar">' +
       '<div class="cb-sticky-inner">' +
-        '<span class="cb-sticky-msg"><i data-lucide="zap"></i> <strong>Get the best ' + (loanLabel || "loan") + ' offers</strong> � free, no commitment</span>' +
+        '<span class="cb-sticky-msg"><i data-lucide="zap"></i> <strong>Get the best ' + (loanLabel || "loan") + ' offers</strong> — free, no commitment</span>' +
         '<button class="btn btn-filled btn-sm" data-quick-apply data-qb-flow="' + (flow||"loan") + '" data-qb-type="' + (loanLabel||"") + '">Get FREE Offers <i data-lucide="arrow-right"></i></button>' +
       '</div>' +
     '</div>';
@@ -1876,14 +2196,14 @@
   window.cbStickyBarHTML = stickyBarHTML;
 
   /* ============================================================
-     TRUST NUDGES � rotating badges above CTA in popups
+     TRUST NUDGES — rotating badges above CTA in popups
      ============================================================ */
   var TRUST_ITEMS = [
     "\uD83D\uDD12 Bank-grade 256-bit encryption",
     "\u2705 Won't affect your credit score",
     "\uD83C\uDFC6 4.7? rated by 6,200+ customers",
     "\uD83D\uDCB0 ?50,00,00,000+ disbursed to date",
-    "\u2705 Free service � no charges ever"
+    "\u2705 Free service — no charges ever"
   ];
   function initTrustNudge() {
     var els = document.querySelectorAll(".qb-trust-nudge");
@@ -2006,7 +2326,7 @@
         return;
       }
     } catch(e) {}
-    // Auto-open QB popup on service pages � per service category, skipped if form already submitted for this category
+    // Auto-open QB popup on service pages — per service category, skipped if form already submitted for this category
     if (/\/(loans|pages|tools|guides)\//.test(location.pathname)) {
       var _popupCat = getServiceCategory();
       if (_popupCat && !localStorage.getItem("cb_popup_done_" + _popupCat)) {

@@ -1094,14 +1094,14 @@ a.prod:hover .go i, a.tool:hover .go i { transform: translateX(3px); }
 .rupee-accent > * { position:relative; z-index:1; }
 @media (max-width:700px){ .rupee-accent::before { font-size:150px; } }
 
-/* Honeypot � invisible to real users, bots fill it ? server drops submission */
+/* Honeypot — invisible to real users, bots fill it ? server drops submission */
 .hp-field { position:absolute; left:-9999px; top:-9999px; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none; }
 
 /* ---------------------------------------------------------------
    QB QUICK-APPLY POPUP  (Paisabazaar-style multi-step lead form)
    --------------------------------------------------------------- */
 
-/* Overlay wrapper � fixed, full-screen, hidden by default */
+/* Overlay wrapper — fixed, full-screen, hidden by default */
 .qb-popup {
   position: fixed; inset: 0; z-index: 9000;
   display: none; align-items: flex-end; justify-content: center;
@@ -1157,27 +1157,31 @@ a.prod:hover .go i, a.tool:hover .go i { transform: translateX(3px); }
 .qb-close:hover { background: #f0f0f0; }
 .qb-close i, .qb-close svg { width: 16px; height: 16px; color: #555; }
 
-/* Thin progress bar — hidden for single-step form */
+/* Thin progress bar */
 .qb-progress {
-  display: none;
+  height: 4px; background: #f0f0f0;
 }
 .qb-progress-fill {
   height: 100%; background: var(--brand-lime);
   transition: width .35s ease;
 }
 
-/* Step counter — hidden for single-step form */
+/* Step counter */
 .qb-step-counter {
-  display: none;
+  font-size: 11px; color: #aaa; text-align: right;
+  padding: 3px 20px 0; font-weight: 600; letter-spacing: .02em;
+}
+
+/* Step title */
+.qb-step-title {
+  font-size: 17px; font-weight: 800; color: var(--text-strong);
+  margin: 0 0 2px; line-height: 1.2;
 }
 
 /* Content area */
-.qb-content { padding: 16px 20px 0; }
-.qb-step-title {
-  display: none;
-}
+.qb-content { padding: 12px 20px 16px; }
 
-/* Tile grid (step 1 � loan/insurance/card type picker) */
+/* Tile grid (step 1 — loan/insurance/card type picker) */
 .qb-tiles {
   display: grid; grid-template-columns: repeat(2,1fr); gap: 10px;
   margin-bottom: 16px;
@@ -1214,7 +1218,7 @@ input.qb-range {
 }
 
 /* Lead form (final step) */
-.qb-form-inner { display: grid; gap: 12px; margin-bottom: 8px; }
+.qb-form-inner { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 8px; }
 .qb-form-inner .field { display: flex; flex-direction: column; gap: 4px; }
 .qb-form-inner .field.full { grid-column: 1 / -1; }
 .qb-form-inner label { font-size: 12px; font-weight: 600; color: #555; }
@@ -1406,8 +1410,8 @@ input.qb-range {
 
 /* -- QB Step subtitle --------------------------------------- */
 .qb-step-subtitle {
-  font-size: 13px; color: #777; margin: -8px 0 16px;
-  line-height: 1.55; display: block;
+  font-size: 12px; color: #888; margin: 0 0 10px;
+  line-height: 1.5; display: block;
 }
 
 /* -- Eligibility Preview Card ------------------------------ */
@@ -1808,7 +1812,7 @@ input.qb-range {
 
 /* ---- Quick-apply popup: very small screens ---- */
 @media (max-width: 380px) {
-  .qb-content { padding: 10px 12px 0; }
+  .qb-content { padding: 10px 12px 12px; }
   .qb-header { padding: 12px 14px 10px; }
   .qb-preview-range { font-size: 20px; }
   .qb-tiles { grid-template-columns: repeat(2, 1fr); gap: 8px; }
@@ -2108,6 +2112,179 @@ img, svg, video, iframe { max-width: 100%; }
 /* 35. Long words (URLs, email, ₹ amounts) in body text */
 p, li, td, dd { overflow-wrap: break-word; word-break: break-word; }
 
+/* ============================================================
+   QB STEP 4 — ELIGIBILITY ESTIMATE
+   ============================================================ */
+.qb-elig-wrap { padding-bottom: 4px; }
+.qb-elig-card {
+  background: linear-gradient(135deg, #073d27 0%, #0c7a4e 100%);
+  border-radius: 14px; padding: 20px 18px 16px; margin-bottom: 14px;
+  color: #fff; position: relative; overflow: hidden;
+}
+.qb-elig-card::before {
+  content: "\20B9"; position: absolute; right: -10px; top: -16px;
+  font-size: 110px; font-weight: 900; color: rgba(255,255,255,.06);
+  line-height: 1; pointer-events: none;
+}
+.qb-elig-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: 5px;
+}
+.qb-elig-range {
+  font-size: 26px; font-weight: 900; color: #9AEF5E;
+  letter-spacing: -.4px; margin-bottom: 12px;
+}
+.qb-elig-meta {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,.12); padding-top: 10px;
+}
+.qb-elig-stat { flex: 1; min-width: 80px; }
+.qb-elig-stat span {
+  display: block; font-size: 9px; text-transform: uppercase;
+  letter-spacing: .4px; color: rgba(255,255,255,.55); margin-bottom: 2px;
+}
+.qb-elig-stat b { display: block; font-size: 12px; font-weight: 700; }
+.qb-elig-note {
+  font-size: 13px; color: var(--text-strong); line-height: 1.5; margin: 0 0 10px;
+}
+.qb-elig-wording {
+  font-size: 12px; color: #666; background: #fffbe8;
+  border: 1px solid #f0d060; border-radius: 8px;
+  padding: 10px 12px; margin: 0 0 12px; line-height: 1.55;
+}
+.qb-elig-unlock {
+  display: flex; align-items: center; gap: 12px;
+  background: #f4fdf8; border: 1.5px solid #c3e6cb;
+  border-radius: 10px; padding: 12px 14px;
+}
+.qb-elig-unlock-icon { font-size: 22px; flex-shrink: 0; }
+
+/* ============================================================
+   QB STEP 5 — BUREAU CONSENT GATE
+   ============================================================ */
+.qb-bureau-gate { padding-bottom: 4px; }
+.qb-bureau-intro {
+  font-size: 13px; color: #444; line-height: 1.55;
+  margin: 0 0 16px; padding: 12px 14px;
+  background: #f4fdf8; border-radius: 10px;
+  border-left: 3px solid var(--green-primary);
+}
+.qb-bureau-trust {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-top: 14px; padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+.qb-bureau-trust span {
+  font-size: 11px; color: #666; font-weight: 600;
+  background: #f7f7f7; border-radius: 20px;
+  padding: 4px 10px;
+}
+
+/* ============================================================
+   QB STEP 6 — BUREAU LOADING ANIMATION
+   ============================================================ */
+.qb-bureau-loading {
+  text-align: center; padding: 12px 0 8px;
+}
+/* Ring loader */
+.qb-loading-ring {
+  display: inline-block; position: relative;
+  width: 56px; height: 56px; margin: 0 auto 16px;
+}
+.qb-loading-ring div {
+  box-sizing: border-box; display: block; position: absolute;
+  width: 44px; height: 44px; margin: 6px;
+  border: 4px solid var(--green-primary);
+  border-radius: 50%;
+  animation: qbRingAnim 1.2s cubic-bezier(0.5,0,0.5,1) infinite;
+  border-color: var(--green-primary) transparent transparent transparent;
+}
+.qb-loading-ring div:nth-child(1) { animation-delay: -0.45s; }
+.qb-loading-ring div:nth-child(2) { animation-delay: -0.30s; }
+.qb-loading-ring div:nth-child(3) { animation-delay: -0.15s; }
+@keyframes qbRingAnim {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.qb-loading-headline {
+  font-size: 16px; font-weight: 700; color: var(--text-strong);
+  margin: 0 0 4px;
+}
+.qb-loading-sub {
+  font-size: 12px; color: #888; margin: 0 0 16px;
+}
+.qb-lender-ticker {
+  text-align: left; max-width: 260px; margin: 0 auto;
+}
+.qb-ticker-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; color: #555; padding: 5px 0;
+  opacity: 0; animation: qbTickFade 0.4s ease forwards;
+}
+@keyframes qbTickFade { to { opacity: 1; } }
+.qb-ticker-dot {
+  width: 8px; height: 8px; flex-shrink: 0;
+  background: var(--brand-lime); border-radius: 50%;
+  animation: qbDotPulse 1s ease infinite;
+}
+@keyframes qbDotPulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: .6; } }
+
+/* ============================================================
+   QB STEP 7 — LENDER RESULTS
+   ============================================================ */
+.qb-lender-results { padding-bottom: 4px; }
+.qb-results-header { text-align: center; margin-bottom: 14px; }
+.qb-results-emoji { font-size: 36px; margin-bottom: 6px; }
+.qb-results-title {
+  font-size: 18px; font-weight: 800; color: var(--text-strong);
+  margin: 0 0 4px;
+}
+.qb-results-sub {
+  font-size: 13px; color: #666; margin: 0; line-height: 1.5;
+}
+.qb-lender-list {
+  background: #f9fafb; border-radius: 12px;
+  padding: 4px 14px; margin-bottom: 12px;
+}
+.qb-lender-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #efefef;
+}
+.qb-lender-row:last-child { border-bottom: none; }
+.qb-lender-check { font-size: 16px; flex-shrink: 0; }
+.qb-lender-name {
+  flex: 1; font-size: 14px; font-weight: 600; color: #222;
+}
+.qb-lender-badge {
+  font-size: 11px; font-weight: 700; color: #0a5e3a;
+  background: #e8f5ed; border-radius: 20px;
+  padding: 3px 10px; white-space: nowrap;
+}
+.qb-results-rate {
+  display: flex; flex-direction: column; gap: 2px;
+  background: #fff9e6; border: 1px solid #f0d060;
+  border-radius: 8px; padding: 10px 14px;
+  font-size: 12px; font-weight: 600; color: #555;
+  margin-bottom: 12px;
+}
+.qb-expert-call {
+  display: flex; align-items: center; gap: 12px;
+  background: #f4fdf8; border: 1.5px solid var(--green-primary);
+  border-radius: 12px; padding: 14px;
+  margin-bottom: 10px;
+}
+.qb-expert-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--green-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.qb-expert-icon i, .qb-expert-icon svg { width: 18px; height: 18px; }
+.qb-results-disclaimer {
+  font-size: 10px; color: #bbb; line-height: 1.6; margin: 0;
+  text-align: center;
+}
+
 /* 36. Gscore rating widget on mobile */
 @media (max-width: 480px) {
   .gscore { padding: 6px 12px; gap: 8px; }
@@ -2124,7 +2301,7 @@ p, li, td, dd { overflow-wrap: break-word; word-break: break-word; }
 /* 38. QBP (quick-apply popup) compact on tiny screens */
 @media (max-width: 380px) {
   .qb-header { padding: 14px 16px 12px; }
-  .qb-content { padding: 12px 14px 0; }
+  .qb-content { padding: 10px 12px 12px; }
   .qb-tiles { gap: 8px; }
   .qb-tile { padding: 12px 8px 10px; }
 }
@@ -2140,3 +2317,231 @@ p, li, td, dd { overflow-wrap: break-word; word-break: break-word; }
   .cmp-wrap, .cmp { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
   .cmp th, .cmp td { font-size: 12.5px; padding: 10px 8px; }
 }
+
+/* =============================================================
+   QB NEW STEPS — RESPONSIVE (480px, 380px, 360px, landscape)
+   Covers: eligibility, bureau gate, bureau loading, lender results
+   ============================================================= */
+
+/* --- 480px: standard mobile phone ---- */
+@media (max-width: 480px) {
+  /* Step title smaller on phone */
+  .qb-step-title { font-size: 15px; }
+
+  /* Eligibility card */
+  .qb-elig-range { font-size: 22px; }
+  .qb-elig-meta  { gap: 8px; }
+  .qb-elig-stat  { min-width: 70px; }
+  .qb-elig-unlock { flex-direction: column; gap: 6px; text-align: center; padding: 10px 12px; }
+  .qb-elig-unlock-icon { font-size: 28px; }
+
+  /* Lender results */
+  .qb-results-title  { font-size: 16px; }
+  .qb-results-emoji  { font-size: 28px; }
+  .qb-expert-call    { padding: 12px; }
+  .qb-results-rate   { font-size: 11px; padding: 8px 12px; }
+
+  /* Loading ring */
+  .qb-loading-ring      { width: 48px; height: 48px; }
+  .qb-loading-ring div  { width: 36px; height: 36px; margin: 6px; border-width: 3px; }
+  .qb-loading-headline  { font-size: 14px; }
+  .qb-lender-ticker     { max-width: 240px; }
+  .qb-ticker-item       { font-size: 12px; padding: 4px 0; }
+}
+
+/* --- 380px: small phones (budget Android common in India) ---- */
+@media (max-width: 380px) {
+  /* Collapse 2-col form grid to 1 col so inputs aren’t squeezed */
+  .qb-form-inner { grid-template-columns: 1fr; }
+
+  /* Eligibility card */
+  .qb-elig-card  { padding: 16px 14px 14px; }
+  .qb-elig-range { font-size: 20px; margin-bottom: 8px; }
+  .qb-elig-meta  { flex-wrap: wrap; gap: 6px; }
+  .qb-elig-stat  { flex: 0 0 45%; }
+  .qb-elig-note, .qb-elig-wording { font-size: 12px; }
+
+  /* Bureau gate */
+  .qb-bureau-intro  { font-size: 12px; padding: 10px 12px; }
+  .qb-bureau-trust span { font-size: 10px; padding: 3px 8px; }
+
+  /* Lender results */
+  .qb-lender-name  { font-size: 13px; }
+  .qb-lender-badge { font-size: 10px; padding: 2px 8px; }
+  .qb-expert-call  { padding: 10px; gap: 8px; }
+  .qb-expert-icon  { width: 30px; height: 30px; }
+  .qb-expert-icon i, .qb-expert-icon svg { width: 16px; height: 16px; }
+  .qb-results-disclaimer { font-size: 9.5px; }
+}
+
+/* --- Landscape orientation on phone: reduce vertical space ---- */
+@media (max-height: 500px) and (orientation: landscape) {
+  .qb-box { max-height: 96dvh; }
+  .qb-header { padding: 10px 20px 8px; }
+  .qb-content { padding: 8px 20px 12px; }
+  .qb-elig-card { padding: 12px 16px 10px; }
+  .qb-elig-range { font-size: 20px; margin-bottom: 8px; }
+  .qb-elig-meta { padding-top: 8px; gap: 8px; }
+  .qb-bureau-loading { padding: 8px 0 4px; }
+  .qb-loading-ring { width: 40px; height: 40px; margin-bottom: 8px; }
+  .qb-loading-ring div { width: 30px; height: 30px; margin: 5px; border-width: 3px; }
+  .qb-lender-list { padding: 2px 14px; }
+  .qb-lender-row { padding: 7px 0; }
+  .qb-results-header { margin-bottom: 8px; }
+  .qb-results-emoji { font-size: 24px; margin-bottom: 3px; }
+  .qb-expert-call { padding: 10px; margin-bottom: 6px; }
+}
+
+/* --- prefers-reduced-motion: stop ticker and ring animations ---- */
+@media (prefers-reduced-motion: reduce) {
+  .qb-loading-ring div { animation: none; border-color: var(--green-primary); }
+  .qb-ticker-item { animation: none; opacity: 1; }
+  .qb-ticker-dot  { animation: none; }
+}
+
+/* ============================================================
+   QB STEP 4 — ELIGIBILITY ESTIMATE
+   ============================================================ */
+.qb-elig-wrap { padding-bottom: 4px; }
+.qb-elig-card {
+  background: linear-gradient(135deg, #073d27 0%, #0c7a4e 100%);
+  border-radius: 14px; padding: 20px 18px 16px; margin-bottom: 14px;
+  color: #fff; position: relative; overflow: hidden;
+}
+.qb-elig-card::before {
+  content: "\20B9"; position: absolute; right: -10px; top: -16px;
+  font-size: 110px; font-weight: 900; color: rgba(255,255,255,.06);
+  line-height: 1; pointer-events: none;
+}
+.qb-elig-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: 5px;
+}
+.qb-elig-range {
+  font-size: 26px; font-weight: 900; color: #9AEF5E;
+  letter-spacing: -.4px; margin-bottom: 12px;
+}
+.qb-elig-meta {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,.12); padding-top: 10px;
+}
+.qb-elig-stat { flex: 1; min-width: 80px; }
+.qb-elig-stat span {
+  display: block; font-size: 9px; text-transform: uppercase;
+  letter-spacing: .4px; color: rgba(255,255,255,.55); margin-bottom: 2px;
+}
+.qb-elig-stat b { display: block; font-size: 12px; font-weight: 700; }
+.qb-elig-note {
+  font-size: 13px; color: var(--text-strong); line-height: 1.5; margin: 0 0 10px;
+}
+.qb-elig-wording {
+  font-size: 12px; color: #666; background: #fffbe8;
+  border: 1px solid #f0d060; border-radius: 8px;
+  padding: 10px 12px; margin: 0 0 12px; line-height: 1.55;
+}
+.qb-elig-unlock {
+  display: flex; align-items: center; gap: 12px;
+  background: #f4fdf8; border: 1.5px solid #c3e6cb;
+  border-radius: 10px; padding: 12px 14px;
+}
+.qb-elig-unlock-icon { font-size: 22px; flex-shrink: 0; }
+
+/* ============================================================
+   QB STEP 5 — BUREAU CONSENT GATE
+   ============================================================ */
+.qb-bureau-gate { padding-bottom: 4px; }
+.qb-bureau-intro {
+  font-size: 13px; color: #444; line-height: 1.55;
+  margin: 0 0 16px; padding: 12px 14px;
+  background: #f4fdf8; border-radius: 10px;
+  border-left: 3px solid var(--green-primary);
+}
+.qb-bureau-trust {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-top: 14px; padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+.qb-bureau-trust span {
+  font-size: 11px; color: #666; font-weight: 600;
+  background: #f7f7f7; border-radius: 20px;
+  padding: 4px 10px;
+}
+
+/* ============================================================
+   QB STEP 6 — BUREAU LOADING ANIMATION
+   ============================================================ */
+.qb-bureau-loading { text-align: center; padding: 16px 0 8px; }
+.qb-loading-ring {
+  display: block; position: relative;
+  width: 56px; height: 56px; margin: 0 auto 16px;
+}
+.qb-loading-ring div {
+  box-sizing: border-box; display: block; position: absolute;
+  width: 44px; height: 44px; margin: 6px;
+  border: 4px solid var(--green-primary); border-radius: 50%;
+  animation: qbRingAnim 1.2s cubic-bezier(0.5,0,0.5,1) infinite;
+  border-color: var(--green-primary) transparent transparent transparent;
+}
+.qb-loading-ring div:nth-child(1) { animation-delay: -0.45s; }
+.qb-loading-ring div:nth-child(2) { animation-delay: -0.30s; }
+.qb-loading-ring div:nth-child(3) { animation-delay: -0.15s; }
+@keyframes qbRingAnim { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.qb-loading-headline { font-size: 16px; font-weight: 700; color: var(--text-strong); margin: 0 0 4px; }
+.qb-loading-sub { font-size: 12px; color: #888; margin: 0 0 16px; }
+.qb-lender-ticker { text-align: left; max-width: 260px; margin: 0 auto; }
+.qb-ticker-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; color: #555; padding: 5px 0;
+  opacity: 0; animation: qbTickFade 0.4s ease forwards;
+}
+@keyframes qbTickFade { to { opacity: 1; } }
+.qb-ticker-dot {
+  width: 8px; height: 8px; flex-shrink: 0;
+  background: var(--brand-lime); border-radius: 50%;
+  animation: qbDotPulse 1s ease infinite;
+}
+@keyframes qbDotPulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: .6; } }
+
+/* ============================================================
+   QB STEP 7 — LENDER RESULTS
+   ============================================================ */
+.qb-lender-results { padding-bottom: 4px; }
+.qb-results-header { text-align: center; margin-bottom: 14px; }
+.qb-results-emoji { font-size: 36px; margin-bottom: 6px; }
+.qb-results-title { font-size: 18px; font-weight: 800; color: var(--text-strong); margin: 0 0 4px; }
+.qb-results-sub { font-size: 13px; color: #666; margin: 0; line-height: 1.5; }
+.qb-lender-list {
+  background: #f9fafb; border-radius: 12px;
+  padding: 4px 14px; margin-bottom: 12px;
+}
+.qb-lender-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid #efefef;
+}
+.qb-lender-row:last-child { border-bottom: none; }
+.qb-lender-check { font-size: 16px; flex-shrink: 0; }
+.qb-lender-name { flex: 1; font-size: 14px; font-weight: 600; color: #222; }
+.qb-lender-badge {
+  font-size: 11px; font-weight: 700; color: #0a5e3a;
+  background: #e8f5ed; border-radius: 20px;
+  padding: 3px 10px; white-space: nowrap;
+}
+.qb-results-rate {
+  display: flex; flex-direction: column; gap: 2px;
+  background: #fff9e6; border: 1px solid #f0d060;
+  border-radius: 8px; padding: 10px 14px;
+  font-size: 12px; font-weight: 600; color: #555;
+  margin-bottom: 12px;
+}
+.qb-expert-call {
+  display: flex; align-items: center; gap: 12px;
+  background: #f4fdf8; border: 1.5px solid var(--green-primary);
+  border-radius: 12px; padding: 14px; margin-bottom: 10px;
+}
+.qb-expert-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--green-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.qb-expert-icon i, .qb-expert-icon svg { width: 18px; height: 18px; }
+.qb-results-disclaimer { font-size: 10px; color: #bbb; line-height: 1.6; margin: 0; text-align: center; }

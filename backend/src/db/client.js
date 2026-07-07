@@ -102,6 +102,13 @@ async function connect() {
   await cookieCol.createIndex({ timestamp: -1 });
   console.log(`[DB] Indexes ready — ${DB_NAME}.cookieConsents`);
 
+  // Bureau consent records (soft-pull consent evidence per DPDP Act 2023)
+  const bureauCol = _db.collection("bureau_consents");
+  await bureauCol.createIndex({ consented_at: -1 });
+  await bureauCol.createIndex({ mobile: 1, consented_at: -1 });
+  await bureauCol.createIndex({ bureau_pull_status: 1 });
+  console.log(`[DB] Indexes ready — ${DB_NAME}.bureau_consents`);
+
   // Phase 10: Processor inventory — seed if empty
   await seedProcessorInventory(_db);
 }

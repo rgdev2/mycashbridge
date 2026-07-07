@@ -188,4 +188,127 @@ router.post("/api/lead", leadLimiter, validateLead, async (req, res) => {
   }
 });
 
+/**
+ * POST /api/bureau-consent
+ *
+ * Records a user's explicit consent to pull their credit report (soft inquiry).
+ * Called from the QB popup Step 5 (bureau_gate) before showing lender results.
+ *
+ * This endpoint does NOT actually call a bureau API — it records consent evidence.
+ * When a real bureau integration (CIBIL / Experian / Equifax) is added, the
+ * bureau API call should be triggered here after consent is stored.
+ *
+ * Security stack:
+ *   1. isTrustedOrigin  — CSRF guard (reused from validate.js)
+ *   2. Honeypot         — bot detection
+ *   3. PAN validation   — format check (XXXXX9999X)
+ *   4. DOB validation   — present + 18+ check
+ *   5. Consent flag     — must be explicitly true
+ */
+const { sanitize, isValidMobile } = require("../middleware/validate");
+
+/** Indicative lenders per loan type — returned to UI after consent is recorded. */
+const LENDER_MAP = {
+  "Personal Loan":        ["HDFC Bank","ICICI Bank","Axis Bank","Kotak Mahindra Bank","IDFC FIRST Bank"],
+  "Business Loan":        ["HDFC Bank","ICICI Bank","Axis Bank","Bank of Baroda","Kotak Mahindra Bank"],
+  "Home Loan":            ["SBI","HDFC Bank","ICICI Bank","Axis Bank","Kotak Mahindra Bank"],
+  "Car Loan":             ["HDFC Bank","ICICI Bank","SBI","Axis Bank","Kotak Mahindra Bank"],
+  "Education Loan":       ["SBI","Bank of Baroda","HDFC Bank","ICICI Bank","Axis Bank"],
+  "Gold Loan":            ["Muthoot Finance","Manappuram Finance","HDFC Bank","SBI","ICICI Bank"],
+  "Loan Against Property":["HDFC Bank","Axis Bank","Kotak Mahindra Bank","ICICI Bank","IDFC FIRST Bank"],
+};
+
+function isValidPAN(pan) {
+  return /^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$/.test((pan || "").trim());
+}
+
+function isAdult(dobStr) {
+  if (!dobStr) return false;
+  const dob    = new Date(dobStr);
+  const cutoff = new Date();
+  cutoff.setFullYear(cutoff.getFullYear() - 18);
+  return dob <= cutoff;
+}
+
+router.post("/api/bureau-consent", async (req, res) => {
+  // CSRF guard
+  const ALLOWED = process.env.ALLOWED_ORIGIN || "*";
+  if (ALLOWED !== "*") {
+    const origin  = req.headers.origin  || "";
+    const referer = req.headers.referer || "";
+    if (!origin.startsWith(ALLOWED) && !referer.startsWith(ALLOWED)) {
+      return res.status(403).json({ error: "Forbidden." });
+    }
+  }
+
+  // Honeypot
+  if (req.body._hp !== undefined && req.body._hp !== "") {
+    return res.status(200).json({ ok: true });
+  }
+
+  // Validate required fields
+  const pan    = sanitize(req.body.pan || "", 10).toUpperCase();
+  const dob    = sanitize(req.body.dob || "", 20);
+  const mobile = sanitize(req.body.mobile || "", 20);
+
+  if (!isValidPAN(pan)) {
+    return res.status(400).json({ error: "Invalid PAN format." });
+  }
+  if (!isAdult(dob)) {
+    return res.status(400).json({ error: "Date of birth required. Must be 18 or older." });
+  }
+  if (req.body.bureau_consent !== true && req.body.bureau_consent !== "true") {
+    return res.status(400).json({ error: "Bureau consent is required." });
+  }
+
+  const loanType = sanitize(req.body.loan_type || "General", 100);
+
+  try {
+    const { getDb } = require("../db/client");
+    const db = getDb();
+
+    // Store bureau consent record — DPDP Act 2023 §6 evidence
+    await db.collection("bureau_consents").insertOne({
+      mobile,
+      pan_last4:       pan.slice(-4),     // store only last 4 chars of PAN for privacy
+      dob,
+      loan_type:       loanType,
+      loan_amount:     sanitize(String(req.body.loan_amount || ""), 30),
+      bureau_consent:  true,
+      consent_version: sanitize(req.body.consent_version || "v1.0", 20),
+      consented_at:    new Date(),
+      ip:              req.ip,
+      user_agent:      req.headers["user-agent"] || "",
+      source_page:     sanitize(req.body.source_page || "", 200),
+      // bureau_pull_status: "pending" — set to "completed" when real bureau API is integrated
+      bureau_pull_status: "pending",
+    });
+
+    // Audit log
+    const { logAudit } = require("../utils/audit");
+    logAudit(db, {
+      action:    "BUREAU_CONSENT_RECORDED",
+      entity:    "bureau_consents",
+      ip:        req.ip,
+      userAgent: req.headers["user-agent"],
+      metadata:  { loan_type: loanType },
+    }).catch(() => {});
+
+    // Return indicative lender matches.
+    // TODO: Replace this with a real bureau API call (CIBIL / Experian / Equifax)
+    //       and return actual matched lenders and score-based offers.
+    const matchedLenders = (LENDER_MAP[loanType] || LENDER_MAP["Personal Loan"]).slice(0, 4);
+
+    res.status(200).json({
+      ok:       true,
+      lenders:  matchedLenders,
+      note:     "Indicative matches — subject to lender assessment.",
+    });
+
+  } catch (err) {
+    console.error("[bureau-consent] DB error:", err.message);
+    res.status(500).json({ error: "Could not record consent. Please try again." });
+  }
+});
+
 module.exports = router;
