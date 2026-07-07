@@ -1100,7 +1100,15 @@
   function wire() {
     document.addEventListener("click", function (e) {
       var t2 = e.target;
-      if (t2.closest("[data-apply]") && !t2.closest("[data-quick-apply]")) { e.preventDefault(); openModal(t2.closest("[data-apply]").getAttribute("data-apply-loan") || ""); closeDrawer(); }
+      if (t2.closest("[data-apply]") && !t2.closest("[data-quick-apply]")) {
+        e.preventDefault();
+        var applyBtn = t2.closest("[data-apply]");
+        var loanLabel = applyBtn.getAttribute("data-apply-loan") || "";
+        /* Route to new 7-step QB popup. Falls back to old modal only on
+           tool/guide/legal pages where the popup is intentionally blocked. */
+        openQbPopup("loan", null, loanLabel || null);
+        closeDrawer();
+      }
       if (t2.closest("[data-modal-close]")) closeModal();
       if (t2.closest("[data-drawer-open]")) openDrawer();
       if (t2.closest("[data-drawer-close]")) closeDrawer();
@@ -1942,13 +1950,11 @@
   }
 
   function openQbPopup(flow, preselect, fixedType) {
-    /* Only allow the popup on loan, credit-card, insurance & investment pages */
+    /* Allow popup on all transactional pages. Blocked only on legal/tool/guide
+       pages where it makes no sense to start a loan application. */
     var p = location.pathname;
-    var allowed =
-      /index\.html/.test(p) || p === '/' || p.endsWith('/') ||
-      /\/loans\//.test(p) ||
-      /\/pages\/(credit-cards?|cashback-cards?|travel-cards?|rewards-cards?|secured-cards?|insurance|health-insurance|life-insurance|motor-insurance|travel-insurance|investments|sip|mutual-funds?|demat)\.html/.test(p);
-    if (!allowed) return;
+    var blocked = /\/(pages\/(about|contact|grievance|privacy|terms|disclaimer|cookie|refund|user-rights|data-breach|data-retention|security|aml|fair|consent|copyright|partner-lenders)\.html|tools\/|guides\/)/.test(p);
+    if (blocked) return;
     _qbFlow = flow || "general";
     _qbData = {};
     _qbStep = 0;
