@@ -74,11 +74,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
         <div class="ctrl">
-          <div class="ctrl-top"><label>Net monthly income</label><span class="ctrl-val" id="oInc">?60,000</span></div>
+          <div class="ctrl-top"><label>Net monthly income</label><span class="ctrl-val" id="oInc">₹60,000</span></div>
           <input type="range" id="inc" min="15000" max="500000" step="5000" value="60000">
         </div>
         <div class="ctrl">
-          <div class="ctrl-top"><label>Current monthly EMIs</label><span class="ctrl-val" id="oEmi">?5,000</span></div>
+          <div class="ctrl-top"><label>Current monthly EMIs</label><span class="ctrl-val" id="oEmi">₹5,000</span></div>
           <input type="range" id="emi" min="0" max="200000" step="1000" value="5000">
         </div>
         <div class="ctrl" style="margin-bottom:6px">
@@ -88,9 +88,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="result-card">
         <div class="eyebrow">You could be eligible for up to</div>
-        <div class="big-amt" id="amtOut" style="margin-top:8px">?18,40,000</div>
+        <div class="big-amt" id="amtOut" style="margin-top:8px">₹18,40,000</div>
         <div class="gauge-bar"><div class="gauge-fill" id="gauge"></div></div>
-        <p class="muted" style="font-size:13px;margin:0 0 14px" id="emiHint">Indicative EMI ?40,900 / month over 5 years</p>
+        <p class="muted" style="font-size:13px;margin:0 0 14px" id="emiHint">Indicative EMI ₹40,900 / month over 5 years</p>
         <div class="erow"><span>Estimated tenure</span><b id="tenOut">5 years</b></div>
         <div class="erow"><span>Indicative rate</span><b id="rateOut">12% p.a.</b></div>
         <div class="erow"><span>EMI affordability used</span><b>50% of income</b></div>
@@ -124,7 +124,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var gauge=document.getElementById('gauge'), emiHint=document.getElementById('emiHint'), applyBtn=document.getElementById('applyBtn');
     var ltype=document.getElementById('ltype');
     var R=12, baseTen=60, MAXREF=10000000;
-    function inr(n){ return '?'+Math.round(n).toLocaleString('en-IN'); }
+    function inr(n){ return '₹'+Math.round(n).toLocaleString('en-IN'); }
     function yrs(m){ var y=Math.round(m/12); return y+' year'+(y>1?'s':''); }
     function calc(){
       var income=+inc.value, existing=+emi.value, a=+age.value;
