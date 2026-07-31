@@ -506,7 +506,7 @@
         el = document.createElement("div");
         el.id = "cbTransToast";
         el.style.cssText = "position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:400;background:var(--ink);color:#fff;font:600 13px/1 var(--font-sans);padding:10px 16px;border-radius:50px;box-shadow:0 8px 24px rgba(0,0,0,.3);display:flex;align-items:center;gap:8px";
-        el.innerHTML = '<span style="width:13px;height:13px;border:2px solid rgba(255,255,255,.35);border-top-color:#9AEF5E;border-radius:50%;display:inline-block;animation:spin .7s linear infinite"></span> ????? ??? ?????? ?? ??? ??—';
+        el.innerHTML = '<span style="width:13px;height:13px;border:2px solid rgba(255,255,255,.35);border-top-color:#9AEF5E;border-radius:50%;display:inline-block;animation:spin .7s linear infinite"></span> \u0939\u093F\u0902\u0926\u0940 \u092E\u0947\u0902 \u0905\u0928\u0941\u0935\u093E\u0926 \u0939\u094B \u0930\u0939\u093E \u0939\u0948\u2014';
         document.body.appendChild(el);
       }
       el.style.display = "flex";
@@ -522,7 +522,7 @@
   function buildPrompt(arr) {
     return "You are a professional English to Hindi (Devanagari) translator for an Indian consumer loan and finance website. " +
       "Translate each string into natural, simple, trustworthy Hindi that everyday Indian readers understand. " +
-      "Do NOT translate or alter: the brand name MyCashBridge; the abbreviations EMI, NBFC, NBFCs, CIBIL, PAN, RBI, GST, GSTIN, CIN, LSP, DSA, KYC, SSL, ISO, WhatsApp, SIP, ITR, DND, NDNC; the rupee sign ?; and all numbers, percentages, dates and currency amounts. Personal names may stay in English. Keep punctuation reasonable. " +
+      "Do NOT translate or alter: the brand name MyCashBridge; the abbreviations EMI, NBFC, NBFCs, CIBIL, PAN, RBI, GST, GSTIN, CIN, LSP, DSA, KYC, SSL, ISO, WhatsApp, SIP, ITR, DND, NDNC; the rupee sign \u20B9; and all numbers, percentages, dates and currency amounts. Personal names may stay in English. Keep punctuation reasonable. " +
       "I will give a JSON array of English strings. Return ONLY a JSON array of the same length, in the SAME ORDER, where each element is the Hindi translation of the corresponding input. No markdown, no keys, no commentary. " +
       "Input: " + JSON.stringify(arr);
   }
@@ -2207,8 +2207,8 @@
   var TRUST_ITEMS = [
     "\uD83D\uDD12 Bank-grade 256-bit encryption",
     "\u2705 Won't affect your credit score",
-    "\uD83C\uDFC6 4.7? rated by 6,200+ customers",
-    "\uD83D\uDCB0 ?50,00,00,000+ disbursed to date",
+    "\uD83C\uDFC6 4.7\u2605 rated by 6,200+ customers",
+    "\uD83D\uDCB0 \u20B950,00,00,000+ disbursed to date",
     "\u2705 Free service — no charges ever"
   ];
   function initTrustNudge() {

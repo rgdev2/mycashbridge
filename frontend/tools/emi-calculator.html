@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <!-- Google Tag Manager -->
@@ -77,18 +77,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="calc-grid">
       <div class="calc-card">
         <div class="loan-type-tabs" id="loanTypeTabs">
-          <button class="active" data-loan="home" data-ten-max="360" data-ten-default="120" data-ten-label="30 years">?? Home Loan</button>
-          <button data-loan="business" data-ten-max="180" data-ten-default="36" data-ten-label="15 years">?? Business Loan</button>
-          <button data-loan="lap" data-ten-max="240" data-ten-default="120" data-ten-label="20 years">?? Loan vs Property</button>
-          <button data-loan="car" data-ten-max="96" data-ten-default="60" data-ten-label="8 years">?? Car Loan</button>
-          <button data-loan="education" data-ten-max="180" data-ten-default="60" data-ten-label="15 years">?? Education Loan</button>
-          <button data-loan="gold" data-ten-max="60" data-ten-default="12" data-ten-label="5 years">?? Gold Loan</button>
-          <button data-loan="personal" data-ten-max="84" data-ten-default="36" data-ten-label="7 years">?? Personal Loan</button>
+          <button class="active" data-loan="home" data-ten-max="360" data-ten-default="120" data-ten-label="30 years"><i data-lucide="home"></i> Home Loan</button>
+          <button data-loan="business" data-ten-max="180" data-ten-default="36" data-ten-label="15 years"><i data-lucide="store"></i> Business Loan</button>
+          <button data-loan="lap" data-ten-max="240" data-ten-default="120" data-ten-label="20 years"><i data-lucide="building-2"></i> Loan vs Property</button>
+          <button data-loan="car" data-ten-max="96" data-ten-default="60" data-ten-label="8 years"><i data-lucide="car"></i> Car Loan</button>
+          <button data-loan="education" data-ten-max="180" data-ten-default="60" data-ten-label="15 years"><i data-lucide="graduation-cap"></i> Education Loan</button>
+          <button data-loan="gold" data-ten-max="60" data-ten-default="12" data-ten-label="5 years"><i data-lucide="gem"></i> Gold Loan</button>
+          <button data-loan="personal" data-ten-max="84" data-ten-default="36" data-ten-label="7 years"><i data-lucide="wallet"></i> Personal Loan</button>
         </div>
         <div class="ctrl">
-          <div class="ctrl-top"><label>Loan amount</label><span class="ctrl-val" id="oAmt">?10,00,000</span></div>
+          <div class="ctrl-top"><label>Loan amount</label><span class="ctrl-val" id="oAmt">&#x20B9;10,00,000</span></div>
           <input type="range" id="amt" min="50000" max="10000000" step="50000" value="1000000">
-          <div class="scale"><span>?50K</span><span>?1,00,00,000</span></div>
+          <div class="scale"><span>&#x20B9;50K</span><span>&#x20B9;1,00,00,000</span></div>
         </div>
         <div class="ctrl">
           <div class="ctrl-top"><label>Interest rate (p.a.)</label><span class="ctrl-val" id="oRate">10.5%</span></div>
@@ -102,11 +102,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <div class="calc-card result">
-        <div class="donut" id="donut"><div class="mid"><small>Your Easy Monthly Installment = </small><b id="oEmi">?21,494</b></div></div>
+        <div class="donut" id="donut"><div class="mid"><small>Your Easy Monthly Installment = </small><b id="oEmi">&#x20B9;21,494</b></div></div>
         <div class="leg"><span><i style="background:var(--green-primary)"></i> Principal</span><span><i style="background:var(--brand-lime)"></i> Interest</span></div>
-        <div class="rrow"><span>Principal amount</span><b id="oPrin">?10,00,000</b></div>
-        <div class="rrow"><span>Total interest</span><b id="oInt">?2,89,640</b></div>
-        <div class="rrow"><span>Total payable</span><b id="oTot">?12,89,640</b></div>
+        <div class="rrow"><span>Principal amount</span><b id="oPrin">&#x20B9;10,00,000</b></div>
+        <div class="rrow"><span>Total interest</span><b id="oInt">&#x20B9;2,89,640</b></div>
+        <div class="rrow"><span>Total payable</span><b id="oTot">&#x20B9;12,89,640</b></div>
         <button class="btn btn-filled btn-block btn-lg" data-apply style="margin-top:18px"><i data-lucide="phone-call"></i> Apply at this EMI</button>
         <p style="font-size:12px;color:var(--text-soft);margin:10px 0 0">Indicative only. Your actual rate is set after assessment.</p>
       </div>
@@ -135,7 +135,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var oAmt=document.getElementById('oAmt'), oRate=document.getElementById('oRate'), oTen=document.getElementById('oTen');
     var oEmi=document.getElementById('oEmi'), oPrin=document.getElementById('oPrin'), oInt=document.getElementById('oInt'), oTot=document.getElementById('oTot');
     var donut=document.getElementById('donut'), tenMaxLabel=document.getElementById('tenMaxLabel');
-    function inr(n){ return '?'+Math.round(n).toLocaleString('en-IN'); }
+    function inr(n){ return '\u20B9'+Math.round(n).toLocaleString('en-IN'); }
     function yrs(m){ var y=Math.floor(m/12), mo=m%12; return (y?y+' yr'+(y>1?'s':''):'')+(y&&mo?' ':'')+(mo?mo+' mo':'') || '0'; }
     function calc(){
       var P=+amt.value, R=+rate.value, n=+ten.value, r=R/12/100;
