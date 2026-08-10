@@ -35,6 +35,8 @@ function forwardToDomesticLMS(doc) {
     employment:      doc.employment      || "",
     age:             doc.age             || "",
     outstanding_debt: doc.outstanding_debt || "None",
+    outstanding_amount: doc.outstanding_amount || "",
+    cibil_score:     doc.cibil_score      || "",
     product_type:    doc.product_type    || "General enquiry",
     source_page:    doc.source_page    || "",
     utm_source:     doc.utm_source     || "",
@@ -94,7 +96,7 @@ const router = Router();
  */
 router.post("/api/lead", leadLimiter, validateLead, async (req, res) => {
   const { name, mobile, city, monthly_income, employment,
-          age, outstanding_debt,
+          age, outstanding_debt, outstanding_amount, cibil_score,
           product_type, service_category, loan_amount, source_page,
           utm_source, utm_medium, utm_campaign } = req.leadData;
   try {
@@ -120,6 +122,8 @@ router.post("/api/lead", leadLimiter, validateLead, async (req, res) => {
       employment,
       age,
       outstanding_debt,
+      outstanding_amount,
+      cibil_score,
       product_type,
       service_category,   // e.g. "loans", "insurance", "cards", "investments", "general"
       loan_amount,

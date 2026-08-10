@@ -86,6 +86,8 @@ function validateLead(req, res, next) {
     employment:       sanitize(req.body.employment,     50),
     age:              sanitize(String(req.body.age || ""), 5),
     outstanding_debt: sanitize(req.body.outstanding_debt || "None", 50),
+    outstanding_amount: sanitize(String(req.body.outstanding_amount || ""), 20),
+    cibil_score:      sanitize(req.body.cibil_score || "", 50),
     product_type,
     service_category,
     loan_amount:  sanitize(String(req.body.loan_amount || ""), 30),

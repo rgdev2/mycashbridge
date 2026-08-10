@@ -870,8 +870,9 @@
       '<div class="field"><label>City</label><input name="city" type="text" placeholder="e.g. Pune"><span class="err">Please enter your city</span></div>' +
       '<div class="field"><label>Monthly income</label><select name="income"><option value="">Select range</option><option>Below \u20B925,000</option><option>\u20B925,000 \u2013 \u20B950,000</option><option>\u20B950,000 \u2013 \u20B91,00,000</option><option>Above \u20B91,00,000</option></select><span class="err">Select your income range</span></div>' +
       '<div class="field"><label>Employment type</label><div class="seg" data-seg="employment"><div class="seg-opt" data-val="Salaried">Salaried</div><div class="seg-opt" data-val="Self-employed">Self-employed</div><div class="seg-opt" data-val="Business owner">Business</div><input type="hidden" name="employment"></div><span class="err">Select one</span></div>' +
-      '<div class="field"><label>Age</label><input name="age" type="number" min="21" max="80" inputmode="numeric" placeholder="e.g. 28"><span class="err">Applicants must be 21 years or above</span><span style="display:block;margin-top:5px;font-size:11px;color:#856404;background:#fff3cd;border:1px solid #ffc107;border-radius:5px;padding:4px 8px">&#9888;&#xFE0F; Disclaimer: Only applicants aged <strong>21 years and above</strong> are eligible to apply for a loan.</span></div>' +
-      '<div class="field full"><label>Outstanding debt <span class="opt">(if any)</span></label><div class="seg" data-seg="outstanding_debt"><div class="seg-opt" data-val="None">None</div><div class="seg-opt" data-val="Loan">Loan</div><div class="seg-opt" data-val="Credit Card">Credit Card</div><div class="seg-opt" data-val="Both">Both</div><input type="hidden" name="outstanding_debt"></div></div>' +
+      '<div class="field"><label>Age</label><input name="age" type="number" min="21" max="80" inputmode="numeric" placeholder="e.g. 28"><span class="err">Applicants must be 21 years or above</span><span style="display:block;margin-top:5px;font-size:11px;color:#0c5460;background:#d1ecf1;border:1px solid #bee5eb;border-radius:5px;padding:4px 8px">&#x2139;&#xFE0F; Applicants must be at least <strong>21 years old</strong> to be eligible for a loan.</span></div>' +
+      '<div class="field full"><label>Outstanding debt <span class="opt">(if any)</span></label><div class="seg" data-seg="outstanding_debt"><div class="seg-opt" data-val="None">None</div><div class="seg-opt" data-val="Loan">Loan</div><div class="seg-opt" data-val="Credit Card">Credit Card</div><div class="seg-opt" data-val="Both">Both</div><input type="hidden" name="outstanding_debt"></div><div class="outstanding-amt" style="display:none;margin-top:8px"><label style="font-size:12px;color:var(--text-soft);margin-bottom:4px;display:block">Outstanding amount (&#x20B9;)</label><input name="outstanding_amount" type="number" min="0" placeholder="e.g. 50000" inputmode="numeric"></div></div>' +
+      '<div class="field"><label>CIBIL score <span class="opt">(approx.)</span></label><select name="cibil_score"><option value="">Select range</option><option>Don\'t know</option><option>Below 600 (Poor)</option><option>600\u2013649 (Fair)</option><option>650\u2013699 (Average)</option><option>700\u2013749 (Good)</option><option>750\u2013799 (Very Good)</option><option>800+ (Excellent)</option></select></div>' +
       '<div class="field full"><label>PAN <span class="opt">(optional)</span></label><input name="pan" type="text" maxlength="10" placeholder="ABCDE1234F" style="text-transform:uppercase"></div>' +
       '<div class="field full"><div class="consent"><input type="checkbox" name="consent" id="' + ctx + '-consent"><label for="' + ctx + '-consent">I authorise ' + CFG.brand + ' and its partner banks/NBFCs to contact me regarding my loan enquiry via call, SMS, email or WhatsApp to process my application, and I accept the Terms &amp; Privacy Policy. This overrides my DND/NDNC registration.</label></div><span class="err">Please accept to continue</span></div>' +
       /* Optional marketing consent — separate checkbox per DPDP s.6(1)(a) */
@@ -965,6 +966,8 @@
         employment:        data.get("employment") || "",
         age:               data.get("age")        || "",
         outstanding_debt:  data.get("outstanding_debt") || "None",
+        outstanding_amount: data.get("outstanding_amount") || "",
+        cibil_score:       data.get("cibil_score") || "",
         product_type:      loan,
         source_page:       location.pathname,
         /* DPDP consent evidence fields */
@@ -1120,7 +1123,7 @@
       if (t2.closest("[data-acc]")) t2.closest(".drawer-acc").classList.toggle("open");
       var sl = t2.closest("[data-setlang]"); if (sl) setLang(sl.getAttribute("data-setlang"));
       var seg = t2.closest(".seg-opt");
-      if (seg && seg.closest(".seg[data-seg]")) { var g = seg.closest(".seg"); g.querySelectorAll(".seg-opt").forEach(function (s) { s.classList.remove("sel"); }); seg.classList.add("sel"); var hid = g.querySelector('input[type=hidden]'); if (hid) hid.value = seg.getAttribute("data-val"); seg.closest(".field") && seg.closest(".field").classList.remove("invalid"); }
+      if (seg && seg.closest(".seg[data-seg]")) { var g = seg.closest(".seg"); g.querySelectorAll(".seg-opt").forEach(function (s) { s.classList.remove("sel"); }); seg.classList.add("sel"); var hid = g.querySelector('input[type=hidden]'); if (hid) hid.value = seg.getAttribute("data-val"); seg.closest(".field") && seg.closest(".field").classList.remove("invalid"); var _amtW = seg.closest(".field") ? seg.closest(".field").querySelector(".outstanding-amt") : null; if (_amtW && g.getAttribute("data-seg") === "outstanding_debt") _amtW.style.display = seg.getAttribute("data-val") !== "None" ? "" : "none"; }
       var q = t2.closest(".qa-q");
       if (q) { var qa = q.closest(".qa"), a = qa.querySelector(".qa-a"); var open = qa.classList.toggle("open"); a.style.maxHeight = open ? a.scrollHeight + "px" : "0px"; }
     });
@@ -1339,7 +1342,7 @@
       { id: "lt2", title: "Tell us about yourself",
         subtitle: "Takes 30 seconds. Won\u2019t affect your credit score.",
         type: "lead_collect",
-        fields: ["name","mobile","income","employment","age","outstanding_debt","city","consent"]
+        fields: ["name","mobile","income","employment","age","outstanding_debt","cibil_score","city","consent"]
       },
       /* Step 4 — Eligibility estimate (no bureau hit) */
       { id: "lt3", type: "eligibility",
@@ -1366,7 +1369,7 @@
         ]
       },
       { id: "is2", title: "Tell us about yourself", type: "form",
-        fields: ["name","mobile","city","age","outstanding_debt"]
+        fields: ["name","mobile","city","age","outstanding_debt","cibil_score"]
       }
     ],
     card: [
@@ -1380,7 +1383,7 @@
         ]
       },
       { id: "cs2", title: "Tell us about yourself", type: "form",
-        fields: ["name","mobile","city","income","age","outstanding_debt"]
+        fields: ["name","mobile","city","income","age","outstanding_debt","cibil_score"]
       }
     ],
     investment: [
@@ -1393,7 +1396,7 @@
         ]
       },
       { id: "iv2", title: "Tell us about yourself", type: "form",
-        fields: ["name","mobile","city","age","outstanding_debt"]
+        fields: ["name","mobile","city","age","outstanding_debt","cibil_score"]
       }
     ],
     general: [
@@ -1418,7 +1421,7 @@
       { id: "gf2", title: "Tell us about yourself",
         subtitle: "Takes 30 seconds. Won\u2019t affect your credit score.",
         type: "lead_collect",
-        fields: ["name","mobile","income","employment","age","outstanding_debt","city","consent"]
+        fields: ["name","mobile","income","employment","age","outstanding_debt","cibil_score","city","consent"]
       },
       { id: "gf3", type: "eligibility",
         title: "Your Estimated Eligibility",
@@ -1534,8 +1537,9 @@
     if (f.indexOf("city") > -1) html += '<div class="field"><label>City</label><input name="qb_city" type="text" placeholder="e.g. Pune"><span class="err">Required</span></div>';
     if (f.indexOf("income") > -1) html += '<div class="field"><label>Monthly income</label><select name="qb_income"><option value="">Select range</option><option>Below \u20B925,000</option><option>\u20B925,000 \u2013 \u20B950,000</option><option>\u20B950,000 \u2013 \u20B91,00,000</option><option>Above \u20B91,00,000</option></select><span class="err">Required</span></div>';
     if (f.indexOf("employment") > -1) html += '<div class="field full"><label>Employment type</label><div class="seg qb-seg" data-seg="qb_employment"><div class="seg-opt" data-val="Salaried">Salaried</div><div class="seg-opt" data-val="Self-employed">Self-employed</div><div class="seg-opt" data-val="Business owner">Business</div><input type="hidden" name="qb_employment"></div><span class="err">Select one</span></div>';
-    if (f.indexOf("age") > -1) html += '<div class="field"><label>Age</label><input name="qb_age" type="number" min="21" max="80" inputmode="numeric" placeholder="e.g. 28"><span class="err">Must be 21 or above</span><span style="display:block;margin-top:5px;font-size:11px;color:#856404;background:#fff3cd;border:1px solid #ffc107;border-radius:5px;padding:4px 8px">&#9888;&#xFE0F; Disclaimer: Only applicants aged <strong>21 years and above</strong> are eligible to apply for a loan.</span></div>';
-    if (f.indexOf("outstanding_debt") > -1) html += '<div class="field full"><label>Outstanding debt <span style="font-size:11px;color:var(--text-soft);font-weight:400">(if any)</span></label><div class="seg qb-seg" data-seg="qb_outstanding"><div class="seg-opt" data-val="None">None</div><div class="seg-opt" data-val="Loan">Loan</div><div class="seg-opt" data-val="Credit Card">Credit Card</div><div class="seg-opt" data-val="Both">Both</div><input type="hidden" name="qb_outstanding"></div></div>';
+    if (f.indexOf("age") > -1) html += '<div class="field"><label>Age</label><input name="qb_age" type="number" min="21" max="80" inputmode="numeric" placeholder="e.g. 28"><span class="err">Must be 21 or above</span><span style="display:block;margin-top:5px;font-size:11px;color:#0c5460;background:#d1ecf1;border:1px solid #bee5eb;border-radius:5px;padding:4px 8px">&#x2139;&#xFE0F; Applicants must be at least <strong>21 years old</strong> to be eligible for a loan.</span></div>';
+    if (f.indexOf("outstanding_debt") > -1) html += '<div class="field full"><label>Outstanding debt <span style="font-size:11px;color:var(--text-soft);font-weight:400">(if any)</span></label><div class="seg qb-seg" data-seg="qb_outstanding"><div class="seg-opt" data-val="None">None</div><div class="seg-opt" data-val="Loan">Loan</div><div class="seg-opt" data-val="Credit Card">Credit Card</div><div class="seg-opt" data-val="Both">Both</div><input type="hidden" name="qb_outstanding"></div><div class="outstanding-amt" style="display:none;margin-top:8px"><label style="font-size:12px;color:var(--text-soft);margin-bottom:4px;display:block">Outstanding amount (&#x20B9;)</label><input name="qb_outstanding_amount" type="number" min="0" placeholder="e.g. 50000" inputmode="numeric"></div></div>';
+    if (f.indexOf("cibil_score") > -1) html += '<div class="field"><label>CIBIL score <span style="font-size:11px;color:var(--text-soft);font-weight:400">(approx.)</span></label><select name="qb_cibil"><option value="">Select range</option><option>Don\'t know</option><option>Below 600 (Poor)</option><option>600\u2013649 (Fair)</option><option>650\u2013699 (Average)</option><option>700\u2013749 (Good)</option><option>750\u2013799 (Very Good)</option><option>800+ (Excellent)</option></select></div>';
     if (f.indexOf("pan") > -1) html += '<div class="field full"><label>PAN Number <span class="opt-tag">Optional</span></label><input name="qb_pan" type="text" placeholder="ABCDE1234F" maxlength="10" style="text-transform:uppercase" autocomplete="off"></div>';
     if (f.indexOf("consent") > -1) html += '<div class="field full"><div class="consent"><input type="checkbox" name="qb_consent" id="qb-consent"><label for="qb-consent">I agree to receive loan-related communication via call, SMS, WhatsApp and email from ' + CFG.brand + ' and its partner lenders, and accept the <a href="' + BASE + 'pages/privacy-policy.html">Privacy Policy</a> and <a href="' + BASE + 'pages/terms.html">Terms</a>.</label></div><span class="err">Please accept to continue</span></div>';
     html += '</div>';
@@ -1893,6 +1897,8 @@
     var emp = box.querySelector("[name=qb_employment]"); if (emp && emp.value) _qbData.employment = emp.value;
     var ageEl = box.querySelector("[name=qb_age]"); if (ageEl && ageEl.value) _qbData.age = ageEl.value;
     var od = box.querySelector("[name=qb_outstanding]"); if (od && od.value) _qbData.outstanding_debt = od.value;
+    var odAmt = box.querySelector("[name=qb_outstanding_amount]"); if (odAmt && odAmt.value) _qbData.outstanding_amount = odAmt.value;
+    var cibil = box.querySelector("[name=qb_cibil]"); if (cibil && cibil.value) _qbData.cibil_score = cibil.value;
     var pan = box.querySelector("[name=qb_pan]"); if (pan && pan.value.trim()) _qbData.pan = pan.value.trim().toUpperCase();
   }
 
@@ -2305,6 +2311,7 @@
         g.querySelectorAll(".seg-opt").forEach(function(s){ s.classList.remove("sel"); });
         seg.classList.add("sel");
         var hid = g.querySelector("input[type=hidden]"); if (hid) hid.value = seg.getAttribute("data-val");
+        var _amtW = seg.closest(".field") ? seg.closest(".field").querySelector(".outstanding-amt") : null; if (_amtW && g.getAttribute("data-seg") === "qb_outstanding") _amtW.style.display = seg.getAttribute("data-val") !== "None" ? "" : "none";
       }
     });
   }
