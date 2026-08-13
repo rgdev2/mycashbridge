@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    CASH BRIDGE — shared site behaviour (v2)
    Nav with product dropdowns — EN/HI language engine —
    working cookie consent (blocks non-essential cookies) —
@@ -992,6 +992,10 @@
          */
         queueLeadForRetry(payload);
       });
+      /* Meta Pixel — Lead Event Tracking */
+      if (typeof window.fbq === 'function') {
+        try { window.fbq('track', 'Lead', { content_name: loan || 'general_lead', currency: 'INR' }); } catch(e) {}
+      }
     } catch (e) {}
   }
   function handleSubmit(e) {
