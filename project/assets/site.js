@@ -588,6 +588,7 @@
      COOKIE CONSENT — actually blocks/clears non-essential cookies
      ============================================================ */
   var ESSENTIAL = ["cb_lang", "cb_cookie", "cb_hero_choice"]; // functional keys we allow
+  var META_PIXEL_ID = "2554292998349367";
   var clearTimer = null;
   function getConsent() { try { return JSON.parse(localStorage.getItem("cb_cookie") || "null"); } catch (e) { return null; } }
   function clearNonEssentialCookies() {
@@ -605,12 +606,13 @@
   }
   function enforceBlocking() {
     var c = getConsent();
-    if (!c || !c.analytics) {
+    if (!c || (!c.analytics && !c.marketing)) {
       clearNonEssentialCookies();
       if (!clearTimer) clearTimer = setInterval(clearNonEssentialCookies, 3000); // keep blocking anything that tries to set cookies
     } else {
       if (clearTimer) { clearInterval(clearTimer); clearTimer = null; }
-      loadAnalytics();
+      if (c.analytics) loadAnalytics();
+      if (c.marketing) loadMetaPixel();
     }
   }
   var analyticsLoaded = false;
@@ -620,6 +622,22 @@
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event: "consent_granted_analytics", ts: Date.now() });
     // console.info("[Cash Bridge] Analytics enabled with consent.");
+  }
+  var metaPixelLoaded = false;
+  function loadMetaPixel() {
+    if (metaPixelLoaded) return; metaPixelLoaded = true;
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init', META_PIXEL_ID);
+    window.fbq('track', 'PageView');
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "consent_granted_marketing", provider: "meta_pixel", pixelId: META_PIXEL_ID, ts: Date.now() });
   }
   function cookieHTML() {
     return '<div class="cookie" id="cookieBanner"><div class="cookie-inner">' +
