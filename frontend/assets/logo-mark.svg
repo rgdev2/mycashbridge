@@ -1,0 +1,5 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mera Loan mark">
+  <circle cx="24" cy="24" r="20" fill="#9AEF5E"></circle>
+  <circle cx="24" cy="24" r="20" fill="none" stroke="#cba258" stroke-width="1.5" stroke-dasharray="2 3" opacity="0.6"></circle>
+  <text x="24" y="33" text-anchor="middle" font-family="Manrope, Helvetica, Arial, sans-serif" font-size="24" font-weight="700" fill="#0a5e3a" letter-spacing="-0.01em">₹</text>
+</svg>

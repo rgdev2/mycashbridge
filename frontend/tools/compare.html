@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M3C5GZML');</script>
+<!-- End Google Tag Manager -->
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xf3xdstfeo");
+</script>
+<!-- End Microsoft Clarity -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VVJKM8TE6S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-VVJKM8TE6S');
+</script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2554292998349367');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2554292998349367&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Compare Loans &amp; Rates &ndash; MyCashBridge.com</title>
+<meta name="description" content="Compare loan types and indicative interest rates across leading lending partners. Find the right loan with MyCashBridge.com." />
+<link rel="icon" href="../assets/logo-cashbridge-mark.svg" />
+<link rel="stylesheet" href="../assets/site.css" />
+<script src="../assets/lucide.min.js"></script>
+<style>
+  .filterbar { display:flex; gap:10px; flex-wrap:wrap; margin:8px 0 22px; }
+  .cmp td .btn { white-space:nowrap; }
+  .cmp .best { font-size:13px; color:var(--text-soft); }
+  .cmp-type th, .cmp-type td { vertical-align:middle; }
+  .ltag { display:inline-flex; align-items:center; gap:8px; font-weight:700; color:var(--text-strong); }
+  .ltag .ic { width:32px; height:32px; border-radius:50%; background:var(--lime-soft); display:flex; align-items:center; justify-content:center; }
+  .ltag .ic i { width:17px; height:17px; color:var(--green-primary); }
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3C5GZML"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div data-mount="nav" data-current=""></div>
+
+<section class="phead"><div class="wrap"><div class="phead-greet"><img src="../assets/setu/setu-hero.svg" alt="" aria-hidden="true"><span class="pg-label"><b>Namaste! I'm Setu</b>Your loan saathi &mdash; here to help</span></div><div class="crumb"><a href="../index.html">Home</a> <i data-lucide="chevron-right" style="width:14px;height:14px"></i> <span style="color:var(--text-strong)">Compare</span></div></div></section>
+
+<section class="section" style="padding-top:28px">
+  <div class="wrap">
+    <div class="eyebrow">Compare</div>
+    <h1 class="h-sec" style="margin:10px 0 6px">Compare loans, side by side</h1>
+    <p class="lead" style="max-width:620px;margin-bottom:26px">See how our loan types stack up on rates, amounts and tenure &ndash; then check live partner rates for the one that fits. All rates are indicative; your final offer depends on your profile.</p>
+    <div style="overflow-x:auto">
+      <table class="cmp cmp-type">
+        <thead><tr><th>Loan type</th><th>Rate from</th><th>Max amount</th><th>Max tenure</th><th>Collateral</th><th></th></tr></thead>
+        <tbody id="typeBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="eyebrow">Live partner rates</div>
+    <h2 class="h-sec green" style="margin:10px 0 6px">Compare rates across lenders</h2>
+    <p class="lead" style="color:var(--text-on-aqua-soft);max-width:560px">Pick a loan type to see indicative rates, fees and tenure across our lending partners.</p>
+    <div class="filterbar" id="filterbar"></div>
+    <div style="overflow-x:auto">
+      <table class="cmp"><thead><tr><th>Lending partner</th><th>Interest rate (p.a.)</th><th>Processing fee</th><th>Max tenure</th></tr></thead><tbody id="rateBody"></tbody></table>
+    </div>
+    <div style="margin-top:24px"><button class="btn btn-filled btn-lg" data-apply>Apply with the best rate</button></div>
+  </div>
+</section>
+
+<div data-mount="footer"></div>
+<script src="../assets/site.js"></script>
+<script>
+  var TYPES = [
+    ["personal-loan","Personal Loan","wallet","10.5%","&#x20B9;40 Lakh","6 years","Not required"],
+    ["business-loan","Business Loan","store","14.0%","&#x20B9;75 Lakh","5 years","Optional"],
+    ["home-loan","Home Loan","home","8.5%","&#x20B9;5 Crore","30 years","Property"],
+    ["loan-against-property","Loan Against Property","building-2","9.0%","&#x20B9;10 Crore","15 years","Property"],
+    ["car-loan","Car Loan","car","9.5%","100% on-road","7 years","The car"],
+    ["education-loan","Education Loan","graduation-cap","9.5%","&#x20B9;1.5 Crore","15 years","Above a limit"],
+    ["gold-loan","Gold Loan","gem","9.0%","&#x20B9;50 Lakh","3 years","Your gold"]
+  ];
+  // Lender rates. To add more lenders later,
+  // append rows to any array, e.g. ["ICICI Bank","10.75% &ndash; 19%","Up to 2.5%","6 yrs"].
+  var RATES = {
+    "Personal Loan":[],
+    "Business Loan":[],
+    "Home Loan":[],
+    "Gold Loan":[],
+    "Car Loan":[],
+    "Education Loan":[]
+  };
+  // type comparison table
+  document.getElementById('typeBody').innerHTML = TYPES.map(function(t){
+    return '<tr><td><span class="ltag"><span class="ic"><i data-lucide="'+t[2]+'"></i></span>'+t[1]+'</span></td>'+
+      '<td class="rate-cell">'+t[3]+'</td><td>'+t[4]+'</td><td>'+t[5]+'</td><td class="best">'+t[6]+'</td>'+
+      '<td><a class="btn btn-outline btn-sm" href="../loans/'+t[0]+'.html">View</a></td></tr>';
+  }).join('');
+  // filter chips
+  var keys = Object.keys(RATES);
+  var fb = document.getElementById('filterbar');
+  fb.innerHTML = keys.map(function(k,i){ return '<button class="seg-opt'+(i===0?' sel':'')+'" data-k="'+k+'" style="flex:0 0 auto">'+k+'</button>'; }).join('');
+  function renderRates(k){
+    document.getElementById('rateBody').innerHTML = RATES[k].map(function(r){
+      var name = r[0];
+      return '<tr><td class="bank-cell">'+name+'</td><td class="rate-cell">'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td></tr>';
+    }).join('');
+  }
+  fb.addEventListener('click', function(e){
+    var b=e.target.closest('.seg-opt'); if(!b) return;
+    fb.querySelectorAll('.seg-opt').forEach(function(s){s.classList.remove('sel');});
+    b.classList.add('sel'); renderRates(b.getAttribute('data-k'));
+  });
+  renderRates(keys[0]);
+  if(window.lucide) window.lucide.createIcons();
+</script>
+</body>
+</html>

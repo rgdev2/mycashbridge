@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="facebook-domain-verification" content="ymeib83xz1098odfii1hgp5qqbrv3c" />
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M3C5GZML');</script>
+<!-- End Google Tag Manager -->
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xf3xdstfeo");
+</script>
+<!-- End Microsoft Clarity -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VVJKM8TE6S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-VVJKM8TE6S');
+</script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2554292998349367');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2554292998349367&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="X-Content-Type-Options" content="nosniff" />
+<!-- X-Frame-Options is enforced via HTTP header by Helmet (server.js). -->
+<!-- The meta http-equiv version is ignored by modern browsers and causes console warnings. -->
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+<title>MyCashBridge &ndash; Borrow with a clear head | Loans for India</title>
+<meta name="description" content="MyCashBridge is a money lending service provider offering personal, business, home, gold and more loans with clear EMIs and honest rates. Check your eligibility in 10 seconds." />
+<link rel="icon" href="assets/logo-cashbridge-mark.svg" />
+<meta name="ext-resource-dependency" content="assets/logo-cashbridge.svg" data-resource-id="cbLogo" />
+<link rel="stylesheet" href="assets/site.css" />
+<script src="assets/lucide.min.js"></script>
+<style>
+  /* hero switcher (preview-only control to pick a direction) */
+  .hero-switch { position: fixed; left: 50%; transform: translateX(-50%); bottom: 22px; z-index: 120;
+    background: var(--ink); color: #fff; border-radius: 50px; padding: 7px 8px 7px 16px; display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.3); font-size: 13px; }
+  .hero-switch b { font-weight: 700; letter-spacing: -.01em; }
+  .hero-switch .opts { display: flex; gap: 4px; }
+  .hero-switch button { background: transparent; color: rgba(255,255,255,.7); border: none; cursor: pointer;
+    font-weight: 700; font-size: 13px; padding: 6px 13px; border-radius: 50px; transition: all .15s ease; }
+  .hero-switch button.on { background: var(--brand-lime); color: var(--green-deep); }
+  .hero-switch .x { color: rgba(255,255,255,.5); font-size: 11px; padding-left: 4px; border-left: 1px solid rgba(255,255,255,.2); }
+  .hero-variant { display: none; }
+  .hero-variant.on { display: block; }
+  @media (max-width: 600px) { .hero-switch { bottom: 78px; font-size: 12px; padding: 6px 6px 6px 12px; } }
+
+  /* hero B eligibility card */
+  .elig-card { background: var(--white); border-radius: var(--radius-card); box-shadow: var(--shadow-card), 0 18px 40px rgba(0,0,0,.07); padding: 28px; position: relative; overflow: hidden; }
+  .elig-card .head { display:flex; align-items:center; justify-content:space-between; margin-bottom: 6px; }
+  .elig-card h3 { font-size: 21px; font-weight: 700; color: var(--green-primary); }
+
+  /* hero C product picker */
+  .pick { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 22px; }
+  .pick a { background: var(--white); border-radius: 12px; box-shadow: var(--shadow-card); padding: 16px 12px; text-align: center; text-decoration: none; color: var(--text-strong); transition: transform .18s ease; }
+  .pick a:hover { transform: translateY(-3px); text-decoration: none; }
+  .pick a i { width: 24px; height: 24px; color: var(--green-primary); }
+  .pick a span { display: block; font-size: 13px; font-weight: 700; margin-top: 8px; }
+  @media (max-width: 600px) { .pick { grid-template-columns: repeat(2, 1fr); } }
+
+  .hero-stat { display:flex; gap: 36px; margin-top: 32px; flex-wrap: wrap; }
+  .hero-stat .s b { font-size: 28px; font-weight: 800; color: var(--green-primary); letter-spacing: -.02em; display:block; }
+  .hero-stat .s span { font-size: 13px; color: var(--text-soft); font-weight: 600; }
+
+  /* hero A &ndash; mascot beside the EMI calculator */
+  .emi-zone { position: relative; }
+  .emi-zone .emi { position: relative; z-index: 2; }
+  .emi-figure { position: absolute; left: -178px; bottom: -16px; width: 178px; z-index: 4;
+    display: flex; flex-direction: column; align-items: center; pointer-events: none; user-select: none; }
+  .emi-mascot { width: 100%; height: auto; transform-origin: center bottom;
+    filter: drop-shadow(0 16px 22px rgba(10,94,58,.16)); }
+  .emi-speech { position: relative; margin-bottom: 8px; background: var(--green-primary); color: #fff;
+    font-weight: 700; font-size: 13px; line-height: 1.32; text-align: center; padding: 10px 12px;
+    border-radius: 14px; box-shadow: 0 10px 22px rgba(10,94,58,.22); }
+  .emi-speech::after { content: ""; position: absolute; left: 50%; bottom: -7px; transform: translateX(-50%);
+    border: 7px solid transparent; border-top-color: var(--green-primary); border-bottom: 0; }
+  @media (max-width: 1180px) { .emi-figure { width: 150px; left: -138px; } .emi-speech { font-size: 12px; } }
+  @media (max-width: 980px) {
+    .emi-zone { display: flex; flex-direction: column; align-items: center; }
+    .emi-zone .emi { width: 100%; }
+    .emi-figure { position: static; width: 190px; margin: 0 auto -6px; }
+    .emi-speech { display: none; }
+  }
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3C5GZML"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<template id="__bundler_thumbnail" data-bg-color="#f2f0eb">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#f2f0eb"></rect>
+    <circle cx="600" cy="330" r="120" fill="#9AEF5E"></circle>
+    <g stroke="#0a5e3a" stroke-width="13" stroke-linecap="round" fill="none">
+      <path d="M528 360 L672 360"></path>
+      <path d="M534 360 C552 296, 648 296, 666 360"></path>
+      <path d="M564 327 L564 360"></path>
+      <path d="M600 318 L600 360"></path>
+      <path d="M636 327 L636 360"></path>
+    </g>
+    <text x="600" y="520" font-family="Manrope, Arial, sans-serif" font-size="74" font-weight="800" letter-spacing="-2" text-anchor="middle"><tspan fill="#0a5e3a">Cash</tspan><tspan fill="#0c7a4e">Bridge</tspan><tspan fill="#0c7a4e" font-size="40">.com</tspan></text>
+    <text x="600" y="572" font-family="Manrope, Arial, sans-serif" font-size="28" font-style="italic" font-weight="600" fill="#0c7a4e" text-anchor="middle">Aapke Sapno Ka Financial Saathi</text>
+  </svg>
+</template>
+<div data-mount="nav" data-current="loans"></div>
+
+<!-- ============ HERO A &ndash; Calm / trust-first (EMI calculator) ============ -->
+<section class="hero hero-variant" data-hero="A">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill pill-approved"><i data-lucide="shield-check"></i> Compare &amp; apply from 128+ banks &amp; NBFCs</span>
+      <h1 class="h-hero" style="margin-top:18px">Borrow with<br>a clear head.</h1>
+      <div class="hero-tagline">Aapke Sapno Ka Financial Saathi</div>
+      <p class="sub">Compare and apply for personal, business, home and gold loans from India's leading banks &amp; NBFCs &ndash; with EMIs you choose and a total you can see before you sign.</p>
+      <!-- Why-choose-us trust points embedded in hero -->
+      <div class="hero-why">
+        <div class="hero-why-point"><span class="hw-tick"><i data-lucide="check-circle-2"></i></span><span>Apply Once &mdash; compare <b>128+ lenders</b>, get the best offer</span></div>
+        <div class="hero-why-point"><span class="hw-tick"><i data-lucide="check-circle-2"></i></span><span>Upload documents once &mdash; <b>save time &amp; effort</b></span></div>
+        <div class="hero-why-point"><span class="hw-tick"><i data-lucide="check-circle-2"></i></span><span><b>Instant</b> sanction &amp; disbursal in 24 hours</span></div>
+        <div class="hero-why-point"><span class="hw-tick"><i data-lucide="check-circle-2"></i></span><span><b>No hidden charges</b> &mdash; what you see is what you pay</span></div>
+      </div>
+      <div class="hero-cta">
+        <button class="btn btn-filled btn-lg" data-apply data-quick-apply data-qb-flow="general">Apply now &mdash; it's free</button>
+        <a class="btn btn-outline btn-lg" href="#how">See how it works</a>
+      </div>
+      <div class="hero-badges">
+        <div class="hero-badge"><i data-lucide="landmark"></i> 128+ lenders</div>
+        <div class="hero-badge"><i data-lucide="users"></i> 40,000+ helped</div>
+        <div class="hero-badge"><i data-lucide="percent"></i> Rates from 8.5%</div>
+        <div class="hero-badge"><i data-lucide="lock"></i> Bank-grade secure</div>
+      </div>
+    </div>
+    <div class="emi-zone">
+    <div class="emi-figure">
+      <div class="emi-speech">Aapki EMI, aapke hisaab se &mdash; abhi check karein!</div>
+      <img class="emi-mascot" src="assets/setu/setu-point.svg" alt="" aria-hidden="true">
+    </div>
+    <div class="emi" data-emi data-rate="10.5">
+      <div class="eyebrow">Estimate your EMI</div>
+      <div class="emi-row" style="margin-top:14px"><span class="k">Loan amount</span><span class="v" data-emi-amount-out>&#x20B9;2,00,000</span></div>
+      <input type="range" min="25000" max="2000000" step="5000" value="200000" data-emi-amount>
+      <div class="emi-row" style="margin-top:16px"><span class="k">Tenure</span><span class="v" data-emi-months-out>24 months</span></div>
+      <input type="range" min="6" max="84" step="6" value="24" data-emi-months>
+      <div class="emi-out">
+        <div class="emi-row"><span class="k" style="color:var(--text-on-aqua-soft)">Your Easy Monthly Installment = </span><span class="big" data-emi-out>&#x20B9;9,264</span></div>
+        <div class="emi-out small"><span data-emi-rate>10.5% p.a.</span> &ndash; all-in<span data-emi-total>&#x20B9;2,22,336</span></div>
+      </div>
+      <button class="btn btn-filled btn-block" data-apply data-quick-apply data-qb-flow="general" style="margin-top:16px">Check your rate</button>
+      <div class="emi-note">Checking your rate won't affect your credit score.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HERO B &ndash; Conversion-first (inline eligibility form) ============ -->
+<section class="hero hero-variant" data-hero="B" style="background:var(--canvas)">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill pill-lime"><i data-lucide="zap"></i> Get a call back in 30 seconds</span>
+      <h1 class="h-hero" style="margin-top:18px">The loan you need,<br>without the runaround.</h1>
+      <div class="hero-tagline">Aapke Sapno Ka Financial Saathi</div>
+      <p class="sub">Tell us a little about yourself and a MyCashBridge expert calls you with a clear offer &ndash; the amount, the EMI, and the total. Simple, honest, fast.</p>
+      <div class="hero-stat">
+        <div class="s"><b>&#x20B9;50,00,00,000+</b><span>Disbursed to date</span></div>
+        <div class="s"><b>40,000+</b><span>Happy borrowers</span></div>
+        <div class="s"><b>4.7&#x2605;</b><span>Average rating</span></div>
+      </div>
+      <div class="hero-badges">
+        <div class="hero-badge"><i data-lucide="check-circle-2"></i> No paperwork to start</div>
+        <div class="hero-badge"><i data-lucide="lock"></i> 100% confidential</div>
+      </div>
+    </div>
+    <div class="elig-card apply-card">
+      <div class="apply-form-wrap">
+        <div class="head"><h3>Check your eligibility</h3><span class="pill pill-approved" style="font-size:11px;padding:4px 10px">Free</span></div>
+        <p class="sub" style="font-size:14px;color:var(--text-soft);margin:0 0 16px">Takes 10 seconds. Won't affect your credit score.</p>
+        <form class="lead-form" data-loan="Eligibility &ndash; homepage" novalidate>
+          <div class="form-grid">
+            <div class="field full"><label>Full name</label><input name="name" type="text" placeholder="e.g. Rohan Sharma"><span class="err">Please enter your name</span></div>
+            <div class="field full"><label>Mobile number</label><div class="tel-wrap"><span class="cc">+91</span><input name="mobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile"></div><span class="err">Enter a valid 10-digit mobile</span></div>
+            <div class="field"><label>City</label><input name="city" type="text" placeholder="e.g. Pune"><span class="err">Required</span></div>
+            <div class="field"><label>Loan type</label><select name="income"><option value="">Select</option><option>Personal Loan</option><option>Business Loan</option><option>Home Loan</option><option>Gold Loan</option><option>Car Loan</option><option>Education Loan</option></select><span class="err">Required</span></div>
+            <div class="field"><label>Age</label><input name="age" type="number" min="21" max="80" inputmode="numeric" placeholder="e.g. 28"><span class="err">Must be 21 or above</span><span style="display:block;margin-top:5px;font-size:11px;color:#0c5460;background:#d1ecf1;border:1px solid #bee5eb;border-radius:5px;padding:4px 8px">&#x2139;&#xFE0F; Applicants must be at least <strong>21 years old</strong> to be eligible for a loan.</span></div>
+            <div class="field full"><label>Outstanding debt <span class="opt">(if any)</span></label><div class="seg" data-seg="outstanding_debt"><div class="seg-opt" data-val="None">None</div><div class="seg-opt" data-val="Loan">Loan</div><div class="seg-opt" data-val="Credit Card">Credit Card</div><div class="seg-opt" data-val="Both">Both</div><input type="hidden" name="outstanding_debt"></div><div class="outstanding-amt" style="display:none;margin-top:8px"><label style="font-size:12px;color:var(--text-soft);margin-bottom:4px;display:block">Outstanding amount (&#x20B9;)</label><input name="outstanding_amount" type="number" min="0" placeholder="e.g. 50000" inputmode="numeric"></div></div>
+            <div class="field"><label>CIBIL score <span class="opt">(approx.)</span></label><select name="cibil_score"><option value="">Select range</option><option>Don&apos;t know</option><option>Below 600 (Poor)</option><option>600&#8211;649 (Fair)</option><option>650&#8211;699 (Average)</option><option>700&#8211;749 (Good)</option><option>750&#8211;799 (Very Good)</option><option>800+ (Excellent)</option></select></div>
+            <div class="field full"><div class="consent"><input type="checkbox" name="consent" id="heroB-consent"><label for="heroB-consent">I authorise MyCashBridge to contact me about my enquiry. This overrides my DND/NDNC registration.</label></div><span class="err">Please accept to continue</span></div>
+          </div>
+          <button class="btn btn-filled btn-block btn-lg" type="submit" style="margin-top:16px"><span class="btn-label"><i data-lucide="phone-call"></i> Get my free call back</span></button>
+        </form>
+      </div>
+      <div class="thanks">
+        <div class="confetti"></div>
+        <img class="thanks-setu" src="assets/setu/setu-celebrate.svg" alt="" aria-hidden="true">
+        <h3>Thank you &ndash; we've got your request.</h3>
+        <p>A MyCashBridge loan expert will call you within 24 hours. Please keep your phone handy.</p>
+        <div class="ref"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HERO C &ndash; Marketplace / pick-your-loan ============ -->
+<section class="hero hero-variant" data-hero="C">
+  <div class="wrap" style="text-align:center;max-width:880px">
+    <span class="pill pill-approved" style="margin:0 auto"><i data-lucide="shield-check"></i> A lending service provider you can trust (LSP)</span>
+    <h1 class="h-hero" style="margin:18px auto 0">Find the right loan<br>for your plan in 10 seconds.</h1>
+    <div class="hero-tagline" style="justify-content:center">Aapke Sapno Ka Financial Saathi</div>
+    <p class="sub" style="margin:18px auto 0;max-width:560px;text-align:center">Compare what you'd pay across loan types, check your EMI, and apply &ndash; all with a clear total before you commit. Pick where to start:</p>
+    <div class="pick">
+      <a href="loans/personal-loan.html"><i data-lucide="wallet"></i><span>Personal</span></a>
+      <a href="loans/business-loan.html"><i data-lucide="store"></i><span>Business</span></a>
+      <a href="loans/home-loan.html"><i data-lucide="home"></i><span>Home</span></a>
+      <a href="loans/gold-loan.html"><i data-lucide="gem"></i><span>Gold</span></a>
+      <a href="loans/car-loan.html"><i data-lucide="car"></i><span>Car</span></a>
+      <a href="loans/education-loan.html"><i data-lucide="graduation-cap"></i><span>Education</span></a>
+      <a href="loans/loan-against-property.html"><i data-lucide="building-2"></i><span>Against Property</span></a>
+      <a href="tools/compare.html"><i data-lucide="scale"></i><span>Compare all</span></a>
+    </div>
+    <div class="hero-cta" style="justify-content:center;margin-top:28px">
+      <button class="btn btn-filled btn-lg" data-apply data-quick-apply data-qb-flow="general">Apply now</button>
+      <a class="btn btn-outline btn-lg" href="tools/credit-score.html">Check free CIBIL score</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST STRIP ============ -->
+<div class="trust">
+  <div class="wrap trust-net">
+    <div class="tn-icons">
+      <span><i data-lucide="landmark"></i></span>
+      <span><i data-lucide="building-2"></i></span>
+      <span><i data-lucide="handshake"></i></span>
+    </div>
+    <div class="tn-text">
+      <b>All Major Banks &amp; NBFCs</b>
+      <span>One application &ndash; offers sourced across leading lenders</span>
+    </div>
+    <div class="tn-sep"></div>
+    <div class="tn-badge"><i data-lucide="shield-check"></i> RBI-regulated lending partners</div>
+    <div class="tn-badge"><i data-lucide="lock"></i> 256-bit secure</div>
+  </div>
+</div>
+
+<!-- ============ PARTNER LOGO SCROLLER (top placement) ============ -->
+<div class="partner-scroller partner-scroller-hero" aria-label="Trusted lending partners" style="border-bottom:1px solid var(--border-light)">
+  <div class="partner-scroller-track" data-partner-scroller-track></div>
+</div>
+
+<!-- ============ WHY CUSTOMERS CHOOSE US ============ -->
+<section class="section" style="padding-top:44px;padding-bottom:44px">
+  <div class="wrap">
+    <div class="whybox">
+      <div class="whybox-left">
+        <span class="ribbon">Why customers choose us</span>
+        <h3>Why Customers Choose Us</h3>
+        <div class="whypoint"><span class="tick"><i data-lucide="check"></i></span><span>Apply Once. Compare <b>128+ lenders</b>. Get the best offer delivered to you.</span></div>
+        <div class="whypoint"><span class="tick"><i data-lucide="check"></i></span><span>Upload documents once &mdash; <b>save time &amp; effort</b></span></div>
+        <div class="whypoint"><span class="tick"><i data-lucide="check"></i></span><span><b>Instant</b> sanction &amp; disbursal in 24 hours</span></div>
+        <div class="whypoint"><span class="tick"><i data-lucide="check"></i></span><span><b>No hidden charges</b> &ndash; what you see is what you pay</span></div>
+        <div style="margin-top:24px">
+          <button class="btn btn-filled btn-lg" data-apply data-quick-apply data-qb-flow="general">Apply now &mdash; it's free</button>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="card" style="padding:22px"><div class="prod-ic" style="margin-bottom:10px"><i data-lucide="landmark"></i></div><b style="font-size:16px;color:var(--text-strong)">128+ partners</b><p class="muted" style="font-size:13px;margin:4px 0 0">Banks, NBFCs &amp; HFCs</p></div>
+        <div class="card" style="padding:22px"><div class="prod-ic" style="margin-bottom:10px"><i data-lucide="timer"></i></div><b style="font-size:16px;color:var(--text-strong)">24-hr disbursal</b><p class="muted" style="font-size:13px;margin:4px 0 0">For approved applicants</p></div>
+        <div class="card" style="padding:22px"><div class="prod-ic" style="margin-bottom:10px"><i data-lucide="users"></i></div><b style="font-size:16px;color:var(--text-strong)">40,000+</b><p class="muted" style="font-size:13px;margin:4px 0 0">Customers helped</p></div>
+        <div class="card" style="padding:22px"><div class="prod-ic" style="margin-bottom:10px"><i data-lucide="shield-check"></i></div><b style="font-size:16px;color:var(--text-strong)">Bank-grade</b><p class="muted" style="font-size:13px;margin:4px 0 0">256-bit secure &amp; private</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLOGAN RIBBON ============ -->
+<section class="section-sm">
+  <div class="wrap">
+    <div class="slogan-ribbon">
+      <img class="mascot sr-mascot" src="assets/setu/setu-hero.svg" alt="" aria-hidden="true">
+      <div class="sr-body">
+        <div class="eyebrow">No spam. Just genuine offers.</div>
+        <p class="sr-quote">&ldquo;Loan chahiye, spam calls nahi. Bas <b>genuine offers</b>, seedha aapke liye.&rdquo;</p>
+        <p class="sr-sub">Financial Help, Indian Style &ndash; Fast, Simple &amp; Trustworthy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUCTS ============ -->
+<section class="section" id="loans">
+  <div class="wrap">
+    <div class="eyebrow">Our loans</div>
+    <h2 class="h-sec" style="margin:10px 0 6px">Pick the loan that fits your plan</h2>
+    <p class="lead" style="max-width:580px">Apply Once. Compare 128+ Lenders. Upload Documents Once. Get the Best Offer Delivered to You.</p>
+    <div class="prod-grid" id="prodGrid"></div>
+  </div>
+</section>
+
+
+
+<!-- ============ ASPIRATION BAND (premium iconography) ============ -->
+<section class="section rupee-accent" style="padding-top:8px">
+  <div class="wrap">
+    <div class="center">
+      <div class="eyebrow">For life's biggest moments</div>
+      <h2 class="h-sec" style="margin:10px auto 6px">A financial support for every dream you're building</h2>
+      <p class="lead" style="max-width:560px;margin:0 auto">From your first home to your child's degree &ndash; we help you fund the moments that matter, responsibly.</p>
+    </div>
+    <div class="goals">
+      <a class="goal" href="loans/home-loan.html"><span class="medal"><i data-lucide="home"></i></span><b>Your own home</b><span>Buy, build or transfer</span></a>
+      <a class="goal" href="loans/education-loan.html"><span class="medal"><i data-lucide="graduation-cap"></i></span><b>Education</b><span>In India or abroad</span></a>
+      <a class="goal" href="loans/personal-loan.html"><span class="medal"><i data-lucide="heart-handshake"></i></span><b>Family &amp; weddings</b><span>Celebrate without worry</span></a>
+      <a class="goal" href="loans/business-loan.html"><span class="medal"><i data-lucide="trending-up"></i></span><b>Grow a business</b><span>Working capital &amp; more</span></a>
+      <a class="goal" href="loans/gold-loan.html"><span class="medal"><i data-lucide="shield-check"></i></span><b>Peace of mind</b><span>Funds for emergencies</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS BAND ============ -->
+<section class="band" id="how">
+  <div class="wrap two">
+    <div>
+      <div class="eyebrow">How it works</div>
+      <h2 class="h-sec green" style="margin:12px 0 16px">From &ldquo;maybe&rdquo; to money in three steps.</h2>
+      <p class="lead" style="color:var(--text-on-aqua-soft);max-width:460px">No paperwork to begin, no jargon. Just a clear answer and a fair rate &ndash; explained in plain language.</p>
+      <div class="hero-cta">
+        <button class="btn btn-filled btn-lg" data-apply data-quick-apply data-qb-flow="general">Apply now</button>
+        <a class="btn btn-outline btn-lg" href="tools/eligibility.html">Check eligibility</a>
+      </div>
+      <img class="mascot how-mascot" src="assets/setu/setu-thumbsup.svg" alt="" aria-hidden="true">
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-ic"><i data-lucide="smartphone"></i></div><div><b>1. Apply in 10 seconds</b><p>Answer a few simple questions. A soft check shows where you stand without touching your credit score.</p></div></div>
+      <div class="step"><div class="step-ic"><i data-lucide="badge-check"></i></div><div><b>2. Get a clear offer</b><p>An expert calls you with the amount, the EMI and the total payable &ndash; all in plain numbers.</p></div></div>
+      <div class="step"><div class="step-ic"><i data-lucide="banknote"></i></div><div><b>3. Money in your account</b><p>Accept the offer, complete a quick verification, and funds reach your bank &ndash; often within 24 hours.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY US ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head-mascot">
+      <img class="mascot shm-img" src="assets/setu/setu-reassure.svg" alt="" aria-hidden="true">
+      <div>
+        <div class="eyebrow">Why MyCashBridge</div>
+        <h2 class="h-sec" style="margin:10px 0 6px">Borrowing made simple and honest</h2>
+        <p class="lead" style="max-width:560px">We built MyCashBridge for everyday India &ndash; clear language, fair rates, and real human help when you need it. <em>Apply karo bina tension, paisa mile full transparency ke saath.</em></p>
+      </div>
+    </div>
+    <div class="why-grid">
+      <div class="why"><div class="why-ic"><i data-lucide="eye"></i></div><b>No hidden charges</b><p>You see the EMI, the interest and the total before you sign. What you see is what you pay.</p></div>
+      <div class="why"><div class="why-ic"><i data-lucide="zap"></i></div><b>Fast approvals</b><p>Apply in minutes and get a clear decision quickly &ndash; often with money the same day.</p></div>
+      <div class="why"><div class="why-ic"><i data-lucide="users"></i></div><b>Expert assistance</b><p>Real people who speak your language guide you end to end &ndash; on call or WhatsApp.</p></div>
+      <div class="why"><div class="why-ic"><i data-lucide="shield-check"></i></div><b>Safe &amp; confidential</b><p>Bank-grade 256-bit encryption. Your data is never sold and stays protected.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUSTED LENDING PARTNERS ============ -->
+<section class="partners" id="trustedPartners" data-partner-section>
+  <div class="wrap">
+    <div class="partners-head">
+      <div class="partners-copy">
+        <div class="eyebrow">Trusted lending partners</div>
+        <h2 class="h-sec" style="margin:10px 0 6px">Access India's leading Banks, NBFCs and Housing Finance Companies</h2>
+        <p class="lead" style="max-width:680px">One application, multiple lenders. We help you compare options across major institutions for home loans, LAP, business finance, working capital, credit cards and more.</p>
+      </div>
+      <div class="partners-switch" data-partner-tabs></div>
+    </div>
+    <div class="partner-grid" data-partner-grid></div>
+    <div class="partner-meta">
+      <span class="muted">Logos and trademarks are property of their respective owners.</span>
+      <a class="btn btn-outline btn-sm" href="tools/compare.html">Compare lender options</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOOLS ============ -->
+<section class="band">
+  <div class="wrap">
+    <div class="eyebrow">Free tools</div>
+    <h2 class="h-sec green" style="margin:10px 0 6px">Plan before you borrow</h2>
+    <p class="lead" style="color:var(--text-on-aqua-soft);max-width:560px">Smart, free tools to help you decide with confidence &ndash; no sign-up needed.</p>
+    <div class="tools-grid">
+      <a class="tool" href="tools/emi-calculator.html"><div class="tool-ic"><i data-lucide="calculator"></i></div><b>EMI Calculator</b><p>See your monthly payment and total cost for any amount and tenure.</p></a>
+      <a class="tool" href="tools/credit-score.html"><div class="tool-ic"><i data-lucide="gauge"></i></div><b>Free CIBIL Score</b><p>Check your credit score free &ndash; and learn how to improve it.</p></a>
+      <a class="tool" href="tools/eligibility.html"><div class="tool-ic"><i data-lucide="list-checks"></i></div><b>Eligibility Checker</b><p>Find out how much you could borrow in under 10 seconds.</p></a>
+      <a class="tool" href="tools/compare.html"><div class="tool-ic"><i data-lucide="scale"></i></div><b>Compare Loans</b><p>Compare indicative rates across our lending partners side by side.</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="section testi-section">
+  <div class="wrap">
+    <div class="testi-head">
+      <div class="eyebrow">SUCCESS STORIES</div>
+      <h2 class="h-sec" style="margin:10px 0 8px">40,000+ Happy <span style="color:var(--green-primary)">Customers</span></h2>
+      <p class="sub" style="margin:0 auto;max-width:520px">Real stories from real people who found their perfect loan through MyCashBridge.</p>
+      <div class="testi-head-rating">
+        <div class="testi-head-stars">
+          <svg viewBox="0 0 24 24" fill="#e6a000"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 18.7 6.1 21.8l1.2-6.6L2.5 9l6.6-.9z"/></svg>
+          <svg viewBox="0 0 24 24" fill="#e6a000"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 18.7 6.1 21.8l1.2-6.6L2.5 9l6.6-.9z"/></svg>
+          <svg viewBox="0 0 24 24" fill="#e6a000"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 18.7 6.1 21.8l1.2-6.6L2.5 9l6.6-.9z"/></svg>
+          <svg viewBox="0 0 24 24" fill="#e6a000"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 18.7 6.1 21.8l1.2-6.6L2.5 9l6.6-.9z"/></svg>
+          <svg viewBox="0 0 24 24" fill="#e6a000"><path d="M12 2l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 18.7 6.1 21.8l1.2-6.6L2.5 9l6.6-.9z"/></svg>
+        </div>
+        <span class="testi-head-score">4.8/5</span>
+        <span class="testi-head-reviews">(5,000+ reviews)</span>
+      </div>
+    </div>
+    <div class="testi-carousel-outer">
+      <div class="testi-track" id="testiTrack">
+        <div class="testi-card">
+          <div class="testi-qmark">&#x201C;</div>
+          <p class="testi-text">Was managing 4 different EMIs and it was a nightmare. MyCashBridge helped me consolidate everything into one loan with a lower overall EMI. Life is so much simpler now!</p>
+          <div class="testi-foot">
+            <div class="testi-who"><img class="testi-av" src="assets/reviews/rajesh-kumar.jpg" alt="Rajesh Kumar" loading="lazy"><div><div class="testi-name">Rajesh Kumar</div><div class="testi-meta">Chennai &middot; Debt Consolidation</div></div></div>
+            <div class="testi-right"><div class="testi-card-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2606;</div><span class="testi-amount">&#x20B9;12 Lakhs</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-qmark">&#x201C;</div>
+          <p class="testi-text">I was struggling to find a good personal loan rate. MyCashBridge matched me with a lender at 10.5% &mdash; much better than what my bank offered. The whole process took less than 48 hours!</p>
+          <div class="testi-foot">
+            <div class="testi-who"><img class="testi-av" src="assets/reviews/priya-mehta.jpg" alt="Priya Mehta" loading="lazy"><div><div class="testi-name">Priya Mehta</div><div class="testi-meta">Mumbai &middot; Personal Loan</div></div></div>
+            <div class="testi-right"><div class="testi-card-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div><span class="testi-amount">&#x20B9;8 Lakhs</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-qmark">&#x201C;</div>
+          <p class="testi-text">As a self-employed professional, I always struggled with loan approvals. MyCashBridge&#39;s credit analysis helped me understand my profile and I got approved within 3 days.</p>
+          <div class="testi-foot">
+            <div class="testi-who"><img class="testi-av" src="assets/reviews/suresh-reddy.jpg" alt="Suresh Reddy" loading="lazy"><div><div class="testi-name">Suresh Reddy</div><div class="testi-meta">Hyderabad &middot; Business Loan</div></div></div>
+            <div class="testi-right"><div class="testi-card-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div><span class="testi-amount">&#x20B9;25 Lakhs</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-qmark">&#x201C;</div>
+          <p class="testi-text">I needed money for my daughter&#39;s admission urgently. The team explained everything in Hindi, no confusion. Loan was approved the same day.</p>
+          <div class="testi-foot">
+            <div class="testi-who"><img class="testi-av" src="assets/reviews/sunita-patil.jpg" alt="Sunita Patil" loading="lazy"><div><div class="testi-name">Sunita Patil</div><div class="testi-meta">Nashik &middot; Education Loan</div></div></div>
+            <div class="testi-right"><div class="testi-card-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div><span class="testi-amount">&#x20B9;5 Lakhs</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-qmark">&#x201C;</div>
+          <p class="testi-text">No hidden charges, exactly the EMI they promised. As a shop owner I value straight talk &mdash; MyCashBridge gave me that.</p>
+          <div class="testi-foot">
+            <div class="testi-who"><img class="testi-av" src="assets/reviews/mohammed-rafiq.jpg" alt="Mohammed Rafiq" loading="lazy"><div><div class="testi-name">Mohammed Rafiq</div><div class="testi-meta">Hyderabad &middot; Business Loan</div></div></div>
+            <div class="testi-right"><div class="testi-card-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div><span class="testi-amount">&#x20B9;18 Lakhs</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-qmark">&#x201C;</div>
+          <p class="testi-text">Applied from my phone during lunch. Got a call back within the hour and the whole thing was done on WhatsApp. Very easy.</p>
+          <div class="testi-foot">
+            <div class="testi-who"><img class="testi-av" src="assets/reviews/anjali-kapoor.jpg" alt="Anjali Kapoor" loading="lazy"><div><div class="testi-name">Anjali Kapoor</div><div class="testi-meta">Delhi &middot; Personal Loan</div></div></div>
+            <div class="testi-right"><div class="testi-card-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2606;</div><span class="testi-amount">&#x20B9;6 Lakhs</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-nav-row">
+      <button class="testi-nav-btn" id="testiPrev" aria-label="Previous">&#8249;</button>
+      <div class="testi-dots" id="testiDots">
+        <button class="testi-dot active" aria-label="Slide 1"></button>
+        <button class="testi-dot" aria-label="Slide 2"></button>
+        <button class="testi-dot" aria-label="Slide 3"></button>
+        <button class="testi-dot" aria-label="Slide 4"></button>
+        <button class="testi-dot" aria-label="Slide 5"></button>
+        <button class="testi-dot" aria-label="Slide 6"></button>
+      </div>
+      <button class="testi-nav-btn" id="testiNext" aria-label="Next">&#8250;</button>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var outer = document.querySelector('.testi-carousel-outer');
+    var track = document.getElementById('testiTrack');
+    var dots = Array.prototype.slice.call(document.querySelectorAll('.testi-dot'));
+    var TOTAL = 6, GAP = 26;
+    var pos = 0, cardW = 0, visible = 3, MAX = TOTAL - visible;
+
+    function getVisible(){
+      var w = window.innerWidth;
+      return w <= 600 ? 1 : w <= 900 ? 2 : 3;
+    }
+
+    function resize(){
+      visible = getVisible();
+      MAX = TOTAL - visible;
+      if(pos > MAX) pos = MAX;
+      var outerW = outer.offsetWidth;
+      cardW = Math.floor((outerW - GAP * (visible - 1)) / visible);
+      Array.prototype.forEach.call(track.children, function(c){
+        c.style.width = cardW + 'px';
+        c.style.minWidth = cardW + 'px';
+      });
+      /* reposition instantly (no animation) */
+      track.style.transition = 'none';
+      track.style.transform = 'translateX(-' + (pos * (cardW + GAP)) + 'px)';
+      track.offsetHeight; /* force reflow */
+      track.style.transition = '';
+      setFeatured(pos);
+      /* update dots: show only relevant count */
+      dots.forEach(function(d,i){ d.style.display = i <= MAX ? '' : 'none'; });
+    }
+
+    function setFeatured(p){
+      Array.prototype.forEach.call(track.children, function(card, i){
+        card.classList.toggle('featured', visible === 3 ? i === p + 1 : i === p);
+      });
+    }
+
+    function goTo(p){
+      pos = Math.max(0, Math.min(p, MAX));
+      track.style.transform = 'translateX(-' + (pos * (cardW + GAP)) + 'px)';
+      dots.forEach(function(d,i){ d.classList.toggle('active', i === pos); });
+      setFeatured(pos);
+    }
+
+    document.getElementById('testiPrev').addEventListener('click', function(){ goTo(pos - 1); });
+    document.getElementById('testiNext').addEventListener('click', function(){ goTo(pos + 1); });
+    dots.forEach(function(d,i){ d.addEventListener('click', function(){ goTo(Math.min(i, MAX)); }); });
+
+    resize();
+    window.addEventListener('resize', resize);
+  })();
+  </script>
+</section>
+
+<!-- ============ DIRECTLY FROM THE FOUNDER ============ -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="founder">
+      <div class="f-content">
+        <div class="quote-mark">&ndash;</div>
+        <span class="f-kicker"><i data-lucide="badge-check" style="width:16px;height:16px"></i> Directly from the founder</span>
+        <h3>Borrowing should feel like having someone in your corner.</h3>
+        <p class="f-msg">I built MyCashBridge on a simple idea: getting a loan should feel like sitting across from someone who genuinely wants to help &ndash; not filling endless forms or decoding fine print. We bring you offers from trusted banks and NBFCs in one place, explain every number in plain language, and show you the full cost before you sign. Whether it's your first home, your child's education, or growing your business, we're here to help you get there with confidence. That's what <em>Aapke Sapno Ka Financial Saathi</em> truly means to us.</p>
+      </div>
+      <div class="f-portrait">
+        <img id="founder-photo" class="f-photo" src="assets/bosbantuimage.jpeg" alt="Vishal Bora, Founder MyCashBridge">
+        <div class="f-who">
+          <div class="f-name">Vishal Bora <a class="li" href="https://www.linkedin.com/in/vishal-bora-8681468/" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Vishal Bora on LinkedIn">in</a></div>
+          <div class="f-role">Founder, MyCashBridge</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA STRIP ============ -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-strip">
+      <img class="cta-mascot" src="assets/setu/setu-celebrate.svg" alt="" aria-hidden="true">
+      <h2>Ready when you are</h2>
+      <p>Check your eligibility in 10 seconds. No obligation, no impact on your credit score, no paperwork to begin.</p>
+      <p class="cta-hinglish">Apply karo bina tension, paisa mile full transparency ke saath.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-filled btn-lg" data-apply data-quick-apply data-qb-flow="general">Apply now</button>
+        <a class="btn btn-white btn-lg" href="tools/eligibility.html">Check eligibility</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div data-mount="footer"></div>
+
+<script src="assets/image-slot.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  // ---- products grid ----
+  (function () {
+    var loans = [
+      ["personal-loan","PERSONAL LOAN","wallet","Up to &#x20B9;40,00,000","For weddings, travel, medical or any plan. No collateral, money in 24 hours.","From 10.5% p.a."],
+      ["business-loan","BUSINESS LOAN","store","Up to &#x20B9;75,00,000","Stock up, hire, or expand. Flexible EMIs that move with your cash flow.","From 14.0% p.a."],
+      ["home-loan","HOME LOAN","home","Up to &#x20B9;5,00,00,000","Buy, build or transfer your home loan at a lower rate. Long, easy tenures.","From 8.5% p.a."],
+      ["gold-loan","GOLD LOAN","gem","Up to &#x20B9;50,00,000","Unlock the value of your gold at a low rate, with fully insured safekeeping.","From 9.0% p.a."],
+      ["car-loan","CAR LOAN","car","Up to &#x20B9;1,00,00,000","New or used car, up to 100% on-road funding with quick approval.","From 9.5% p.a."],
+      ["education-loan","EDUCATION LOAN","graduation-cap","Up to &#x20B9;1,50,00,000","Fund studies in India or abroad. Pay only interest while studying.","From 9.5% p.a."]
+    ];
+    var grid = document.getElementById("prodGrid");
+    grid.innerHTML = loans.map(function (l) {
+      return '<a class="prod" href="loans/' + l[0] + '.html">' +
+        '<div class="prod-ic"><i data-lucide="' + l[2] + '"></i></div>' +
+        '<div class="eyebrow">' + l[1] + '</div>' +
+        '<h3>' + l[3] + '</h3>' +
+        '<p>' + l[4] + '</p>' +
+        '<div class="prod-foot"><span class="rate">' + l[5] + '</span><span class="go">Check rate <i data-lucide="arrow-right"></i></span></div>' +
+        '</a>';
+    }).join("");
+    if (window.lucide) window.lucide.createIcons();
+  })();
+
+  // ---- hero switcher ----
+  (function () {
+    var KEY = "cb_hero_choice";
+    var choice = localStorage.getItem(KEY) || "A";
+    function apply(h) {
+      document.querySelectorAll(".hero-variant").forEach(function (s) { s.classList.toggle("on", s.getAttribute("data-hero") === h); });
+      document.querySelectorAll("#heroSwitch button").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-h") === h); });
+      localStorage.setItem(KEY, h);
+      if (window.lucide) window.lucide.createIcons();
+    }
+    document.querySelectorAll("#heroSwitch button").forEach(function (b) {
+      b.addEventListener("click", function () { apply(b.getAttribute("data-h")); });
+    });
+    apply(choice);
+  })();
+</script>
+</body>
+</html>
+

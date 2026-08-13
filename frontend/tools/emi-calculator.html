@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M3C5GZML');</script>
+<!-- End Google Tag Manager -->
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xf3xdstfeo");
+</script>
+<!-- End Microsoft Clarity -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VVJKM8TE6S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-VVJKM8TE6S');
+</script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2554292998349367');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2554292998349367&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EMI Calculator &ndash; MyCashBridge.com</title>
+<meta name="description" content="Free EMI calculator. See your monthly payment, total interest and total cost for any loan amount, rate and tenure. By MyCashBridge.com." />
+<link rel="icon" href="../assets/logo-cashbridge-mark.svg" />
+<link rel="stylesheet" href="../assets/site.css" />
+<script src="../assets/lucide.min.js"></script>
+<style>
+  .calc-grid { display:grid; grid-template-columns: 1.1fr .9fr; gap:32px; align-items:start; }
+  .calc-card { background:var(--white); border-radius:var(--radius-card); box-shadow:var(--shadow-card); padding:30px; }
+  .loan-type-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; }
+  .loan-type-tabs button { padding:6px 14px; border-radius:50px; border:1.5px solid var(--hairline); background:var(--white); font-size:13px; font-weight:600; color:var(--text-soft); cursor:pointer; transition:all .2s; }
+  .loan-type-tabs button.active { border-color:var(--green-primary); background:var(--green-primary); color:#fff; }
+  .ctrl { margin-bottom:26px; }
+  .ctrl-top { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; }
+  .ctrl-top label { font-size:14px; color:var(--text-soft); font-weight:600; }
+  .ctrl-val { font-size:24px; font-weight:700; color:var(--green-primary); letter-spacing:-.01em; }
+  .ctrl input[type=range] { width:100%; height:6px; border-radius:50px; accent-color:var(--green-accent); cursor:pointer; }
+  .ctrl .scale { display:flex; justify-content:space-between; font-size:12px; color:var(--text-soft); margin-top:6px; }
+  .seg.rate-seg .seg-opt { min-width:64px; }
+  .result { text-align:center; }
+  .donut { width:200px; height:200px; margin:0 auto 8px; border-radius:50%; position:relative; transition:background .3s ease; }
+  .donut::after { content:""; position:absolute; inset:26px; background:var(--white); border-radius:50%; }
+  .donut .mid { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:2; }
+  .donut .mid small { font-size:13px; color:var(--text-soft); font-weight:600; }
+  .donut .mid b { font-size:30px; color:var(--green-primary); font-weight:800; letter-spacing:-.02em; }
+  .leg { display:flex; gap:18px; justify-content:center; margin:14px 0 20px; font-size:13px; }
+  .leg span { display:inline-flex; align-items:center; gap:6px; color:var(--text-strong); font-weight:600; }
+  .leg i { width:12px; height:12px; border-radius:3px; display:inline-block; }
+  .rrow { display:flex; justify-content:space-between; padding:13px 0; border-bottom:1px solid var(--hairline); font-size:15px; }
+  .rrow b { color:var(--text-strong); }
+  .rrow:last-child { border-bottom:none; }
+  @media (max-width:980px){ .calc-grid{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3C5GZML"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div data-mount="nav" data-current="emi"></div>
+
+<section class="phead"><div class="wrap"><div class="phead-greet"><img src="../assets/setu/setu-hero.svg" alt="" aria-hidden="true"><span class="pg-label"><b>Namaste! I'm Setu</b>Your loan saathi &mdash; here to help</span></div><div class="crumb"><a href="../index.html">Home</a> <i data-lucide="chevron-right" style="width:14px;height:14px"></i> <span style="color:var(--text-strong)">EMI Calculator</span></div></div></section>
+
+<section class="section" style="padding-top:28px">
+  <div class="wrap">
+    <div class="eyebrow">Free tool</div>
+    <h1 class="h-sec" style="margin:10px 0 6px">EMI Calculator</h1>
+    <p class="lead" style="max-width:600px;margin-bottom:30px">Plan your loan with confidence. Move the sliders to see your monthly EMI, total interest, and total amount payable &ndash; instantly.</p>
+    <div class="calc-grid">
+      <div class="calc-card">
+        <div class="loan-type-tabs" id="loanTypeTabs">
+          <button class="active" data-loan="home" data-ten-max="360" data-ten-default="120" data-ten-label="30 years"><i data-lucide="home"></i> Home Loan</button>
+          <button data-loan="business" data-ten-max="180" data-ten-default="36" data-ten-label="15 years"><i data-lucide="store"></i> Business Loan</button>
+          <button data-loan="lap" data-ten-max="240" data-ten-default="120" data-ten-label="20 years"><i data-lucide="building-2"></i> Loan vs Property</button>
+          <button data-loan="car" data-ten-max="96" data-ten-default="60" data-ten-label="8 years"><i data-lucide="car"></i> Car Loan</button>
+          <button data-loan="education" data-ten-max="180" data-ten-default="60" data-ten-label="15 years"><i data-lucide="graduation-cap"></i> Education Loan</button>
+          <button data-loan="gold" data-ten-max="60" data-ten-default="12" data-ten-label="5 years"><i data-lucide="gem"></i> Gold Loan</button>
+          <button data-loan="personal" data-ten-max="84" data-ten-default="36" data-ten-label="7 years"><i data-lucide="wallet"></i> Personal Loan</button>
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-top"><label>Loan amount</label><span class="ctrl-val" id="oAmt">&#x20B9;10,00,000</span></div>
+          <input type="range" id="amt" min="50000" max="10000000" step="50000" value="1000000">
+          <div class="scale"><span>&#x20B9;50K</span><span>&#x20B9;1,00,00,000</span></div>
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-top"><label>Interest rate (p.a.)</label><span class="ctrl-val" id="oRate">10.5%</span></div>
+          <input type="range" id="rate" min="6" max="30" step="0.25" value="10.5">
+          <div class="scale"><span>6%</span><span>30%</span></div>
+        </div>
+        <div class="ctrl" style="margin-bottom:8px">
+          <div class="ctrl-top"><label>Tenure</label><span class="ctrl-val" id="oTen">5 years</span></div>
+          <input type="range" id="ten" min="6" max="360" step="6" value="120">
+          <div class="scale"><span>6 months</span><span id="tenMaxLabel">30 years</span></div>
+        </div>
+      </div>
+      <div class="calc-card result">
+        <div class="donut" id="donut"><div class="mid"><small>Your Easy Monthly Installment = </small><b id="oEmi">&#x20B9;21,494</b></div></div>
+        <div class="leg"><span><i style="background:var(--green-primary)"></i> Principal</span><span><i style="background:var(--brand-lime)"></i> Interest</span></div>
+        <div class="rrow"><span>Principal amount</span><b id="oPrin">&#x20B9;10,00,000</b></div>
+        <div class="rrow"><span>Total interest</span><b id="oInt">&#x20B9;2,89,640</b></div>
+        <div class="rrow"><span>Total payable</span><b id="oTot">&#x20B9;12,89,640</b></div>
+        <button class="btn btn-filled btn-block btn-lg" data-apply style="margin-top:18px"><i data-lucide="phone-call"></i> Apply at this EMI</button>
+        <p style="font-size:12px;color:var(--text-soft);margin:10px 0 0">Indicative only. Your actual rate is set after assessment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="eyebrow">Good to know</div>
+    <h2 class="h-sec green" style="margin:10px 0 22px">How EMI is calculated</h2>
+    <div class="why-grid">
+      <div class="why"><div class="why-ic"><i data-lucide="function-square"></i></div><b>The formula</b><p>EMI = P &ndash; r &ndash; (1+r)n &ndash; [(1+r)n - 1], where P is principal, r is monthly rate, and n is the number of months.</p></div>
+      <div class="why"><div class="why-ic"><i data-lucide="trending-down"></i></div><b>Lower rate, lower cost</b><p>Even a 1% lower rate can save you thousands over the loan. Compare offers before you sign.</p></div>
+      <div class="why"><div class="why-ic"><i data-lucide="calendar-clock"></i></div><b>Tenure trade-off</b><p>A longer tenure means a smaller EMI but more total interest. Pick a balance you're comfortable with.</p></div>
+      <div class="why"><div class="why-ic"><i data-lucide="wallet"></i></div><b>Keep EMIs affordable</b><p>As a rule of thumb, keep all your EMIs under 40&ndash;50% of your monthly income.</p></div>
+    </div>
+  </div>
+</section>
+
+<div data-mount="footer"></div>
+<script src="../assets/site.js"></script>
+<script>
+  (function(){
+    var amt=document.getElementById('amt'), rate=document.getElementById('rate'), ten=document.getElementById('ten');
+    var oAmt=document.getElementById('oAmt'), oRate=document.getElementById('oRate'), oTen=document.getElementById('oTen');
+    var oEmi=document.getElementById('oEmi'), oPrin=document.getElementById('oPrin'), oInt=document.getElementById('oInt'), oTot=document.getElementById('oTot');
+    var donut=document.getElementById('donut'), tenMaxLabel=document.getElementById('tenMaxLabel');
+    function inr(n){ return '\u20B9'+Math.round(n).toLocaleString('en-IN'); }
+    function yrs(m){ var y=Math.floor(m/12), mo=m%12; return (y?y+' yr'+(y>1?'s':''):'')+(y&&mo?' ':'')+(mo?mo+' mo':'') || '0'; }
+    function calc(){
+      var P=+amt.value, R=+rate.value, n=+ten.value, r=R/12/100;
+      var emi = r===0 ? P/n : P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+      var total=emi*n, interest=total-P;
+      oAmt.textContent=inr(P); oRate.textContent=R+'%'; oTen.textContent=yrs(n);
+      oEmi.textContent=inr(emi); oPrin.textContent=inr(P); oInt.textContent=inr(interest); oTot.textContent=inr(total);
+      var pPct = P/total*100;
+      donut.style.background='conic-gradient(var(--green-primary) 0 '+pPct+'%, var(--brand-lime) '+pPct+'% 100%)';
+    }
+    [amt,rate,ten].forEach(function(el){ el.addEventListener('input', calc); });
+
+    /* Loan type tabs */
+    var tabs = document.querySelectorAll('#loanTypeTabs button');
+    tabs.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        tabs.forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        var maxMonths = +btn.getAttribute('data-ten-max');
+        var defMonths = +btn.getAttribute('data-ten-default');
+        var label     = btn.getAttribute('data-ten-label');
+        ten.max = maxMonths;
+        ten.value = Math.min(+ten.value, maxMonths) || defMonths;
+        tenMaxLabel.textContent = label;
+        calc();
+      });
+    });
+
+    calc();
+  })();
+</script>
+</body>
+</html>
