@@ -1,4 +1,4 @@
-﻿"use strict";
+"use strict";
 
 /*
   MyCashBridge — Main Server
@@ -81,13 +81,13 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc:      ["'self'"],
-      scriptSrc:       ["'self'", "'unsafe-inline'", "https://www.googletagmanager.com", "https://www.google-analytics.com", "https://ssl.google-analytics.com", "https://googleads.g.doubleclick.net", "https://www.googleadservices.com", "https://pagead2.googlesyndication.com"],
+      scriptSrc:       ["'self'", "'unsafe-inline'", "https://www.googletagmanager.com", "https://www.google-analytics.com", "https://ssl.google-analytics.com", "https://googleads.g.doubleclick.net", "https://www.googleadservices.com", "https://pagead2.googlesyndication.com", "https://connect.facebook.net"],
       // Issue #1 Fix: allow Google Fonts stylesheet (loaded by colors_and_type.css @import)
       styleSrc:        ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
       // Issue #1 Fix: allow Google Fonts webfont files (served from fonts.gstatic.com)
       fontSrc:         ["'self'", "https://fonts.gstatic.com"],
-      imgSrc:          ["'self'", "data:", "blob:", "https://www.googletagmanager.com", "https://www.google-analytics.com", "https://ssl.google-analytics.com", "https://www.google.com", "https://www.google.co.in", "https://googleads.g.doubleclick.net", "https://www.googleadservices.com", "https://td.doubleclick.net", "https://pagead2.googlesyndication.com"],
-      connectSrc:      ["'self'", "https://www.google-analytics.com", "https://analytics.google.com", "https://stats.g.doubleclick.net", "https://region1.google-analytics.com", "https://www.googletagmanager.com", "https://googleads.g.doubleclick.net", "https://ad.doubleclick.net", "https://www.googleadservices.com", "https://td.doubleclick.net", "https://www.google.com", "https://www.google.co.in"],
+      imgSrc:          ["'self'", "data:", "blob:", "https://www.googletagmanager.com", "https://www.google-analytics.com", "https://ssl.google-analytics.com", "https://www.google.com", "https://www.google.co.in", "https://googleads.g.doubleclick.net", "https://www.googleadservices.com", "https://td.doubleclick.net", "https://pagead2.googlesyndication.com", "https://www.facebook.com"],
+      connectSrc:      ["'self'", "https://www.google-analytics.com", "https://analytics.google.com", "https://stats.g.doubleclick.net", "https://region1.google-analytics.com", "https://www.googletagmanager.com", "https://googleads.g.doubleclick.net", "https://ad.doubleclick.net", "https://www.googleadservices.com", "https://td.doubleclick.net", "https://www.google.com", "https://www.google.co.in", "https://www.facebook.com"],
       objectSrc:       ["'none'"],
       // GTM noscript fallback + DoubleClick conversion tracking use iframes
       frameSrc:        ["https://www.googletagmanager.com", "https://td.doubleclick.net", "https://googleads.g.doubleclick.net"],
@@ -188,7 +188,13 @@ connect()
     });
   })
   .catch(err => {
-    console.error("[server] DB connection failed:", err.message);
-    process.exit(1);
+    console.warn("[server] DB connection failed:", err.message);
+    console.warn("[server] Starting HTTP server for static frontend anyway...");
+    app.listen(PORT, () => {
+      console.log(`\n  ╔══════════════════════════════════╗`);
+      console.log(`  ║  MyCashBridge server running      ║`);
+      console.log(`  ║  http://localhost:${PORT} (offline DB)  ║`);
+      console.log(`  ╚══════════════════════════════════╝\n`);
+    });
   });
 
