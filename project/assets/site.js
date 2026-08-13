@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    CASH BRIDGE — shared site behaviour (v2)
    Nav with product dropdowns · EN/HI language engine ·
    working cookie consent (blocks non-essential cookies) ·
@@ -572,6 +572,9 @@
         monthly_income: data.get("income") || "", employment: data.get("employment") || "", pan: data.get("pan") || "—",
         consent: data.get("consent") ? "Yes" : "No", source_page: location.pathname, submitted_at: new Date().toLocaleString("en-IN") };
       fetch("https://formsubmit.co/ajax/" + encodeURIComponent(CFG.leadEmail), { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(payload) }).catch(function () {});
+      if (typeof window.fbq === 'function') {
+        try { window.fbq('track', 'Lead', { content_name: loan || 'general_lead', currency: 'INR' }); } catch(e) {}
+      }
     } catch (e) {}
   }
   function handleSubmit(e) {
