@@ -25,23 +25,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   gtag('js', new Date());
   gtag('config', 'G-VVJKM8TE6S');
 </script>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '2554292998349367');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=2554292998349367&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Your Rights &ndash; Data Principal Rights under the DPDP Act, 2023 &ndash; MyCashBridge</title>
@@ -123,7 +106,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="../assets/site.js"></script>
 <script>
 /*
- * Phase 3 + Phase 4 ï¿½ DSR Form Handler
+ * Phase 3 + Phase 4 — DSR Form Handler
  * Replaced formsubmit.co with first-party /api/dsr/create endpoint.
  * All rights requests are now tracked in MongoDB with ticket IDs,
  * audit trails, and acknowledgement emails per DPDP Act 2023 s.11.
@@ -144,7 +127,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
 
     var submitBtn = form.querySelector('button[type=submit]');
-    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submittingï¿½'; }
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
 
     var payload = {
       name:         form.name.value.trim(),
