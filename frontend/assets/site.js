@@ -575,7 +575,7 @@
      ============================================================ */
   function dropItems(arr, folder) {
     return arr.map(function (l) {
-      var href = folder === "tools" ? (BASE + l[0] + ".html") : (BASE + folder + "/" + l[0] + ".html");
+      var href = folder === "tools" ? (BASE + l[0] + ".html") : (BASE + folder + "/" + l[0] + ".html" + (folder === "loans" ? "?apply=1" : ""));
       return '<a href="' + href + '"><span class="ic"><i data-lucide="' + l[2] + '"></i></span><span>' + l[1] + '</span></a>';
     }).join("");
   }
@@ -607,7 +607,7 @@
 
   function drawerAcc(title, items, folder) {
     var links = items.map(function (l) {
-      var href = folder === "tools" ? (BASE + l[0] + ".html") : (BASE + folder + "/" + l[0] + ".html");
+      var href = folder === "tools" ? (BASE + l[0] + ".html") : (BASE + folder + "/" + l[0] + ".html" + (folder === "loans" ? "?apply=1" : ""));
       return '<a href="' + href + '">' + l[1] + '</a>';
     }).join("");
     return '<div class="drawer-group drawer-acc"><div class="drawer-acc-head" data-acc>' + title + ' <i data-lucide="chevron-down" class="chev"></i></div><div class="drawer-acc-body">' + links + '</div></div>';
@@ -859,7 +859,18 @@
      * Marketing consent (optional): promotional communications.
      * Two separate checkboxes as required by Section 6(1)(a).
      */
+    var isBiz = (loanLabel === "Business Loan");
+    var bizNotice = isBiz ? (
+      '<div class="biz-elig-box">' +
+        '<div class="biz-elig-box-title">⚠️ Business Loan Eligibility Criteria</div>' +
+        '<ul>' +
+          '<li>Only loans <strong>above \u20B930 Lakhs (\u20B930,00,000+)</strong> are eligible.</li>' +
+          '<li>Applicant <strong>must NOT be retired</strong> (Active business owners &amp; self-employed only).</li>' +
+        '</ul>' +
+      '</div>'
+    ) : '';
     return '<form class="lead-form" data-loan="' + (loanLabel || "") + '" novalidate>' +
+      bizNotice +
       '<div class="dpdp-notice" style="background:#f0faf4;border:1px solid #c3e6cb;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#155724;display:flex;gap:8px;align-items:flex-start">' +
         '<span style="flex-shrink:0;font-size:14px">&#x2139;&#xFE0F;</span>' +
         '<span><strong>Why we ask:</strong> Your details are shared with partner banks &amp; NBFCs to process your loan enquiry. See our <a href="' + BASE + 'pages/privacy-policy.html" style="color:#0a5e3a;text-decoration:underline">Privacy Policy</a> and <a href="' + BASE + 'pages/user-rights.html" style="color:#0a5e3a;text-decoration:underline">Your Rights (DPDP Act 2023)</a>.</span>' +
@@ -878,7 +889,7 @@
       /* Optional marketing consent — separate checkbox per DPDP s.6(1)(a) */
       '<div class="field full" style="margin-top:-4px"><div class="consent"><input type="checkbox" name="mkt_consent" id="' + ctx + '-mkt"><label for="' + ctx + '-mkt" style="font-size:12px;color:var(--text-soft)">I also consent to receive promotional communications about other financial products from ' + CFG.brand + ' and its partners. <em>(Optional)</em></label></div></div>' +
       '</div><button class="btn btn-filled btn-block btn-lg" type="submit" style="margin-top:18px"><span class="btn-label"><i data-lucide="shield-check"></i> Get a call back</span></button>' +
-      '<p style="text-align:center;font-size:12px;color:var(--text-soft);margin:12px 0 0">By continuing you agree it won\'t affect your credit score. We never charge a fee to apply.</p></form>';
+      '<p style="text-align:center;font-size:12px;color:var(--text-soft);margin:12px 0 0">Only applicants aged 21 and above are eligible to apply.' + (isBiz ? ' <strong>Business Loan:</strong> Above \u20B930 Lakhs only &amp; non-retired.' : '') + ' Won\'t affect your credit score. We never charge a fee to apply.</p></form>';
   }
   window.cbFormFields = formFieldsHTML;
   function thanksHTML() {
@@ -1123,7 +1134,7 @@
       if (t2.closest("[data-apply]") && !t2.closest("[data-quick-apply]")) {
         e.preventDefault();
         var applyBtn = t2.closest("[data-apply]");
-        var loanLabel = applyBtn.getAttribute("data-apply-loan") || "";
+        var loanLabel = applyBtn.getAttribute("data-apply-loan") || detectPageLoan() || "";
         /* Route to new 7-step QB popup. Falls back to old modal only on
            tool/guide/legal pages where the popup is intentionally blocked. */
         openQbPopup("loan", null, loanLabel || null);
@@ -1449,12 +1460,27 @@
 
   var _qbData = {}, _qbStep = 0, _qbFlow = "general", _qbFixedType = null, _qbLoadingTimer = null;
 
-  /* Collect UTM params from URL for lead attribution */
+  /* Detect specific loan product from page URL or embedded form */
+  function detectPageLoan() {
+    var p = (location.pathname || "").toLowerCase();
+    if (/personal-loan|\/pl(\.html)?$/.test(p)) return "Personal Loan";
+    if (/business-loan|\/bl(\.html)?$/.test(p)) return "Business Loan";
+    if (/home-loan|\/hl(\.html)?$/.test(p)) return "Home Loan";
+    if (/loan-against-property|\/lap(\.html)?$/.test(p)) return "Loan Against Property";
+    if (/car-loan|\/cl(\.html)?$/.test(p)) return "Car Loan";
+    if (/education-loan|\/el(\.html)?$/.test(p)) return "Education Loan";
+    if (/gold-loan|\/gl(\.html)?$/.test(p)) return "Gold Loan";
+    var lf = document.querySelector(".lead-form[data-loan]");
+    if (lf) return lf.getAttribute("data-loan");
+    return null;
+  }
+
+  /* Collect UTM and Google Ads click params from URL for lead attribution */
   function getUtm() {
     var p = new URLSearchParams(location.search);
     var r = {};
-    ["utm_source","utm_medium","utm_campaign","utm_content","utm_term"].forEach(function(k){
-      var v = p.get(k); if (v) r[k] = v.slice(0, 100);
+    ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","gclid","gad_source"].forEach(function(k){
+      var v = p.get(k); if (v) r[k] = v.slice(0, 150);
     });
     return r;
   }
@@ -1531,17 +1557,40 @@
   }
 
   function qbSliderHTML(step) {
-    var def = step.default || step.min;
-    return '<div class="qb-slider-wrap">' +
+    var isBiz = (_qbData.loan_type === "Business Loan");
+    var min = isBiz ? 3000000 : step.min;
+    var max = isBiz ? Math.max(step.max, 7500000) : step.max;
+    var stepVal = isBiz ? 100000 : step.step;
+    var def = isBiz ? 3000000 : (step.default || step.min);
+    var bizAlert = isBiz ? (
+      '<div class="qb-biz-alert">' +
+        '<div class="qb-biz-alert-title">⚠️ Business Loan Eligibility</div>' +
+        '<ul>' +
+          '<li>Eligible loan amount: <strong>Above \u20B930 Lakhs (\u20B930,00,000+)</strong>.</li>' +
+          '<li>Applicant <strong>must NOT be retired</strong> (Active business only).</li>' +
+        '</ul>' +
+      '</div>'
+    ) : '';
+    return bizAlert + '<div class="qb-slider-wrap">' +
       '<div class="qb-slider-val" id="qb_slider_out">' + step.format(def) + '</div>' +
-      '<input type="range" class="qb-range" id="qb_slider" min="' + step.min + '" max="' + step.max + '" step="' + step.step + '" value="' + def + '" data-qb-slider data-field="' + step.field + '">' +
-      '<div class="qb-slider-labels"><span>' + step.format(step.min) + '</span><span>' + step.format(step.max) + '</span></div>' +
+      '<input type="range" class="qb-range" id="qb_slider" min="' + min + '" max="' + max + '" step="' + stepVal + '" value="' + def + '" data-qb-slider data-field="' + step.field + '">' +
+      '<div class="qb-slider-labels"><span>' + step.format(min) + '</span><span>' + step.format(max) + '</span></div>' +
       '</div>';
   }
 
   function qbFormHTML(step) {
+    var isBiz = (_qbData.loan_type === "Business Loan");
     var f = step.fields || [];
     var html = '<div class="qb-form-inner">';
+    if (isBiz) {
+      html += '<div class="qb-biz-alert">' +
+        '<div class="qb-biz-alert-title">⚠️ Business Loan Eligibility Criteria</div>' +
+        '<ul>' +
+          '<li>Only loans <strong>above \u20B930 Lakhs (\u20B930,00,000+)</strong> are eligible.</li>' +
+          '<li>Applicant <strong>must NOT be retired</strong> (Active business owner / self-employed only).</li>' +
+        '</ul>' +
+      '</div>';
+    }
     /* Honeypot: hidden from real users via CSS, bots fill it — server drops submission */
     html += '<div class="hp-field" aria-hidden="true"><input name="_hp" type="text" tabindex="-1" autocomplete="off"></div>';
     if (f.indexOf("name") > -1) html += '<div class="field full"><label>Full name</label><input name="qb_name" type="text" placeholder="e.g. Rohan Sharma" autocomplete="name"><span class="err">Please enter your name</span></div>';
@@ -1875,6 +1924,13 @@
       });
       _qbData[slider.getAttribute("data-field")] = slider.value;
     }
+    // toggle dynamic Business Loan disclaimer
+    var bizNoticeEl = box.querySelector("#qbBizNotice");
+    if (bizNoticeEl) {
+      var isBiz = (_qbData.loan_type === "Business Loan" || _qbFixedType === "Business Loan");
+      bizNoticeEl.style.display = isBiz ? "block" : "none";
+    }
+
     applyLang();
     relucide();
   }
@@ -1986,13 +2042,14 @@
     _qbFlow = flow || "general";
     _qbData = {};
     _qbStep = 0;
-    if (fixedType) {
+    var resolvedType = fixedType || (_qbFlow === "loan" ? detectPageLoan() : null);
+    if (resolvedType) {
       var f = QB_STEPS[_qbFlow] || QB_STEPS.general;
       if (f[0] && f[0].type === "tiles") {
-        _qbData[f[0].field] = fixedType;
+        _qbData[f[0].field] = resolvedType;
         _qbStep = 1;
       } else {
-        _qbData.loan_type = fixedType;
+        _qbData.loan_type = resolvedType;
       }
     }
     var box = document.getElementById("qbPopup"); if (!box) return;
@@ -2001,9 +2058,8 @@
     var nb = box.querySelector(".qb-next"); if (nb) nb.disabled = false;
     box.classList.add("open");
     document.body.style.overflow = "hidden";
-    var isHome = /index\.html/.test(p) || p === '/' || p.endsWith('/');
     var closeBtn = box.querySelector('#qbClose');
-    if (closeBtn) closeBtn.style.display = isHome ? 'flex' : 'none';
+    if (closeBtn) closeBtn.style.display = 'flex';
     qbRenderStep();
   }
   window.cbOpenQuick = openQbPopup;
@@ -2031,6 +2087,17 @@
           '<div class="qb-actions">' +
             '<button class="btn btn-ghost btn-sm qb-back" id="qbBack" style="display:none"><i data-lucide="arrow-left"></i> Back</button>' +
             '<button class="btn btn-filled qb-next" id="qbNext">Next <i data-lucide="arrow-right"></i></button>' +
+          '</div>' +
+          '<div class="qb-age-notice">' +
+            '<span class="qb-age-badge-tag">Eligibility</span>' +
+            '<span>Applicants must be <strong>21 years of age or older</strong> to apply for our services.</span>' +
+          '</div>' +
+          '<div class="qb-biz-alert" id="qbBizNotice" style="display:none;margin-top:10px;margin-bottom:0;">' +
+            '<div class="qb-biz-alert-title">⚠️ Business Loan Eligibility Criteria</div>' +
+            '<ul>' +
+              '<li>Eligible loan amount: <strong>Above \u20B930 Lakhs (\u20B930,00,000+)</strong> only.</li>' +
+              '<li>Applicant <strong>must NOT be retired</strong> (Active business / self-employed only).</li>' +
+            '</ul>' +
           '</div>' +
           '<p class="qb-disclaimer">By continuing you agree that it won\'t affect your credit score. We never charge a fee to apply. <a href="' + BASE + 'pages/privacy-policy.html">Privacy Policy</a></p>' +
         '</div>' +
@@ -2298,7 +2365,7 @@
       if (qa) {
         e.preventDefault();
         var f = qa.getAttribute("data-qb-flow") || "general";
-        var t = qa.getAttribute("data-qb-type") || qa.getAttribute("data-apply-loan") || null;
+        var t = qa.getAttribute("data-qb-type") || qa.getAttribute("data-apply-loan") || (f === "loan" ? detectPageLoan() : null);
         openQbPopup(f, null, t);
         closeDrawer();
         return;
@@ -2353,16 +2420,25 @@
     initTrustNudge();
     /* Phase 3: drain queued leads from previous failed submissions */
     try { drainLeadRetryQueue(); } catch (e) {}
-    // Redirect to home on page refresh from any service page
-    try {
-      var _navEntry = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
-      if (_navEntry && _navEntry.type === "reload" && /\/(loans|pages|tools|guides)\//.test(location.pathname)) {
-        location.replace("../index.html");
-        return;
+    // Auto-open form on loan pages and Google Ads landing pages
+    var pageLoan = detectPageLoan();
+    var isLoan = /\/loans\//.test(location.pathname) || !!pageLoan;
+    var searchParams = new URLSearchParams(location.search);
+    var hasApplyFlag = searchParams.get("apply") === "1" || searchParams.get("form") === "1" || location.hash === "#apply";
+    var hasAdParams = searchParams.has("gclid") || searchParams.has("gad_source") || (searchParams.get("utm_source") || "").toLowerCase().indexOf("google") !== -1;
+
+    if (isLoan) {
+      // If user came via Google Ads, or clicked a link with ?apply=1 / #apply, open immediately!
+      if (hasApplyFlag || hasAdParams) {
+        setTimeout(function(){ openQbPopup("loan", null, pageLoan); }, 300);
+      } else {
+        // Standard loan page visit: open QB popup preselected with the specific loan after brief delay (if not already submitted)
+        var _popupCat = getServiceCategory();
+        if (_popupCat && !localStorage.getItem("cb_popup_done_" + _popupCat)) {
+          setTimeout(function(){ openQbPopup("loan", null, pageLoan); }, 1500);
+        }
       }
-    } catch(e) {}
-    // Auto-open QB popup on service pages — per service category, skipped if form already submitted for this category
-    if (/\/(loans|pages|tools|guides)\//.test(location.pathname)) {
+    } else if (/\/(pages|tools|guides)\//.test(location.pathname)) {
       var _popupCat = getServiceCategory();
       if (_popupCat && !localStorage.getItem("cb_popup_done_" + _popupCat)) {
         setTimeout(function(){ openQbPopup("loan"); }, 2000);

@@ -95,6 +95,8 @@ function validateLead(req, res, next) {
     utm_source:   sanitize(req.body.utm_source,  100),
     utm_medium:   sanitize(req.body.utm_medium,  100),
     utm_campaign: sanitize(req.body.utm_campaign, 100),
+    gclid:        sanitize(req.body.gclid, 150),
+    gad_source:   sanitize(req.body.gad_source, 50),
 
     // ── DPDP Act 2023 Phase 1: Consent Evidence Fields ─────────────────
     // Extract client-provided consent metadata for server-side storage.

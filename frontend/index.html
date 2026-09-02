@@ -233,13 +233,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="hero-tagline" style="justify-content:center">Aapke Sapno Ka Financial Saathi</div>
     <p class="sub" style="margin:18px auto 0;max-width:560px;text-align:center">Compare what you'd pay across loan types, check your EMI, and apply &ndash; all with a clear total before you commit. Pick where to start:</p>
     <div class="pick">
-      <a href="loans/personal-loan.html"><i data-lucide="wallet"></i><span>Personal</span></a>
-      <a href="loans/business-loan.html"><i data-lucide="store"></i><span>Business</span></a>
-      <a href="loans/home-loan.html"><i data-lucide="home"></i><span>Home</span></a>
-      <a href="loans/gold-loan.html"><i data-lucide="gem"></i><span>Gold</span></a>
-      <a href="loans/car-loan.html"><i data-lucide="car"></i><span>Car</span></a>
-      <a href="loans/education-loan.html"><i data-lucide="graduation-cap"></i><span>Education</span></a>
-      <a href="loans/loan-against-property.html"><i data-lucide="building-2"></i><span>Against Property</span></a>
+      <a href="loans/personal-loan.html?apply=1"><i data-lucide="wallet"></i><span>Personal</span></a>
+      <a href="loans/business-loan.html?apply=1"><i data-lucide="store"></i><span>Business</span></a>
+      <a href="loans/home-loan.html?apply=1"><i data-lucide="home"></i><span>Home</span></a>
+      <a href="loans/gold-loan.html?apply=1"><i data-lucide="gem"></i><span>Gold</span></a>
+      <a href="loans/car-loan.html?apply=1"><i data-lucide="car"></i><span>Car</span></a>
+      <a href="loans/education-loan.html?apply=1"><i data-lucide="graduation-cap"></i><span>Education</span></a>
+      <a href="loans/loan-against-property.html?apply=1"><i data-lucide="building-2"></i><span>Against Property</span></a>
       <a href="tools/compare.html"><i data-lucide="scale"></i><span>Compare all</span></a>
     </div>
     <div class="hero-cta" style="justify-content:center;margin-top:28px">
@@ -332,11 +332,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="lead" style="max-width:560px;margin:0 auto">From your first home to your child's degree &ndash; we help you fund the moments that matter, responsibly.</p>
     </div>
     <div class="goals">
-      <a class="goal" href="loans/home-loan.html"><span class="medal"><i data-lucide="home"></i></span><b>Your own home</b><span>Buy, build or transfer</span></a>
-      <a class="goal" href="loans/education-loan.html"><span class="medal"><i data-lucide="graduation-cap"></i></span><b>Education</b><span>In India or abroad</span></a>
-      <a class="goal" href="loans/personal-loan.html"><span class="medal"><i data-lucide="heart-handshake"></i></span><b>Family &amp; weddings</b><span>Celebrate without worry</span></a>
-      <a class="goal" href="loans/business-loan.html"><span class="medal"><i data-lucide="trending-up"></i></span><b>Grow a business</b><span>Working capital &amp; more</span></a>
-      <a class="goal" href="loans/gold-loan.html"><span class="medal"><i data-lucide="shield-check"></i></span><b>Peace of mind</b><span>Funds for emergencies</span></a>
+      <a class="goal" href="loans/home-loan.html?apply=1"><span class="medal"><i data-lucide="home"></i></span><b>Your own home</b><span>Buy, build or transfer</span></a>
+      <a class="goal" href="loans/education-loan.html?apply=1"><span class="medal"><i data-lucide="graduation-cap"></i></span><b>Education</b><span>In India or abroad</span></a>
+      <a class="goal" href="loans/personal-loan.html?apply=1"><span class="medal"><i data-lucide="heart-handshake"></i></span><b>Family &amp; weddings</b><span>Celebrate without worry</span></a>
+      <a class="goal" href="loans/business-loan.html?apply=1"><span class="medal"><i data-lucide="trending-up"></i></span><b>Grow a business</b><span>Working capital &amp; more</span></a>
+      <a class="goal" href="loans/gold-loan.html?apply=1"><span class="medal"><i data-lucide="shield-check"></i></span><b>Peace of mind</b><span>Funds for emergencies</span></a>
     </div>
   </div>
 </section>
@@ -610,7 +610,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     ];
     var grid = document.getElementById("prodGrid");
     grid.innerHTML = loans.map(function (l) {
-      return '<a class="prod" href="loans/' + l[0] + '.html">' +
+      return '<a class="prod" href="loans/' + l[0] + '.html?apply=1">' +
         '<div class="prod-ic"><i data-lucide="' + l[2] + '"></i></div>' +
         '<div class="eyebrow">' + l[1] + '</div>' +
         '<h3>' + l[3] + '</h3>' +

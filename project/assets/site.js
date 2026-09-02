@@ -503,16 +503,28 @@
       '</div></div>';
   }
   function formFieldsHTML(ctx, loanLabel) {
-    return '<form class="lead-form" data-loan="' + (loanLabel || "") + '" novalidate><div class="form-grid">' +
+    var isBiz = (loanLabel === "Business Loan");
+    var bizNotice = isBiz ? (
+      '<div class="biz-elig-box">' +
+        '<div class="biz-elig-box-title">⚠️ Business Loan Eligibility Criteria</div>' +
+        '<ul>' +
+          '<li>Only loans <strong>above \u20B930 Lakhs (\u20B930,00,000+)</strong> are eligible.</li>' +
+          '<li>Applicant <strong>must NOT be retired</strong> (Active business owners &amp; self-employed only).</li>' +
+        '</ul>' +
+      '</div>'
+    ) : '';
+    return '<form class="lead-form" data-loan="' + (loanLabel || "") + '" novalidate>' +
+      bizNotice +
+      '<div class="form-grid">' +
       '<div class="field full"><label>Full name</label><input name="name" type="text" placeholder="e.g. Rohan Sharma" autocomplete="name"><span class="err">Please enter your name</span></div>' +
       '<div class="field"><label>Mobile number</label><div class="tel-wrap"><span class="cc">+91</span><input name="mobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile" autocomplete="tel-national"></div><span class="err">Enter a valid 10-digit mobile</span></div>' +
       '<div class="field"><label>City</label><input name="city" type="text" placeholder="e.g. Pune"><span class="err">Please enter your city</span></div>' +
-      '<div class="field"><label>Monthly income</label><select name="income"><option value="">Select range</option><option>Below ₹25,000</option><option>₹25,000 – ₹50,000</option><option>₹50,000 – ₹1,00,000</option><option>Above ₹1,00,000</option></select><span class="err">Select your income range</span></div>' +
+      '<div class="field"><label>Monthly income</label><select name="income"><option value="">Select range</option><option>Below \u20B925,000</option><option>\u20B925,000 \u2013 \u20B950,000</option><option>\u20B950,000 \u2013 \u20B91,00,000</option><option>Above \u20B91,00,000</option></select><span class="err">Select your income range</span></div>' +
       '<div class="field"><label>Employment type</label><div class="seg" data-seg="employment"><div class="seg-opt" data-val="Salaried">Salaried</div><div class="seg-opt" data-val="Self-employed">Self-employed</div><div class="seg-opt" data-val="Business owner">Business</div><input type="hidden" name="employment"></div><span class="err">Select one</span></div>' +
       '<div class="field full"><label>PAN <span class="opt">(optional)</span></label><input name="pan" type="text" maxlength="10" placeholder="ABCDE1234F" style="text-transform:uppercase"></div>' +
-      '<div class="field full"><div class="consent"><input type="checkbox" name="consent" id="' + ctx + '-consent"><label for="' + ctx + '-consent">I authorise ' + CFG.brand + ' and its partner banks/NBFCs to contact me regarding my enquiry via call, SMS, email or WhatsApp, and I accept the Terms & Privacy Policy. This overrides my DND/NDNC registration.</label></div><span class="err">Please accept to continue</span></div>' +
+      '<div class="field full"><div class="consent"><input type="checkbox" name="consent" id="' + ctx + '-consent"><label for="' + ctx + '-consent">I authorise ' + CFG.brand + ' and its partner banks/NBFCs to contact me regarding my enquiry via call, SMS, email or WhatsApp, and I accept the Terms &amp; Privacy Policy. This overrides my DND/NDNC registration.</label></div><span class="err">Please accept to continue</span></div>' +
       '</div><button class="btn btn-filled btn-block btn-lg" type="submit" style="margin-top:18px"><span class="btn-label"><i data-lucide="shield-check"></i> Get a call back</span></button>' +
-      '<p style="text-align:center;font-size:12px;color:var(--text-soft);margin:12px 0 0">By continuing you agree it won\'t affect your credit score. We never charge a fee to apply.</p></form>';
+      '<p style="text-align:center;font-size:12px;color:var(--text-soft);margin:12px 0 0">Only applicants aged 21 and above are eligible to apply.' + (isBiz ? ' <strong>Business Loan:</strong> Above \u20B930 Lakhs only &amp; non-retired.' : '') + ' Won\'t affect your credit score. We never charge a fee to apply.</p></form>';
   }
   window.cbFormFields = formFieldsHTML;
   function thanksHTML() {
@@ -1046,6 +1058,10 @@
           '<div class="qb-actions">' +
             '<button class="btn btn-ghost btn-sm qb-back" id="qbBack" style="display:none"><i data-lucide="arrow-left"></i> Back</button>' +
             '<button class="btn btn-filled qb-next" id="qbNext">Next <i data-lucide="arrow-right"></i></button>' +
+          '</div>' +
+          '<div class="qb-age-notice">' +
+            '<span class="qb-age-badge-tag">Eligibility</span>' +
+            '<span>Applicants must be <strong>21 years of age or older</strong> to apply for our services.</span>' +
           '</div>' +
           '<p class="qb-disclaimer">By continuing you agree that it won\'t affect your credit score. We never charge a fee to apply. <a href="' + BASE + 'pages/privacy-policy.html">Privacy Policy</a></p>' +
         '</div>' +

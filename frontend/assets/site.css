@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    CASH BRIDGE — shared site styles
    Built on the Mera Loan design language (warm cream canvas,
    lime CTAs, deep-green text, aqua bands, full-pill buttons).
@@ -1284,8 +1284,75 @@ input.qb-range {
 }
 .qb-actions .btn { min-width: 100px; }
 
-/* Disclaimer line */
-.qb-disclaimer { font-size: 11px; color: #aaa; margin-top: 14px; line-height: 1.6; }
+/* Disclaimer line & Age Highlight */
+.qb-age-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-left: 4px solid #16a34a;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-top: 14px;
+  font-size: 12px;
+  color: #166534;
+  line-height: 1.4;
+}
+.qb-age-notice strong {
+  color: #14532d;
+  font-weight: 700;
+}
+.qb-age-badge-tag {
+  background: #16a34a;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Business Loan Eligibility Alert */
+.qb-biz-alert, .biz-elig-box {
+  background: #fffbeb;
+  border: 1.5px solid #fcd34d;
+  border-left: 5px solid #d97706;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  color: #78350f;
+  line-height: 1.5;
+  box-shadow: 0 1px 3px rgba(217, 119, 6, 0.1);
+  text-align: left;
+}
+.qb-biz-alert-title, .biz-elig-box-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #92400e;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.qb-biz-alert ul, .biz-elig-box ul {
+  margin: 4px 0 0 18px;
+  padding: 0;
+  font-size: 12px;
+}
+.qb-biz-alert li, .biz-elig-box li {
+  margin-bottom: 3px;
+}
+.qb-biz-alert strong, .biz-elig-box strong {
+  color: #451a03;
+  font-weight: 700;
+}
+
+.qb-disclaimer { font-size: 11px; color: #718096; margin-top: 8px; line-height: 1.5; }
 .qb-disclaimer a { color: var(--green-accent); text-decoration: underline; }
 
 /* Success / thank-you screen */

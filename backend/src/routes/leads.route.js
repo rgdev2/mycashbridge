@@ -42,6 +42,8 @@ function forwardToDomesticLMS(doc) {
     utm_source:     doc.utm_source     || "",
     utm_medium:     doc.utm_medium     || "",
     utm_campaign:   doc.utm_campaign   || "",
+    gclid:          doc.gclid          || "",
+    gad_source:     doc.gad_source     || "",
     _hp:            "",  // honeypot always empty from server
   });
 
@@ -98,7 +100,7 @@ router.post("/api/lead", leadLimiter, validateLead, async (req, res) => {
   const { name, mobile, city, monthly_income, employment,
           age, outstanding_debt, outstanding_amount, cibil_score,
           product_type, service_category, loan_amount, source_page,
-          utm_source, utm_medium, utm_campaign } = req.leadData;
+          utm_source, utm_medium, utm_campaign, gclid, gad_source } = req.leadData;
   try {
     // Route to the collection matching the service category (loans / insurance / cards / investments / general)
     const col = getCollectionByCategory(service_category);
@@ -131,6 +133,8 @@ router.post("/api/lead", leadLimiter, validateLead, async (req, res) => {
       utm_source,
       utm_medium,
       utm_campaign,
+      gclid,
+      gad_source,
       submitted_at: new Date(),
       ip:           req.ip,   // stored for fraud analysis, never exposed to client
       status:       "new",    // CRM states: new → contacted → converted

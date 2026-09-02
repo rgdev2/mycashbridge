@@ -140,11 +140,55 @@ app.use(grievanceRoute);
 app.use(cookieConsentRoute);
 app.use(adminRoute);
 
+// ── Dedicated Google Ads Campaign Routes ────────────────────
+// Maps short/friendly ad paths to the corresponding loan service pages
+const LOAN_ROUTES = {
+  pl: "personal-loan",
+  bl: "business-loan",
+  hl: "home-loan",
+  lap: "loan-against-property",
+  cl: "car-loan",
+  el: "education-loan",
+  gl: "gold-loan",
+  "personal-loan": "personal-loan",
+  "business-loan": "business-loan",
+  "home-loan": "home-loan",
+  "loan-against-property": "loan-against-property",
+  "car-loan": "car-loan",
+  "education-loan": "education-loan",
+  "gold-loan": "gold-loan",
+};
+
+// Route for /loans/:loan (e.g., /loans/personal-loan, /loans/pl)
+app.get("/loans/:loan", (req, res, next) => {
+  const raw = req.params.loan.replace(/\.html$/, "").toLowerCase();
+  const target = LOAN_ROUTES[raw] || raw;
+  const filePath = path.join(FRONTEND_DIR, "loans", `${target}.html`);
+  const fs = require("fs");
+  if (fs.existsSync(filePath)) {
+    return res.sendFile(filePath);
+  }
+  next();
+});
+
+// Short paths for ad campaigns (e.g., /pl, /bl, /hl, /lap, etc.)
+app.get("/:loanShort([a-zA-Z0-9-]+)", (req, res, next) => {
+  const key = req.params.loanShort.toLowerCase();
+  if (LOAN_ROUTES[key]) {
+    const target = LOAN_ROUTES[key];
+    const qs = req.url.includes("?") ? req.url.slice(req.url.indexOf("?")) : "";
+    const separator = qs ? (qs.includes("apply=") ? "" : "&apply=1") : "?apply=1";
+    return res.redirect(302, `/loans/${target}${qs}${separator}`);
+  }
+  next();
+});
+
 // ── Serve Frontend ───────────────────────────────────────────
 // The Express server serves the entire frontend/ folder as static files.
 // This means one "npm start" runs both the site AND the API — no CORS issues.
 const FRONTEND_DIR = path.resolve(__dirname, "..", "frontend");
 app.use(express.static(FRONTEND_DIR, {
+  extensions: ["html"],
   setHeaders(res, filePath) {
     // Short cache for HTML so updates reach users quickly
     if (filePath.endsWith(".html")) {
